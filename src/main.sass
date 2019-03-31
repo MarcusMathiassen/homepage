@@ -1,0 +1,148 @@
+\:root
+    --hue: 300
+    --accent-hue: 350
+    --text-color--normal: hsl(var(--hue), 10%, 62%)
+    --text-color--light: hsl(var(--hue), 15%, 35%)
+    --text-color--richer: hsl(var(--hue), 50%, 72%)
+    --text-color--highlight: hsl(var(--accent-hue), 70%, 45%)
+    --link-color: hsl(var(--hue), 90%, 70%)
+    --accent-color: hsl(var(--accent-hue), 100%, 70%)
+    --error-color: rgb(240, 50, 50)
+    --button-background: hsl(var(--hue), 63%, 73%)
+
+    --button-text-color: black
+
+    --button--state-active: hsl(var(--hue), 63%, 33%)
+    --button--state-normal: hsl(var(--hue), 63%, 43%)
+    --button--state-hover: hsl(var(--hue), 63%, 63%)
+
+    --background: hsl(var(--hue), 20%, 2%)
+    --background--content: hsl(var(--hue), 20%, 12%)
+
+    --text-color--selection: hsl(var(--accent-hue), 70%, 45%)
+    --background-color--selection: hsl(var(--accent-hue), 50%, 45%)
+
+html[theme='light']
+    --hue: 0
+    --accent-hue: 25
+    --text-color--normal: hsl(var(--hue), 10%, 62%)
+    --text-color--light: hsl(var(--hue), 15%, 35%)
+    --text-color--richer: hsl(var(--hue), 70%, 72%)
+    --text-color--highlight: hsl(var(--accent-hue), 70%, 65%)
+    --link-color: hsl(var(--hue), 90%, 70%)
+    --accent-color: hsl(var(--accent-hue), 100%, 70%)
+
+    --button-background: hsl(var(--hue), 63%, 83%)
+
+    --background--content: hsl(var(--hue), 20%, 99%)
+    --background: hsl(var(--hue), 20%, 90%)
+
+html[theme='dark']
+    --hue: 0
+    --accent-hue: 100
+    --text-color--normal: hsl(var(--hue), 10%, 62%)
+    --text-color--light: hsl(var(--hue), 15%, 35%)
+    --text-color--richer: hsl(var(--hue), 80%, 72%)
+    --text-color--highlight: hsl(var(--accent-hue), 70%, 45%)
+    --link-color: hsl(var(--hue), 90%, 70%)
+    --accent-color: hsl(var(--accent-hue), 100%, 70%)
+
+    --button-background: hsl(var(--hue), 63%, 13%)
+
+    --background--content: hsl(var(--hue), 20%, 13%)
+    --background: hsl(var(--hue), 20%, 10%)
+
+html[theme='purple']
+    --hue: 300
+    --accent-hue: 100
+    --text-color--normal: hsl(var(--hue), 10%, 62%)
+    --text-color--light: hsl(var(--hue), 15%, 35%)
+    --text-color--richer: hsl(var(--hue), 50%, 72%)
+    --text-color--highlight: hsl(var(--accent-hue), 70%, 45%)
+    --link-color: hsl(var(--hue), 90%, 70%)
+    --accent-color: hsl(var(--accent-hue), 100%, 70%)
+    --button-background: hsl(var(--hue), 63%, 13%)
+    --background--content: hsl(var(--hue), 20%, 10%)
+    --background: hsl(var(--hue), 20%, 20%)
+
+html[theme='swamp']
+    --hue: 60
+    --accent-hue: 100
+    --text-color--normal: hsl(var(--hue), 10%, 62%)
+    --text-color--light: hsl(var(--hue), 15%, 35%)
+    --text-color--richer: hsl(var(--hue), 50%, 72%)
+    --text-color--highlight: hsl(var(--accent-hue), 70%, 45%)
+    --link-color: hsl(var(--hue), 90%, 70%)
+    --accent-color: hsl(var(--accent-hue), 100%, 70%)
+    --button-background: hsl(var(--hue), 63%, 13%)
+    --background--content: hsl(var(--hue), 20%, 10%)
+    --background: hsl(var(--hue), 20%, 20%)
+
+html
+    background: var(--background)
+
+h1
+    color: var(--text-color--richer)
+    font-size: 43px
+    margin: 0 auto
+
+    font-family: 'Helvetica Neue', sans-serif
+    font-size: 18*3px
+    line-height: 1
+    text-align: center
+
+b
+    color: var(--text-color--highlight)
+
+p
+    font-size: 18px
+    line-height: 1.5
+    color: var(--text-color--normal)
+
+::selection
+    color: var(--text-color--selection)
+    background-color: var(--background-color--selection)
+
+.img--small
+    width: 100%
+    border-radius: 5px
+
+.btn
+    color: var(--button--state-normal)
+    cursor: pointer
+    border: none
+    border-radius: 2px
+    margin-top: 5px
+    padding: 4px
+    user-select: none
+    background: transparent
+
+    transition-duration: 0.3s
+    transition-property: color
+    transition-timing-function: ease-out
+
+.btn--theme-switcher
+    user-select: none
+
+.btn:hover
+    color: var(--button--state-hover)
+
+.btn:active
+    color: var(--button--state-active)
+
+button:focus
+    outline: 0
+
+.post-content
+    max-width: 960px
+    color: var(--text-color--normal)
+
+.post-content
+    max-width: 960px
+    color: var(--text-color--normal)
+    background-color: var(--background--content)
+    width: 80%
+    margin: auto
+    border-radius: 5px
+    padding: 20px
+    margin: auto
