@@ -1,33 +1,74 @@
-import doc from './query'
+import $ from './query'
 
-import { v2, v4 } from 'math.js'
-import {
-    getTime,
-    Rect,
-    getMinAndMaxPosition,
-    getExt,
-    random,
-} from '@/js/utility'
-import Quadtree from '@/js/quadtree'
+import Particle from './particle'
+import { v2, v4 } from './math'
+import { getTime, Rect, getMinAndMaxPosition, getExt } from './utility'
+import Quadtree from './quadtree'
 import ZingTouch from 'zingtouch'
 
-document.addEventListener('DOMContentLoaded', function() {
-    doc('#glcanvas').addEventListener('mousemove', updateMousePos)
-    // doc('#glcanvas').addEventListener('mousedown', spawnParticle)
-    startWebGL()
+let viewportSize = 0
 
-    const elem = doc('#glcanvas')
-    let activeRegion = ZingTouch.Region(elem)
+let canvas
+let gl
 
-    activeRegion.bind(elem, 'pan', () => {
+let vao
+let vbo
+let program
+
+let positionAttribLocation = 0
+let colorAttribLocation = 1
+
+let backbackColor
+let backColor
+let frontColor
+let canvasWidth = 300
+let canvasHeight = 300
+let devicePixelRatio
+
+let aspectRatio = canvasHeight / canvasWidth
+
+let comparisons = 0
+let hits = 0
+
+let tree = []
+
+let enableCollision = true
+let showNodes = true
+let useQuadtree = true
+let useOptimizedBounds = true
+let paused = false
+let showInfopanel = false
+let enableGravity = false
+
+let quadtreeBounds
+let allBounds = []
+
+let particles = []
+let particleColors = []
+let particleSize = 0.06
+let particleColor = { r: 1, g: 1, b: 1, a: 1 }
+
+const boundsHighlightColor = { r: 0, g: 1, b: 0, a: 1.0 }
+const highlightColor = { r: 1, g: 1, b: 0, a: 1.0 }
+
+export const attachTo = id => {
+    let element = $(`#${id}`)
+    element.addEventListener('mousemove', updateMousePos)
+
+    let activeRegion = ZingTouch.Region(element)
+
+    activeRegion.bind(element, 'pan', () => {
         spawnParticle()
     })
 
     // We dont want the mouse to lock on to the last edge it touched.
-    elem.addEventListener('mouseleave', event => {
+    element.addEventListener('mouseleave', event => {
         mouse = { x: -999999, y: -999999 }
     })
-})
+
+    canvas = element
+    startWebGL()
+}
 
 class ParticleSystem {
     constructor() {
@@ -167,52 +208,6 @@ class ParticleSystem {
         }
     }
 }
-
-let viewportSize = 0
-
-let canvas
-let gl
-
-let vao
-let vbo
-let program
-
-let positionAttribLocation = 0
-let colorAttribLocation = 1
-
-let backbackColor
-let backColor
-let frontColor
-let canvasWidth = 300
-let canvasHeight = 300
-let devicePixelRatio
-
-let aspectRatio = canvasHeight / canvasWidth
-
-let comparisons = 0
-let hits = 0
-
-let tree = []
-
-let enableCollision = true
-let showNodes = true
-let useQuadtree = true
-let useOptimizedBounds = true
-let paused = false
-let showInfopanel = false
-let enableGravity = false
-
-let quadtreeBounds
-let allBounds = []
-
-let particles = []
-let particleColors = []
-let particleSize = 0.06
-let particleColor = { r: 1, g: 1, b: 1, a: 1 }
-
-const boundsHighlightColor = { r: 0, g: 1, b: 0, a: 1.0 }
-const highlightColor = { r: 1, g: 1, b: 0, a: 1.0 }
-
 function resolveCollisions(particles) {
     let comparisons = 0
     let hits = 0
@@ -268,10 +263,9 @@ let extractRGB = function(str) {
 }
 
 let updateValues = function() {
-    const glcanvas = doc('#glcanvas')
-    canvasWidth = glcanvas.offsetWidth
-    canvasHeight = glcanvas.offsetHeight
-    const style = window.getComputedStyle(doc('.post-content')[0])
+    canvasWidth = canvas.offsetWidth
+    canvasHeight = canvas.offsetHeight
+    const style = window.getComputedStyle($('.post-content')[0])
 
     aspectRatio = canvasHeight / canvasWidth
     viewportSize = new v2(canvasWidth, canvasHeight)
@@ -279,17 +273,16 @@ let updateValues = function() {
     backColor = extractRGB(style.backgroundColor)
     frontColor = extractRGB(style.color)
 
-    const elem = doc('body')[0]
+    const elem = $('body')[0]
     backbackColor = extractRGB(window.getComputedStyle(elem).backgroundColor)
 }
 
 function startWebGL() {
     updateValues()
-    canvas = doc('#glcanvas')
     devicePixelRatio = window.devicePixelRatio || 1
 
-    canvas.width = canvasWidth * devicePixelRatio
-    canvas.height = canvasHeight * devicePixelRatio
+    // canvasWidth = canvasWidth * devicePixelRatio
+    // canvasHeight = canvasHeight * devicePixelRatio
 
     canvas.style.width = canvasWidth + 'px'
     canvas.style.height = canvasHeight + 'px'
@@ -681,6 +674,7 @@ function updateMousePos(event, target) {
     pos.y *= devicePixelRatio
 
     mouse = pos
+    console.log(mouse)
 }
 
 function addVertices(verts) {
@@ -705,8 +699,6 @@ function getMousePosInViewspace() {
     }
 }
 
-import Particle from '@/js/particle'
-
 function drawAllParticles() {
     const particleCount = particles.length
     // p.stroke(backColor.r, backColor.g, backColor.b)
@@ -716,7 +708,7 @@ function drawAllParticles() {
         const position = particle.position
         const radius = particle.radius
         const color = particleColors[i]
-        drawCircle(toViewspace(position), color, radius, 3)
+        drawCircle(toViewspace(position), color, radius, 36)
         particleColor[i] = {
             r: frontColor.r,
             g: frontColor.g,
@@ -774,7 +766,7 @@ function animate() {
     }
     if (useQuadtree) {
         let min = new v2(0, 0)
-        let max = new v2(canvas.width, canvas.height)
+        let max = new v2(canvasWidth, canvasHeight)
 
         if (useOptimizedBounds) {
             const temp = getMinAndMaxPosition(particles)
@@ -846,15 +838,15 @@ function animate() {
         comparisons = res.comparisons
         hits = res.hits
     }
-    // drawLine(new v2(0, 0), mousePos, frontColor, 0.05)
-    // drawLine(mousePos, new v2( Math.sin(time), Math.sin(time * 2.0)), col, 0.05)
+    drawLine(new v2(0, 0), mouse, frontColor, 0.05)
+    drawLine(mouse, new v2(Math.sin(time), Math.sin(time * 2.0)), col, 0.05)
     if (!paused) {
         const gravityY = enableGravity ? 0.0981 : 0.0
         for (let particle of particles) {
             particle.update(
                 {
-                    width: canvas.width,
-                    height: canvas.height,
+                    width: canvasWidth,
+                    height: canvasHeight,
                 },
                 { x: 0.0, y: gravityY }
             )

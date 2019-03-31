@@ -1,5 +1,6 @@
 import $ from '@/utils/query'
 import '@/utils/p2d'
+import { attachTo } from '@/utils/webgl'
 
 import { HSLstringToRGB } from './utils/utility'
 import Themer from './utils/themer'
@@ -85,4 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
         themedElement: 'html',
         event: 'click',
     })
+
+    const p2dWebGL = $('<canvas>')
+    p2dWebGL.id = 'glcanvas'
+    p2dWebGL.textContent = 'webgl canvas placeholder'
+    post.appendChild(p2dWebGL)
+    attachTo(p2dWebGL.id)
 })
