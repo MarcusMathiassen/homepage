@@ -204,3 +204,12 @@ export const addProgressBar = options => {
     bar.addEventListener('input', options.callback)
     options.element.appendChild(bar)
 }
+
+export const addButton = options => {
+    const element = $('<button>')
+    element.textContent = options.label
+    element.id = options.id || options.label
+    element.className = options.className || 'btn'
+    element.addEventListener('click', options.callback)
+    $(`#${options.parent}`).appendChild(element)
+}

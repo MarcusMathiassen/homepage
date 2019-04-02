@@ -23,6 +23,12 @@ let paused = false
 let showInfopanel = false
 let enableGravity = false
 
+let quadtreeBounds
+let allBounds = []
+
+var fc = 0
+var lastFps = 60
+
 let mouse = {
     x: 0,
     y: 0,
@@ -104,9 +110,6 @@ const sketch = p => {
         p.text(label, pos.x, pos.y)
         p.pop()
     }
-
-    var fc = 0
-    var lastFps = 60
     const fpsCounter = () => {
         p.push()
         if (fc++ > 30) {
@@ -225,9 +228,6 @@ const sketch = p => {
         particleColors.length = 0
     }
 
-    let quadtreeBounds
-    let allBounds = []
-
     p.draw = () => {
         updateValues()
 
@@ -252,10 +252,10 @@ const sketch = p => {
 
             quadtree.input(particles)
 
-            allBounds.lenght = 0
+            allBounds = []
             quadtree.getNodesBounds(allBounds)
 
-            tree.lenght = 0
+            tree = []
             quadtree.getIndices(tree)
 
             if (showNodes) {
@@ -388,20 +388,6 @@ const resolveCollisions = particles => {
 const resolveCollisionsQuadtree = (particles, tree) => {
     let comparisons = 0
     let hits = 0
-
-    tree.forEach(node => {
-        const count = node.length
-        for (let i = 0; i < count; ++i) {
-            for (let j = i + 1; j < count; ++j) {
-                if (particles[node[i]].collidesWith(particles[node[j]])) {
-                    particles[node[i]].resolveCollision(particles[node[j]])
-                    ++hits
-                }
-                ++comparisons
-            }
-        }
-    })
-
     for (const node of tree) {
         const nodeCount = node.length
         for (let i = 0; i < nodeCount; i++) {

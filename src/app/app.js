@@ -92,5 +92,5 @@ document.addEventListener('DOMContentLoaded', () => {
     const p2dWebGL = $('<div>')
     p2dWebGL.id = 'webgl'
     post.appendChild(p2dWebGL)
-    attachTo(p2dWebGL.id)
+    window.attachTo(p2dWebGL.id)
 })
