@@ -1,13 +1,23 @@
 import $ from './query'
 
+import { mat4 } from 'gl-matrix'
 import Particle from './particle'
 import { v2, v4 } from './math'
-import { getTime, Rect, getMinAndMaxPosition, getExt } from './utility'
+import {
+    HSLtoRGBA,
+    getTime,
+    Rect,
+    getMinAndMaxPosition,
+    getExt,
+} from './utility'
 import Quadtree from './quadtree'
 import ZingTouch from 'zingtouch'
 
 let viewportSize = 0
 
+let gAttribLocationProjMtx
+
+let parent
 let canvas
 let gl
 
@@ -23,9 +33,6 @@ let backColor
 let frontColor
 let canvasWidth = 300
 let canvasHeight = 300
-let devicePixelRatio
-
-let aspectRatio = canvasHeight / canvasWidth
 
 let comparisons = 0
 let hits = 0
@@ -34,7 +41,7 @@ let tree = []
 
 let enableCollision = true
 let showNodes = true
-let useQuadtree = true
+let useQuadtree = false
 let useOptimizedBounds = true
 let paused = false
 let showInfopanel = false
@@ -45,28 +52,36 @@ let allBounds = []
 
 let particles = []
 let particleColors = []
-let particleSize = 0.06
+let particleSize = 8
 let particleColor = { r: 1, g: 1, b: 1, a: 1 }
 
-const boundsHighlightColor = { r: 0, g: 1, b: 0, a: 1.0 }
-const highlightColor = { r: 1, g: 1, b: 0, a: 1.0 }
+let boundsHighlightColor = { r: 0, g: 1, b: 0, a: 1.0 }
+let highlightColor = { r: 1, g: 1, b: 0, a: 1.0 }
 
 export const attachTo = id => {
-    let element = $(`#${id}`)
-    element.addEventListener('mousemove', updateMousePos)
+    const el = $('<canvas>')
+    el.id = id
+    el.textContent = 'webgl canvas placeholder'
 
-    let activeRegion = ZingTouch.Region(element)
+    parent = $(`#${id}`)
+    parent.appendChild(el)
+    parent.addEventListener('mousemove', updateMousePos)
 
-    activeRegion.bind(element, 'pan', () => {
+    let activeRegion = ZingTouch.Region(parent)
+
+    activeRegion.bind(parent, 'pan', () => {
         spawnParticle()
     })
 
     // We dont want the mouse to lock on to the last edge it touched.
-    element.addEventListener('mouseleave', event => {
+    parent.addEventListener('mouseleave', event => {
         mouse = { x: -999999, y: -999999 }
     })
 
-    canvas = element
+    canvas = el
+
+    updateValues()
+
     startWebGL()
 }
 
@@ -263,31 +278,27 @@ let extractRGB = function(str) {
 }
 
 let updateValues = function() {
-    canvasWidth = canvas.offsetWidth
-    canvasHeight = canvas.offsetHeight
-    const style = window.getComputedStyle($('.post-content')[0])
+    canvasWidth = parent.offsetWidth
+    canvas.setAttribute('width', parent.offsetWidth)
+    canvas.setAttribute('height', canvasHeight)
 
-    aspectRatio = canvasHeight / canvasWidth
     viewportSize = new v2(canvasWidth, canvasHeight)
 
-    backColor = extractRGB(style.backgroundColor)
-    frontColor = extractRGB(style.color)
-
-    const elem = $('body')[0]
-    backbackColor = extractRGB(window.getComputedStyle(elem).backgroundColor)
+    frontColor = window.color.textNormal
+    backColor = window.color.backgroundContent
+    boundsHighlightColor = window.color.textRicher
 }
 
 function startWebGL() {
-    updateValues()
     devicePixelRatio = window.devicePixelRatio || 1
 
     // canvasWidth = canvasWidth * devicePixelRatio
     // canvasHeight = canvasHeight * devicePixelRatio
 
-    canvas.style.width = canvasWidth + 'px'
-    canvas.style.height = canvasHeight + 'px'
+    gl = canvas.getContext('webgl2')
 
-    gl = canvas.getContext('webgl2') || canvas.getContext('experimental-webgl')
+    // gl.width = canvasWidth + 'px'
+    // gl.height = canvasHeight + 'px'
 
     if (!gl) {
         alert('Unable to initialize WebGL. Your browser may not support it.')
@@ -306,13 +317,14 @@ function startWebGL() {
     let vs_src = `
     precision mediump float;
 
+    uniform mat4 projectionMatrix;
     attribute vec2 position;
     attribute vec4 color;
 
     varying vec4 color0;
 
     void main() {
-        gl_Position = vec4(position, 0.0, 1.0);
+        gl_Position = projectionMatrix * vec4(position, 0.0, 1.0);
         color0 = color;
     }
     `
@@ -351,6 +363,8 @@ function startWebGL() {
     gl.linkProgram(program)
     gl.validateProgram(program)
 
+    gAttribLocationProjMtx = gl.getUniformLocation(program, 'projectionMatrix')
+
     gl.deleteShader(vs)
     gl.deleteShader(fs)
 
@@ -387,19 +401,19 @@ let vertices = []
 
 function drawTriangle(positions, color, size) {
     addVertices([
-        (-size + positions.x) * aspectRatio,
+        -size + positions.x,
         -size + positions.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        positions.x * aspectRatio,
+        positions.x,
         size + positions.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        (size + positions.x) * aspectRatio,
+        size + positions.x,
         -size + positions.y,
         color.r,
         color.g,
@@ -410,38 +424,38 @@ function drawTriangle(positions, color, size) {
 
 function drawRectRange(min, max, color) {
     addVertices([
-        min.x * aspectRatio,
+        min.x,
         max.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        max.x * aspectRatio,
+        max.x,
         max.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        max.x * aspectRatio,
+        max.x,
         min.y,
         color.r,
         color.g,
         color.b,
         color.a,
 
-        min.x * aspectRatio,
+        min.x,
         max.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        max.x * aspectRatio,
+        max.x,
         min.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        min.x * aspectRatio,
+        min.x,
         min.y,
         color.r,
         color.g,
@@ -452,38 +466,38 @@ function drawRectRange(min, max, color) {
 
 function drawRect(position, color, size) {
     addVertices([
-        (-size + position.x) * aspectRatio,
+        -size + position.x,
         size + position.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        (size + position.x) * aspectRatio,
+        size + position.x,
         size + position.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        (size + position.x) * aspectRatio,
+        size + position.x,
         -size + position.y,
         color.r,
         color.g,
         color.b,
         color.a,
 
-        (-size + position.x) * aspectRatio,
+        -size + position.x,
         size + position.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        (size + position.x) * aspectRatio,
+        size + position.x,
         -size + position.y,
         color.r,
         color.g,
         color.b,
         color.a,
-        (-size + position.x) * aspectRatio,
+        -size + position.x,
         -size + position.y,
         color.r,
         color.g,
@@ -498,15 +512,18 @@ function drawLine(p1, p2, color, size) {
     // drawRect(p1, { r: 1, g: 0, b: 1, a: 1 }, size) // DEBUG
     // drawRect(p2, { r: 1, g: 1, b: 0, a: 1 }, size) // DEBUG
 
-    drawCircle(p1, color, size, 36)
-    drawCircle(p2, color, size, 36)
-
-    let d = v2.distance(p1, p2) / 2
+    // Get the distance between our two points
+    let d = v2.distance(p1, p2) / 2.0
 
     let dx = p2.x - p1.x
     let dy = p2.y - p1.y
 
+    // Get the angle between our two points (radians)
     let theta = Math.atan2(dy, dx)
+
+    // Draw the end caps
+    drawHalfCircle(p1, color, size, theta + Math.PI / 2, 12)
+    drawHalfCircle(p2, color, size, theta - Math.PI / 2, 12)
 
     let s = size
 
@@ -553,7 +570,7 @@ function drawLine(p1, p2, color, size) {
         const rotatedY = tempX * sth + tempY * cth
 
         // translate back
-        p.x = (rotatedX + center.x) * aspectRatio
+        p.x = rotatedX + center.x
         p.y = rotatedY + center.y
     }
 
@@ -597,6 +614,54 @@ function drawLine(p1, p2, color, size) {
     ])
 }
 
+const drawHalfCircle = (center, color, radius, angle, numVertex) => {
+    // Since each vertex consists of 3 points.
+    const n_vertices = numVertex * 3
+
+    // Setup the particle vertices
+    let verts = []
+
+    // Start out by setting the last inserted vertex to our center
+    let last_vert = center
+
+    let k = 0
+    for (let i = 0; i < n_vertices + 3; ++i) {
+        // Pos
+        switch (k) {
+            case 0:
+                k += 1
+                verts.push(last_vert.x)
+                verts.push(last_vert.y)
+                break
+            case 1:
+                k += 1
+                const cont = angle + ((i - 1) * Math.PI) / n_vertices
+                const x = Math.cos(cont)
+                const y = Math.sin(cont)
+                last_vert = new v2(center.x + radius * x, center.y + radius * y)
+                verts.push(last_vert.x)
+                verts.push(last_vert.y)
+                break
+            case 2:
+                k = 0
+                verts.push(center.x)
+                verts.push(center.y)
+                break
+            default:
+                k = 0
+                break
+        }
+
+        // Color
+        verts.push(color.r)
+        verts.push(color.g)
+        verts.push(color.b)
+        verts.push(color.a)
+    }
+
+    addVertices(verts)
+}
+
 function drawCircle(center, color, size, num_vertices) {
     // @Hack
     num_vertices *= 3
@@ -617,27 +682,24 @@ function drawCircle(center, color, size, num_vertices) {
         switch (k++) {
             case 0:
                 white = k0
-                verts.push(last_vert.x * aspectRatio)
+                verts.push(last_vert.x)
                 verts.push(last_vert.y)
 
                 break
             case 1:
                 white = k1
+                const t = (i * Math.PI * 2.0) / num_vertices
                 last_vert = {
-                    x:
-                        center.x +
-                        size * Math.cos((i * Math.PI * 2.0) / num_vertices),
-                    y:
-                        center.y +
-                        size * Math.sin((i * Math.PI * 2.0) / num_vertices),
+                    x: center.x + size * Math.cos(t),
+                    y: center.y + size * Math.sin(t),
                 }
-                verts.push(last_vert.x * aspectRatio)
+                verts.push(last_vert.x)
                 verts.push(last_vert.y)
                 break
             case 2:
                 white = k2
                 k = 0
-                verts.push(center.x * aspectRatio)
+                verts.push(center.x)
                 verts.push(center.y)
                 break
         }
@@ -670,20 +732,16 @@ function updateMousePos(event, target) {
     target = target || event.target
     let pos = getRelativeMousePosition(event, target)
 
-    pos.x *= devicePixelRatio
-    pos.y *= devicePixelRatio
+    // pos.x *= devicePixelRatio
+    // pos.y *= devicePixelRatio
 
     mouse = pos
-    console.log(mouse)
+    // console.log(JSON.stringify(mouse))
 }
 
 function addVertices(verts) {
     // Update our vertices
     vertices.push(...verts)
-
-    // Update our vbo
-    gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW)
 }
 
 function getMousePosInViewspace() {
@@ -701,15 +759,13 @@ function getMousePosInViewspace() {
 
 function drawAllParticles() {
     const particleCount = particles.length
-    // p.stroke(backColor.r, backColor.g, backColor.b)
-    // p.strokeWeight(0.5)
-    for (let i = 0; i < particleCount; i++) {
+    for (let i = 0; i < particleCount; ++i) {
         const particle = particles[i]
         const position = particle.position
         const radius = particle.radius
         const color = particleColors[i]
-        drawCircle(toViewspace(position), color, radius, 36)
-        particleColor[i] = {
+        drawCircle(position, color, radius, 12)
+        particleColors[i] = {
             r: frontColor.r,
             g: frontColor.g,
             b: frontColor.b,
@@ -757,13 +813,6 @@ function animate() {
     // drawCircle(mousePos, frontColor, 0.05, 36)
 
     const time = getTime()
-
-    const col = {
-        r: Math.cos(time * 1.4),
-        g: Math.sin(time * 0.4),
-        b: 1,
-        a: 1,
-    }
     if (useQuadtree) {
         let min = new v2(0, 0)
         let max = new v2(canvasWidth, canvasHeight)
@@ -838,8 +887,10 @@ function animate() {
         comparisons = res.comparisons
         hits = res.hits
     }
-    drawLine(new v2(0, 0), mouse, frontColor, 0.05)
-    drawLine(mouse, new v2(Math.sin(time), Math.sin(time * 2.0)), col, 0.05)
+
+    const col = HSLtoRGBA(Math.cos(time * 0.3) * 360, 70, 50)
+    drawLine(new v2(0, 0), mouse, col, 0.2)
+    drawLine(mouse, new v2(Math.sin(time), Math.sin(time * 2.0)), col, 0.2)
     if (!paused) {
         const gravityY = enableGravity ? 0.0981 : 0.0
         for (let particle of particles) {
@@ -852,6 +903,67 @@ function animate() {
             )
         }
     }
+
+    drawLine(
+        new v2(-1.0 + 0.025 * 10, -1.0 + 0.025 * 20),
+        new v2(1 - 0.025 * 10, -1 + 0.025 * 20),
+        new v4(1, 1, 1, 1),
+        10
+    )
+    drawLine(
+        new v2(-1.0 + 0.025 * 10, -1.0 + 0.025 * 28),
+        new v2(1 - 0.025 * 10, -1 + 0.025 * 28),
+        new v4(1, 1, 1, 1),
+        10
+    )
+
+    // drawLine(new v2(0, 0), mouse, new v4(1, 1, 1, 1), 0.04)
+    // drawLine(
+    //     mouse,
+    //     mouse + new v2(Math.sin(getTime()), Math.sin(getTime() * 2.0)),
+    //     { r: 1, g: 1, b: 1, a: 1 },
+    //     10
+    // )
+
+    drawCircle(mouse, col, 8, 36)
+
+    // drawLine(
+    //     new v2(-1.0 + 0.025 * 1, -1.0 + 0.025 * 1),
+    //     new v2(1 - 0.025 * 1, -1 + 0.025 * 1),
+    //     { r: 1, g: 1, b: 1, a: 1 },
+    //     0.01
+    // )
+    // drawLine(
+    //     new v2(-1.0 + 0.025 * 2, -1.0 + 0.025 * 2),
+    //     new v2(1 - 0.025 * 2, -1 + 0.025 * 2),
+    //     { r: 1, g: 0, b: 0, a: 1 },
+    //     0.01
+    // )
+    // drawLine(
+    //     new v2(-1.0 + 0.025 * 3, -1.0 + 0.025 * 3),
+    //     new v2(1 - 0.025 * 3, -1 + 0.025 * 3),
+    //     { r: 0, g: 1, b: 0, a: 1 },
+    //     0.01
+    // )
+    // drawLine(
+    //     new v2(-1.0 + 0.025 * 4, -1.0 + 0.025 * 4),
+    //     new v2(1 - 0.025 * 4, -1 + 0.025 * 4),
+    //     { r: 0, g: 0, b: 1, a: 1 },
+    //     0.01
+    // )
+    // drawLine(
+    //     new v2(-1.0 + 0.025 * 5, -1.0 + 0.025 * 5),
+    //     new v2(1 - 0.025 * 5, -1 + 0.025 * 5),
+    //     { r: 0, g: 1, b: 1, a: 1 },
+    //     0.01
+    // )
+    // drawLine(
+    //     new v2(-1.0 + 0.025 * 6, -1.0 + 0.025 * 6),
+    //     new v2(1 - 0.025 * 6, -1 + 0.025 * 6),
+    //     { r: 1, g: 1, b: 0, a: 1 },
+    //     10
+    // )
+
     drawAllParticles()
     draw()
 
@@ -860,11 +972,44 @@ function animate() {
 
 function draw() {
     if (vertices.length === 0) return
+
+    // Update our vbo
+    gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW)
+
+    const displaySize = new v2(canvasWidth, canvasHeight)
+
+    // Setup viewport, orthographic projection matrix
+    gl.viewport(0, 0, canvasWidth, canvasHeight)
+    const ortho_projection = mat4.fromValues(
+        2.0 / displaySize.x,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.0 / -displaySize.y,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        -1.0,
+        1.0,
+        0.0,
+        1.0
+    )
     gl.useProgram(program)
+    gl.uniformMatrix4fv(gAttribLocationProjMtx, gl.FALSE, ortho_projection)
     gl.bindVertexArray(vao)
+
+    // console.log(ortho_projection)
+
+    // Finally draw the vertices
     gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 6)
+
     // console.log(`vertices doc{vertices.length / 6}`)
-    vertices = []
+    vertices.length = 0
 }
 
 class Shader {

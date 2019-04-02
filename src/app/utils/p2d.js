@@ -221,8 +221,8 @@ const sketch = p => {
     }
 
     const erase = () => {
-        particles = []
-        particleColors = []
+        particles.length = 0
+        particleColors.length = 0
     }
 
     let quadtreeBounds
@@ -252,10 +252,10 @@ const sketch = p => {
 
             quadtree.input(particles)
 
-            allBounds = []
+            allBounds.lenght = 0
             quadtree.getNodesBounds(allBounds)
 
-            tree = []
+            tree.lenght = 0
             quadtree.getIndices(tree)
 
             if (showNodes) {
@@ -388,6 +388,20 @@ const resolveCollisions = particles => {
 const resolveCollisionsQuadtree = (particles, tree) => {
     let comparisons = 0
     let hits = 0
+
+    tree.forEach(node => {
+        const count = node.length
+        for (let i = 0; i < count; ++i) {
+            for (let j = i + 1; j < count; ++j) {
+                if (particles[node[i]].collidesWith(particles[node[j]])) {
+                    particles[node[i]].resolveCollision(particles[node[j]])
+                    ++hits
+                }
+                ++comparisons
+            }
+        }
+    })
+
     for (const node of tree) {
         const nodeCount = node.length
         for (let i = 0; i < nodeCount; i++) {

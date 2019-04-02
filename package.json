@@ -12,6 +12,7 @@
     "author": "Marcus Mathiassen",
     "license": "ISC",
     "dependencies": {
+        "gl-matrix": "^3.0.0",
         "p5": "^0.7.3",
         "zingtouch": "^1.0.6"
     },

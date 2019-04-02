@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
         attributes: true, //configure it to listen to attribute changes
     })
 
+    updateValues() // DISABLE TO FIX COLORS ON PARTICLES IN P2D
+
     const app = $('#app')
 
     const button = $('<button>')
@@ -87,9 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event: 'click',
     })
 
-    const p2dWebGL = $('<canvas>')
-    p2dWebGL.id = 'glcanvas'
-    p2dWebGL.textContent = 'webgl canvas placeholder'
+    const p2dWebGL = $('<div>')
+    p2dWebGL.id = 'webgl'
     post.appendChild(p2dWebGL)
     attachTo(p2dWebGL.id)
 })

@@ -6,6 +6,15 @@ export default class v4 {
         this.w = w
     }
 
+    RGBA() {
+        return {
+            r: this.x,
+            g: this.y,
+            b: this.z,
+            a: this.w,
+        }
+    }
+
     add(b) {
         this.x += b.x
         this.y += b.y
