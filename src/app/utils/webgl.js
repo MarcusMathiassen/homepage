@@ -41,6 +41,7 @@ import { AssertionError } from 'assert'
     let canvasWidth = 300
     let canvasHeight = 300
     let canvas
+    let ui
 
     let enableCollision = true
     let showNodes = false
@@ -641,17 +642,15 @@ import { AssertionError } from 'assert'
         return baseLineComparisons() / comparisons
     }
     function addUI() {
-        const ul = $('<ul>')
-        ul.id = `${parent.id}-info`
-        ul.className = 'demo-info-list'
-        console.log(ul)
-        parent.insertBefore(ul, canvas)
+        ui = $('<ul>')
+        ui.id = `${parent.id}-info`
+        ui.className = 'demo-info-list'
+        parent.insertBefore(ui, canvas)
     }
 
     function updateUI(show = true, fontSize = 14) {
-        const ul = $(`#${parent.id}-info`)
-        ul.innerHTML = ''
-        ul.style = `font-size: ${fontSize}px; display: ${
+        ui.innerHTML = ''
+        ui.style = `font-size: ${fontSize}px; display: ${
             show ? 'inline' : 'none'
         };`
         const labels = [
@@ -664,7 +663,7 @@ import { AssertionError } from 'assert'
             const l = $('<li>')
             l.textContent = label
             l.className = 'demo-info-list-element'
-            ul.appendChild(l)
+            ui.appendChild(l)
         }
     }
 
