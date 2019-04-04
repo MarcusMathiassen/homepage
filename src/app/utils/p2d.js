@@ -71,14 +71,14 @@ const addButton = (name, func) => {
     $(`#${id}-settings`).appendChild(element)
 }
 
-const baseLineComparisons = () => {
+function baseLineComparisons() {
     const n = particles.length
     return (n * (n - 1)) / 2
 }
-const comparisonsDelta = () => {
+function comparisonsDelta() {
     return baseLineComparisons() / comparisons
 }
-const sketch = p => {
+function sketch(p) {
     const getPixelRatio = () => {
         const backingStore =
             p.drawingContext.backingStorePixelRatio ||

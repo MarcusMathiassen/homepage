@@ -76,9 +76,9 @@ import { AssertionError } from 'assert'
 
         parent = $(`#${id}`)
         parent.appendChild(el)
-        parent.addEventListener('mousemove', updateMousePos)
+        el.addEventListener('mousemove', updateMousePos)
 
-        let activeRegion = ZingTouch.Region(parent)
+        let activeRegion = ZingTouch.Region(el)
 
         activeRegion.bind(parent, 'pan', () => {
             spawnParticle()
