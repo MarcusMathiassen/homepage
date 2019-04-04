@@ -20,7 +20,7 @@ let showNodes = false
 let useQuadtree = true
 let useOptimizedBounds = false
 let paused = false
-let showInfopanel = false
+let showInfopanel = true
 let enableGravity = false
 
 let quadtreeBounds

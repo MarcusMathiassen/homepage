@@ -14,6 +14,7 @@ import {
 } from './utility'
 import Quadtree from './quadtree'
 import ZingTouch from 'zingtouch'
+import { AssertionError } from 'assert'
 ;(exports => {
     let viewportSize = 0
 
@@ -46,7 +47,7 @@ import ZingTouch from 'zingtouch'
     let useQuadtree = true
     let useOptimizedBounds = false
     let paused = false
-    let showInfopanel = false
+    let showInfopanel = true
     let enableGravity = false
 
     let quadtreeBounds
@@ -70,7 +71,7 @@ import ZingTouch from 'zingtouch'
 
     exports.attachTo = id => {
         const el = $('<canvas>')
-        el.id = id
+        el.id = `${id}-canvas`
         el.textContent = 'webgl canvas placeholder'
 
         parent = $(`#${id}`)
@@ -89,27 +90,14 @@ import ZingTouch from 'zingtouch'
         })
 
         canvas = el
-        // addButton('clear', erase)
-        // addButton('quadtree', () => {
-        //     useQuadtree ^= 1
-        // })
-        // addButton('optimized quadtree bounds', () => {
-        //     useOptimizedBounds ^= 1
-        // })
-        // addButton('show quadtree nodes', () => {
-        //     showNodes ^= 1
-        // })
-        // addButton('collisions', () => {
-        //     enableCollision ^= 1
-        // })
-        // addButton('gravity', () => {
-        //     enableGravity ^= 1
-        // })
-        // addButton('info', () => {
-        //     showInfopanel ^= 1
-        // })
-        // addButton('pause', () => {
-        //     paused ^= 1
+
+        activeRegion.bind(parent, 'expand', event => {
+            console.log(event)
+            particleSize = event.deltaY
+        })
+        // parent.addEventListener('mousewheel', event => {
+        //     console.log(event)
+        //     particleSize = event.deltaY
         // })
 
         startWebGL()
@@ -643,13 +631,49 @@ import ZingTouch from 'zingtouch'
             0.5 * devicePixelRatio,
             36
         )
-        // if (showInfopanel) fpsCounter()
+        updateUI(showInfopanel)
+    }
+    const baseLineComparisons = () => {
+        const n = particles.length
+        return (n * (n - 1)) / 2
+    }
+    const comparisonsDelta = () => {
+        return baseLineComparisons() / comparisons
+    }
+    function addUI() {
+        const ul = $('<ul>')
+        ul.id = `${parent.id}-info`
+        ul.className = 'demo-info-list'
+        console.log(ul)
+        parent.insertBefore(ul, canvas)
+    }
+
+    function updateUI(show = true, fontSize = 14) {
+        const ul = $(`#${parent.id}-info`)
+        ul.innerHTML = ''
+        ul.style = `font-size: ${fontSize}px; display: ${
+            show ? 'inline' : 'none'
+        };`
+        const labels = [
+            `FPS: ${lastFps}`,
+            `Particles: ${particles.length}`,
+            `Comparisons: ${comparisons}(${comparisonsDelta().toFixed(0)}x)`,
+        ]
+
+        for (const label of labels) {
+            const l = $('<li>')
+            l.textContent = label
+            l.className = 'demo-info-list-element'
+            ul.appendChild(l)
+        }
     }
 
     function startWebGL() {
         const div = $('<div>')
         div.id = `${parent.id}-settings`
         parent.append(div)
+
+        addUI()
 
         addButton({
             label: 'clear',
@@ -997,35 +1021,17 @@ import ZingTouch from 'zingtouch'
         borderWidth,
         num_vertices
     ) => {
-        // @Hack
-        num_vertices *= 3
-
-        let last_vert = position
-
-        let p1 = {
-            x: position.x + size * Math.cos(0),
-            y: position.y + size * Math.sin(0),
-        }
+        let p1 = new v2(position.x + size, position.y)
         let p2
-
-        let k = 0
-        for (let i = 1; i <= num_vertices + 3; ++i) {
-            switch (k++) {
-                case 0:
-                    break
-                case 1:
-                    const t = (i * Math.PI * 2.0) / num_vertices
-                    p2 = {
-                        x: position.x + size * Math.cos(t),
-                        y: position.y + size * Math.sin(t),
-                    }
-                    break
-                case 2:
-                    k = 0
-                    drawLine(p1, p2, color, borderWidth)
-                    p1 = p2
-                    break
-            }
+        const TWO_PI = Math.PI * 2
+        for (let i = 1; i <= num_vertices + 3; i += 2) {
+            const t = (i * TWO_PI) / num_vertices
+            p2 = new v2(
+                position.x + size * Math.cos(t),
+                position.y + size * Math.sin(t)
+            )
+            drawLine(p1, p2, color, borderWidth)
+            p1 = p2
         }
     }
 
@@ -1036,7 +1042,7 @@ import ZingTouch from 'zingtouch'
         // drawRect(p2, { r: 1, g: 1, b: 0, a: 1 }, size) // DEBUG
 
         // Get the distance between our two points
-        let d = v2.distance(p1, p2) / 2.0
+        let d = v2.distance(p1, p2) * 0.5
 
         let dx = p2.x - p1.x
         let dy = p2.y - p1.y
@@ -1067,7 +1073,7 @@ import ZingTouch from 'zingtouch'
 
         // P1 and P2 should be min and max
 
-        let pos2 = [
+        const pos2 = [
             new v2(min.x, max.y),
             new v2(max.x, max.y),
             new v2(max.x, min.y),
@@ -1184,36 +1190,23 @@ import ZingTouch from 'zingtouch'
             verts.push(color.b)
             verts.push(color.a)
         }
-
         addVertices(verts)
     }
 
     function drawCircle(center, color, size, num_vertices) {
-        // @Hack
-        num_vertices *= 3
-
         // Setup the particle vertices
         let verts = []
-
-        let k0 = new v4(1, 0, 0, 1)
-        let k1 = new v4(0, 1, 0, 1)
-        let k2 = new v4(0, 0, 1, 1)
-
-        let white = new v4(1, 1, 1, 1)
 
         let last_vert = center
 
         let k = 0
-        for (let i = 0; i < num_vertices * 3; ++i) {
+        for (let i = 0; i < num_vertices + 3; ++i) {
             switch (k++) {
                 case 0:
-                    white = k0
                     verts.push(last_vert.x)
                     verts.push(last_vert.y)
-
                     break
                 case 1:
-                    white = k1
                     const t = (i * Math.PI * 2.0) / num_vertices
                     last_vert = {
                         x: center.x + size * Math.cos(t),
@@ -1223,7 +1216,6 @@ import ZingTouch from 'zingtouch'
                     verts.push(last_vert.y)
                     break
                 case 2:
-                    white = k2
                     k = 0
                     verts.push(center.x)
                     verts.push(center.y)
@@ -1235,7 +1227,7 @@ import ZingTouch from 'zingtouch'
             verts.push(color.b)
             verts.push(color.a)
         }
-
+        // console.log(verts.length, num_vertices)
         addVertices(verts)
     }
 
@@ -1352,10 +1344,6 @@ import ZingTouch from 'zingtouch'
             quadtree.getIndices(tree)
 
             if (showNodes) {
-                // p.noFill()
-                // p.stroke(frontColor.r, frontColor.g, frontColor.b)
-                // p.strokeWeight(1)
-
                 for (const bound of allBounds) {
                     const x = bound.min.x
                     const y = bound.min.y
@@ -1375,7 +1363,6 @@ import ZingTouch from 'zingtouch'
                 radius: getParticleSize(),
             })
 
-            // p.push()
             neighbours.forEach(node => {
                 // Draw the bound
                 const bound = node.bounds
@@ -1383,26 +1370,17 @@ import ZingTouch from 'zingtouch'
                 const y = bound.min.y
                 const width = bound.max.x - bound.min.x - 1
                 const height = bound.max.y - bound.min.y - 1
-                // p.stroke(
-                // boundsHighlightColor.r,
-                // boundsHighlightColor.g,
-                // boundsHighlightColor.b
-                // )
-                // p.strokeWeight(2.0)
-                // p.rect(x, y, width, height)
                 drawHollowRectRange(
                     new v2(x, y),
                     new v2(x + width, y + height),
                     boundsHighlightColor,
                     3 * devicePixelRatio
                 )
-
                 // Draw the particles
                 node.indices.forEach(index => {
                     particleColors[index] = boundsHighlightColor
                 })
             })
-            // p.pop()
         }
 
         if (enableCollision) {
@@ -1441,14 +1419,6 @@ import ZingTouch from 'zingtouch'
     function draw() {
         if (vertices.length === 0) return
 
-        // Update our vbo
-        gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
-        gl.bufferData(
-            gl.ARRAY_BUFFER,
-            new Float32Array(vertices),
-            gl.DYNAMIC_DRAW
-        )
-
         const displaySize = new v2(canvasWidth, canvasHeight)
 
         // Setup viewport, orthographic projection matrix
@@ -1474,11 +1444,18 @@ import ZingTouch from 'zingtouch'
         gl.useProgram(program)
         gl.uniformMatrix4fv(gAttribLocationProjMtx, gl.FALSE, ortho_projection)
         gl.bindVertexArray(vao)
+        gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
+        gl.bufferData(
+            gl.ARRAY_BUFFER,
+            new Float32Array(vertices),
+            gl.DYNAMIC_DRAW
+        )
 
         // Finally draw the vertices
         gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 6)
 
         console.log('vertices', vertices.length)
+        console.log('particles', particles.length)
 
         vertices = []
     }
