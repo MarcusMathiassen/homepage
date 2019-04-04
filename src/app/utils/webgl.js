@@ -54,8 +54,8 @@ import { AssertionError } from 'assert'
     let quadtreeBounds
     let allBounds = []
 
-    var fc = 0
-    var lastFps = 60
+    let lastFps = 60
+    let lastTime = 0
 
     let mouse = {
         x: 0,
@@ -100,7 +100,6 @@ import { AssertionError } from 'assert'
         //     console.log(event)
         //     particleSize = event.deltaY
         // })
-
         startWebGL()
     }
 
@@ -585,268 +584,6 @@ import { AssertionError } from 'assert'
         }
     }
 
-    let updateValues = function() {
-        canvasWidth = parent.offsetWidth
-        canvasHeight = 300
-
-        var desiredCSSWidth = canvasWidth
-        var desiredCSSHeight = canvasHeight
-        devicePixelRatio = window.devicePixelRatio || 1
-
-        canvas.width = desiredCSSWidth * devicePixelRatio
-        canvas.height = desiredCSSHeight * devicePixelRatio
-
-        canvas.style.width = desiredCSSWidth + 'px'
-        canvas.style.height = desiredCSSHeight + 'px'
-
-        canvasWidth *= devicePixelRatio
-        canvasHeight *= devicePixelRatio
-
-        // console.log(canvasWidth, canvasHeight)
-
-        frontColor = normalize(window.color.textNormal)
-        frontColor.a = 1
-
-        backColor = normalize(window.color.backgroundContent)
-        backColor.a = 1
-
-        boundsHighlightColor = normalize(window.color.textRicher)
-        boundsHighlightColor.a = 1
-
-        // console.log(frontColor)
-        // console.log(backColor)
-        // console.log(boundsHighlightColor)
-    }
-
-    const erase = () => {
-        particles.length = 0
-        particleColors.length = 0
-    }
-
-    const drawUI = () => {
-        // Show the cursor as a hollow circle with the current selected size.
-        drawHollowCircle(
-            mouse,
-            frontColor,
-            getParticleSize(),
-            0.5 * devicePixelRatio,
-            36
-        )
-        updateUI(showInfopanel)
-    }
-    const baseLineComparisons = () => {
-        const n = particles.length
-        return (n * (n - 1)) / 2
-    }
-    const comparisonsDelta = () => {
-        return baseLineComparisons() / comparisons
-    }
-    function addUI() {
-        ui = $('<ul>')
-        ui.id = `${parent.id}-info`
-        ui.className = 'demo-info-list'
-        parent.insertBefore(ui, canvas)
-    }
-
-    function updateUI(show = true, fontSize = 14) {
-        ui.innerHTML = ''
-        ui.style = `font-size: ${fontSize}px; display: ${
-            show ? 'inline' : 'none'
-        };`
-        const labels = [
-            `FPS: ${lastFps}`,
-            `Particles: ${particles.length}`,
-            `Comparisons: ${comparisons}(${comparisonsDelta().toFixed(0)}x)`,
-        ]
-
-        for (const label of labels) {
-            const l = $('<li>')
-            l.textContent = label
-            l.className = 'demo-info-list-element'
-            ui.appendChild(l)
-        }
-    }
-
-    function startWebGL() {
-        const div = $('<div>')
-        div.id = `${parent.id}-settings`
-        parent.append(div)
-
-        addUI()
-
-        addButton({
-            label: 'clear',
-            className: 'btn',
-            callback: erase,
-            parent: div.id,
-        })
-
-        addButton({
-            label: 'quadtree',
-            className: 'btn',
-            callback: () => {
-                useQuadtree ^= 1
-            },
-            parent: div.id,
-        })
-        addButton({
-            label: 'optimized quadtree bounds',
-            className: 'btn',
-            callback: () => {
-                useOptimizedBounds ^= 1
-            },
-            parent: div.id,
-        })
-        addButton({
-            label: 'show quadtree nodes',
-            className: 'btn',
-            callback: () => {
-                showNodes ^= 1
-            },
-            parent: div.id,
-        })
-        addButton({
-            label: 'collisions',
-            className: 'btn',
-            callback: () => {
-                enableCollision ^= 1
-            },
-            parent: div.id,
-        })
-        addButton({
-            label: 'gravity',
-            className: 'btn',
-            callback: () => {
-                enableGravity ^= 1
-            },
-            parent: div.id,
-        })
-        addButton({
-            label: 'info',
-            className: 'btn',
-            callback: () => {
-                showInfopanel ^= 1
-            },
-            parent: div.id,
-        })
-        addButton({
-            label: 'pause',
-            className: 'btn',
-            callback: () => {
-                paused ^= 1
-            },
-            parent: div.id,
-        })
-
-        gl = canvas.getContext('webgl2')
-
-        if (!gl) {
-            alert(
-                'Unable to initialize WebGL. Your browser may not support it.'
-            )
-            return
-        }
-
-        gl.enable(gl.BLEND)
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
-
-        // let particleSystem = new ParticleSystem()
-
-        program = gl.createProgram()
-        let vs = gl.createShader(gl.VERTEX_SHADER)
-        let fs = gl.createShader(gl.FRAGMENT_SHADER)
-
-        let vs_src = `
-    precision mediump float;
-
-    uniform mat4 projectionMatrix;
-    attribute vec2 position;
-    attribute vec4 color;
-
-    varying vec4 color0;
-
-    void main() {
-        gl_Position = projectionMatrix * vec4(position, 0.0, 1.0);
-        color0 = color;
-    }
-    `
-
-        let fs_src = `
-    precision mediump float;
-    varying vec4 color0;
-    void main() {
-      gl_FragColor = color0;
-    }`
-
-        gl.shaderSource(vs, vs_src)
-        gl.shaderSource(fs, fs_src)
-
-        gl.compileShader(vs)
-        if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
-            console.error(
-                'ERROR compiling vertex shader!',
-                gl.getShaderInfoLog(vs)
-            )
-            return
-        }
-
-        gl.compileShader(fs)
-        if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
-            console.error(
-                'ERROR compiling fragment shader!',
-                gl.getShaderInfoLog(fs)
-            )
-            return
-        }
-
-        gl.attachShader(program, vs)
-        gl.attachShader(program, fs)
-
-        gl.bindAttribLocation(program, positionAttribLocation, 'position')
-        gl.bindAttribLocation(program, colorAttribLocation, 'color')
-
-        gl.linkProgram(program)
-        gl.validateProgram(program)
-
-        gAttribLocationProjMtx = gl.getUniformLocation(
-            program,
-            'projectionMatrix'
-        )
-
-        gl.deleteShader(vs)
-        gl.deleteShader(fs)
-
-        vao = gl.createVertexArray()
-        gl.bindVertexArray(vao)
-
-        vbo = gl.createBuffer()
-        gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
-
-        gl.vertexAttribPointer(
-            positionAttribLocation,
-            2,
-            gl.FLOAT,
-            gl.FALSE,
-            6 * Float32Array.BYTES_PER_ELEMENT,
-            0
-        )
-        gl.vertexAttribPointer(
-            colorAttribLocation,
-            4,
-            gl.FLOAT,
-            gl.FALSE,
-            6 * Float32Array.BYTES_PER_ELEMENT,
-            2 * Float32Array.BYTES_PER_ELEMENT
-        )
-
-        gl.enableVertexAttribArray(positionAttribLocation)
-        gl.enableVertexAttribArray(colorAttribLocation)
-
-        animate()
-    }
-
-    let vertices = []
-
     function drawTriangle(positions, color, size) {
         addVertices([
             -size + positions.x,
@@ -1230,6 +967,273 @@ import { AssertionError } from 'assert'
         addVertices(verts)
     }
 
+    function addVertices(verts) {
+        // Update our vertices
+        vertices.push(...verts)
+    }
+
+    let updateValues = function() {
+        canvasWidth = parent.offsetWidth
+        canvasHeight = 300
+
+        var desiredCSSWidth = canvasWidth
+        var desiredCSSHeight = canvasHeight
+        devicePixelRatio = window.devicePixelRatio || 1
+
+        canvas.width = desiredCSSWidth * devicePixelRatio
+        canvas.height = desiredCSSHeight * devicePixelRatio
+
+        canvas.style.width = desiredCSSWidth + 'px'
+        canvas.style.height = desiredCSSHeight + 'px'
+
+        canvasWidth *= devicePixelRatio
+        canvasHeight *= devicePixelRatio
+
+        // console.log(canvasWidth, canvasHeight)
+
+        frontColor = normalize(window.color.textNormal)
+        frontColor.a = 1
+
+        backColor = normalize(window.color.backgroundContent)
+        backColor.a = 1
+
+        boundsHighlightColor = normalize(window.color.textRicher)
+        boundsHighlightColor.a = 1
+
+        // console.log(frontColor)
+        // console.log(backColor)
+        // console.log(boundsHighlightColor)
+    }
+
+    const erase = () => {
+        particles.length = 0
+        particleColors.length = 0
+    }
+
+    const drawUI = () => {
+        // Show the cursor as a hollow circle with the current selected size.
+        drawHollowCircle(
+            mouse,
+            frontColor,
+            getParticleSize(),
+            0.5 * devicePixelRatio,
+            36
+        )
+        updateUI(showInfopanel)
+    }
+    const baseLineComparisons = () => {
+        const n = particles.length
+        return (n * (n - 1)) / 2
+    }
+    const comparisonsDelta = () => {
+        return baseLineComparisons() / comparisons
+    }
+    function addUI() {
+        ui = $('<ul>')
+        ui.id = `${parent.id}-info`
+        ui.className = 'demo-info-list'
+        parent.insertBefore(ui, canvas)
+    }
+
+    function updateUI(show = true, fontSize = 14) {
+        ui.innerHTML = ''
+        ui.style = `font-size: ${fontSize}px; display: ${
+            show ? 'inline' : 'none'
+        };`
+        const labels = [
+            `FPS: ${lastFps}`,
+            `Particles: ${particles.length}`,
+            `Comparisons: ${comparisons}(${comparisonsDelta().toFixed(0)}x)`,
+        ]
+
+        for (const label of labels) {
+            const l = $('<li>')
+            l.textContent = label
+            l.className = 'demo-info-list-element'
+            ui.appendChild(l)
+        }
+    }
+
+    function startWebGL() {
+        const div = $('<div>')
+        div.id = `${parent.id}-settings`
+        parent.append(div)
+
+        addUI()
+
+        addButton({
+            label: 'clear',
+            className: 'btn',
+            callback: erase,
+            parent: div.id,
+        })
+
+        addButton({
+            label: 'quadtree',
+            className: 'btn',
+            callback: () => {
+                useQuadtree ^= 1
+            },
+            parent: div.id,
+        })
+        addButton({
+            label: 'optimized quadtree bounds',
+            className: 'btn',
+            callback: () => {
+                useOptimizedBounds ^= 1
+            },
+            parent: div.id,
+        })
+        addButton({
+            label: 'show quadtree nodes',
+            className: 'btn',
+            callback: () => {
+                showNodes ^= 1
+            },
+            parent: div.id,
+        })
+        addButton({
+            label: 'collisions',
+            className: 'btn',
+            callback: () => {
+                enableCollision ^= 1
+            },
+            parent: div.id,
+        })
+        addButton({
+            label: 'gravity',
+            className: 'btn',
+            callback: () => {
+                enableGravity ^= 1
+            },
+            parent: div.id,
+        })
+        addButton({
+            label: 'info',
+            className: 'btn',
+            callback: () => {
+                showInfopanel ^= 1
+            },
+            parent: div.id,
+        })
+        addButton({
+            label: 'pause',
+            className: 'btn',
+            callback: () => {
+                paused ^= 1
+            },
+            parent: div.id,
+        })
+
+        gl = canvas.getContext('webgl2')
+
+        if (!gl) {
+            alert(
+                'Unable to initialize WebGL. Your browser may not support it.'
+            )
+            return
+        }
+
+        gl.enable(gl.BLEND)
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+
+        // let particleSystem = new ParticleSystem()
+
+        program = gl.createProgram()
+        let vs = gl.createShader(gl.VERTEX_SHADER)
+        let fs = gl.createShader(gl.FRAGMENT_SHADER)
+
+        let vs_src = `
+    precision mediump float;
+
+    uniform mat4 projectionMatrix;
+    attribute vec2 position;
+    attribute vec4 color;
+
+    varying vec4 color0;
+
+    void main() {
+        gl_Position = projectionMatrix * vec4(position, 0.0, 1.0);
+        color0 = color;
+    }
+    `
+
+        let fs_src = `
+    precision mediump float;
+    varying vec4 color0;
+    void main() {
+      gl_FragColor = color0;
+    }`
+
+        gl.shaderSource(vs, vs_src)
+        gl.shaderSource(fs, fs_src)
+
+        gl.compileShader(vs)
+        if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
+            console.error(
+                'ERROR compiling vertex shader!',
+                gl.getShaderInfoLog(vs)
+            )
+            return
+        }
+
+        gl.compileShader(fs)
+        if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
+            console.error(
+                'ERROR compiling fragment shader!',
+                gl.getShaderInfoLog(fs)
+            )
+            return
+        }
+
+        gl.attachShader(program, vs)
+        gl.attachShader(program, fs)
+
+        gl.bindAttribLocation(program, positionAttribLocation, 'position')
+        gl.bindAttribLocation(program, colorAttribLocation, 'color')
+
+        gl.linkProgram(program)
+        gl.validateProgram(program)
+
+        gAttribLocationProjMtx = gl.getUniformLocation(
+            program,
+            'projectionMatrix'
+        )
+
+        gl.deleteShader(vs)
+        gl.deleteShader(fs)
+
+        vao = gl.createVertexArray()
+        gl.bindVertexArray(vao)
+
+        vbo = gl.createBuffer()
+        gl.bindBuffer(gl.ARRAY_BUFFER, vbo)
+
+        gl.vertexAttribPointer(
+            positionAttribLocation,
+            2,
+            gl.FLOAT,
+            gl.FALSE,
+            6 * Float32Array.BYTES_PER_ELEMENT,
+            0
+        )
+        gl.vertexAttribPointer(
+            colorAttribLocation,
+            4,
+            gl.FLOAT,
+            gl.FALSE,
+            6 * Float32Array.BYTES_PER_ELEMENT,
+            2 * Float32Array.BYTES_PER_ELEMENT
+        )
+
+        gl.enableVertexAttribArray(positionAttribLocation)
+        gl.enableVertexAttribArray(colorAttribLocation)
+
+        animate()
+    }
+
+    let vertices = []
+
     function getRelativeMousePosition(event, target) {
         target = target || event.target
         const rect = target.getBoundingClientRect()
@@ -1248,11 +1252,6 @@ import { AssertionError } from 'assert'
         pos.y *= devicePixelRatio
 
         mouse = pos
-    }
-
-    function addVertices(verts) {
-        // Update our vertices
-        vertices.push(...verts)
     }
 
     function getMousePosInViewspace() {
@@ -1453,9 +1452,15 @@ import { AssertionError } from 'assert'
         // Finally draw the vertices
         gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 6)
 
-        console.log('vertices', vertices.length)
-        console.log('particles', particles.length)
+        // console.log('vertices', vertices.length)
+        // console.log('particles', particles.length)
 
         vertices = []
+        updateFPS()
+    }
+    function updateFPS() {
+        lastFps = 1 / (getTime() - lastTime)
+        lastTime = getTime()
+        lastFps = lastFps.toFixed(0)
     }
 })(window)

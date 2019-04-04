@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     post.appendChild(p2dEl)
 
     themer = new Themer({
-        defaultTheme: 'dark',
+        defaultTheme: 'light',
         themes: ['light', 'dark', 'purple', 'swamp'],
         className: button.className,
         themedElement: 'html',
