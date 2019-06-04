@@ -13,6 +13,6 @@ cd public
 echo 'www.mathiassen.dev' > CNAME
 cd -
 
-git add public -f && git commit -m "deploy"
+git add public && git commit -m "deploy"
 
 git subtree push --prefix public origin public
