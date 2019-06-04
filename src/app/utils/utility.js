@@ -1,4 +1,4 @@
-import { v2 } from './math'
+ import { v2 } from './math'
 import $ from './query'
 
 /**

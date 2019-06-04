@@ -9,7 +9,8 @@ export default class Themer {
         this.event = config.event
         this.themedElement = config.themedElement
 
-        // Check if the browser supporst the query. If not, set it to manually
+        let startingTheme = this.defaultTheme
+        // Check if the browser supporst the query. If not, set it manually
         if (
             window.matchMedia('(prefers-color-scheme: light)').media !=
             'not all'
@@ -18,7 +19,7 @@ export default class Themer {
             // So we watch on changes and update appropriataly.
             const res = window.matchMedia('(prefers-color-scheme: light)')
             res.addListener(this.osUpdateTheme.bind(this))
-            this.osUpdateTheme(res)
+            startingTheme = this.osUpdateTheme(res)
         } else {
             const el = $(this.themedElement)[0]
             el.setAttribute('theme', this.defaultTheme)
@@ -27,10 +28,9 @@ export default class Themer {
         // Add a click trigger to every button and set the textContent.
         $(`.${this.className}`).forEach(element => {
             element.addEventListener(this.event, this.toggleTheme.bind(this))
-            element.textContent = this.defaultTheme
+            element.textContent = startingTheme
         })
-
-        this.setTheme(this.defaultTheme)
+        this.themes.next()
     }
 
     osUpdateTheme(query) {
@@ -45,6 +45,7 @@ export default class Themer {
         })
 
         if (theme != this.themes.curr()) this.themes.next()
+        return theme
     }
 
     setTheme(theme) {

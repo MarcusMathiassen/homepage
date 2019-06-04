@@ -10,8 +10,8 @@ module.exports = {
         alias: {
             '~': path.resolve(__dirname),
             '@': path.resolve(__dirname, 'src/app'),
-            utils$: path.resolve(__dirname, 'src/app/utils'),
-            assets$: path.resolve(__dirname, 'src/assets'),
+            utils: path.resolve(__dirname, 'src/app/utils'),
+            images: path.resolve(__dirname, 'src/images'),
         },
     },
     output: {
