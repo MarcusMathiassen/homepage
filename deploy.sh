@@ -8,11 +8,8 @@ npm run build
 
 # navigate into the build output directory
 cd public
-
 # if you are deploying to a custom domain
 echo 'www.mathiassen.dev' > CNAME
+git add -A && git commit -m "deploy"
+git push
 cd -
-
-git add public && git commit -m "deploy"
-
-git subtree push --prefix public origin public
