@@ -13,6 +13,6 @@ cd dist
 echo 'www.mathiassen.dev' > CNAME
 cd -
 
-git add dist -f && git commit -m "deploy"
+git add dist && git commit -m "deploy"
 
 git subtree push --prefix dist origin gh-pages
