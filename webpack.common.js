@@ -16,7 +16,7 @@ module.exports = {
     },
     output: {
         filename: 'main.[contentHash].js',
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'docs'),
     },
     module: {
         rules: [
