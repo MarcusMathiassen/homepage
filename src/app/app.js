@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(`https://api.github.com/graphql`, {
         method: 'post',
         headers: {
-            Authorization: 'bearer 61faedcfc1990ca6bdc40a2afe2addcb38e40b7c',
+            Authorization: 'bearer 06e1d7416e40908978a4b06cfbd967ef18719d28',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'post',
                 headers: {
                     Authorization:
-                        'bearer 61faedcfc1990ca6bdc40a2afe2addcb38e40b7c',
+                        'bearer 06e1d7416e40908978a4b06cfbd967ef18719d28',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
