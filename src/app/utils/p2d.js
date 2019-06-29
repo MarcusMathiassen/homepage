@@ -271,6 +271,7 @@ function sketch(p) {
                     p.rect(x, y, width, height)
                 }
             }
+
             let neighbours = []
             quadtree.getNeighbourNodes(neighbours, {
                 position: new v2(mouse.x, mouse.y),
