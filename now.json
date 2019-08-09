@@ -1,7 +1,0 @@
-{
-    "build": {
-        "env": {
-            "VARIABLE_NAME": "@github_token"
-        }
-    }
-}
