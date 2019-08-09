@@ -62,10 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const app = $('#app')
 
+    console.log()
+
+    const githubAccessToken = process.env.github_token;
     fetch(`https://api.github.com/graphql`, {
         method: 'post',
         headers: {
-            Authorization: `bearer ${process.env.github_token}`,
+            Authorization: `bearer ${githubAccessToken}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -87,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'post',
                 headers: {
                     Authorization:
-                        `bearer ${process.env.github_token}`,
+                        `bearer ${githubAccessToken}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
