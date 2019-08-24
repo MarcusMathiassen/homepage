@@ -1,4 +1,38 @@
 \:root
+        
+    --apple_retro_green: #61bb46
+    --apple_retro_yellow: #fdb827
+    --apple_retro_orange: #f5821f
+    --apple_retro_red: #e03a3e
+    --apple_retro_purple: #963d97
+    --apple_blue: rgb(64, 156, 255)
+    --apple_gray: rgb(152, 152, 157)
+    --apple_green: rgb(48, 219, 91)
+    --apple_indigo: rgb(125, 122, 255)
+    --apple_orange: rgb(255, 179, 64)
+    --apple_pink: rgb(255, 100, 130)
+    --apple_purple: rgb(218, 143, 255)
+    --apple_red: rgb(255, 105, 97)
+    --apple_teal: rgb(112, 215, 255)
+    --apple_yellow: rgb(255, 212, 38)
+    --c_blue: #247BA0
+    --c_white: #FAF1D8
+    --c_pink: #DD7373
+    --c_black: #3E4E50
+    --c_warm_black: #02394A
+    --c_black_olive: #393D3F
+    --c_orange: #F79D65
+    --c_turq: #69D1C5
+    --c_almond: #EED7C5
+    --c_cadedblue: #5C9EAD
+    --c_carib_green: #02C39A
+
+    --storage: var(--c_cadedblue) 
+    --literal: var(--c_carib_green)
+    --comment: var(--c_orange)
+    --keyword: var(--apple_pink)
+    --compile_time_resolved: var(--apple_indigo)
+
     --hue: 300
     --accent-hue: 350
     --text-color--normal: hsl(var(--hue), 10%, 62%)
@@ -9,90 +43,60 @@
     --accent-color: hsl(var(--accent-hue), 100%, 70%)
     --error-color: rgb(240, 50, 50)
     --button-background: hsl(var(--hue), 63%, 73%)
-
     --button-text-color: black
-
-    --button--state-active: hsl(var(--hue), 63%, 33%)
-    --button--state-normal: hsl(var(--hue), 63%, 43%)
-    --button--state-hover: hsl(var(--hue), 63%, 63%)
-
+    
     --background: hsl(var(--hue), 20%, 2%)
     --background--content: hsl(var(--hue), 20%, 12%)
-
     --text-color--selection: hsl(var(--accent-hue), 70%, 45%)
     --background-color--selection: hsl(var(--accent-hue), 50%, 45%)
 
 html[theme='light']
     --hue: 0
-    --accent-hue: 25
-    --text-color--normal: hsl(var(--hue), 10%, 62%)
-    --text-color--light: hsl(var(--hue), 15%, 35%)
-    --text-color--richer: hsl(var(--hue), 70%, 72%)
-    --text-color--highlight: hsl(var(--accent-hue), 70%, 65%)
-    --link-color: hsl(var(--hue), 90%, 70%)
+    --accent-hue: 30
+    --text-color--normal: var(--c_black)
+    --text-color--light: var(--c_black)
+    --text-color--richer: var(--c_black)
+    --text-color--highlight: var(--apple_pink)
+    --link-color: var(--apple_red)
     --accent-color: hsl(var(--accent-hue), 100%, 70%)
-
-    --button-background: hsl(var(--hue), 63%, 83%)
-
-    --background--content: hsl(var(--hue), 20%, 99%)
-    --background: hsl(var(--hue), 20%, 90%)
+    --button-background: hsl(var(--hue), 63%, 13%)
+    --background--content: hsl(var(--c_white), 100%, 95%)
+    --background: var(--c_white)
 
 html[theme='dark']
     --hue: 0
-    --accent-hue: 100
-    --text-color--normal: hsl(var(--hue), 10%, 62%)
-    --text-color--light: hsl(var(--hue), 15%, 35%)
-    --text-color--richer: hsl(var(--hue), 80%, 72%)
-    --text-color--highlight: hsl(var(--accent-hue), 70%, 45%)
-    --link-color: hsl(var(--hue), 90%, 70%)
-    --accent-color: hsl(var(--accent-hue), 100%, 70%)
-
-    --button-background: hsl(var(--hue), 63%, 13%)
-
-    --background--content: hsl(var(--hue), 20%, 13%)
-    --background: hsl(var(--hue), 20%, 10%)
-
-html[theme='purple']
-    --hue: 300
-    --accent-hue: 100
-    --text-color--normal: hsl(var(--hue), 10%, 62%)
-    --text-color--light: hsl(var(--hue), 15%, 35%)
-    --text-color--richer: hsl(var(--hue), 50%, 72%)
-    --text-color--highlight: hsl(var(--accent-hue), 70%, 45%)
-    --link-color: hsl(var(--hue), 90%, 70%)
+    --accent-hue: 30
+    --text-color--normal: var(--c_white)
+    --text-color--light: var(--c_white)
+    --text-color--richer: var(--c_white)
+    --text-color--highlight: var(--apple_pink)
+    --link-color: var(--apple_red)
     --accent-color: hsl(var(--accent-hue), 100%, 70%)
     --button-background: hsl(var(--hue), 63%, 13%)
-    --background--content: hsl(var(--hue), 20%, 10%)
-    --background: hsl(var(--hue), 20%, 20%)
-
-html[theme='swamp']
-    --hue: 60
-    --accent-hue: 100
-    --text-color--normal: hsl(var(--hue), 10%, 62%)
-    --text-color--light: hsl(var(--hue), 15%, 35%)
-    --text-color--richer: hsl(var(--hue), 50%, 72%)
-    --text-color--highlight: hsl(var(--accent-hue), 70%, 45%)
-    --link-color: hsl(var(--hue), 90%, 70%)
-    --accent-color: hsl(var(--accent-hue), 100%, 70%)
-    --button-background: hsl(var(--hue), 63%, 13%)
-    --background--content: hsl(var(--hue), 20%, 10%)
-    --background: hsl(var(--hue), 20%, 20%)
+    --background--content: hsl(var(--c_black), 100%, 95%)
+    --background: var(--c_black)
 
 html
     background: var(--background)
+    background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=00000000&noise=626262&density=100&opacity=5)
+
+*
+    transition-duration: 0.1s
+    transition-timing-function: ease-out
 
 h1
     color: var(--text-color--richer)
     font-size: 43px
-    // margin: 0 auto
-
+    margin: 0 auto
     font-family: 'Helvetica Neue', sans-serif
     font-size: 18*3px
     line-height: 1
     text-align: center
+    animation: grow 3s ease-in-out infinite alternate
 
 b
     color: var(--text-color--highlight)
+    text-shadow: 0 0 200px var(--text-color--highlight)
 
 p
     font-size: 18px
@@ -103,13 +107,12 @@ p
     color: var(--text-color--selection)
     background-color: var(--background-color--selection)
 
-
 .img--small
     width: 100%
     border-radius: 5px
 
 .btn
-    color: var(--button--state-normal)
+    color: var(--text-color--normal)
     cursor: pointer
     border: none
     border-radius: 2px
@@ -117,58 +120,54 @@ p
     padding: 4px
     user-select: none
     background: transparent
-
-    transition-duration: 0.3s
-    transition-property: color
-    transition-timing-function: ease-out
-
-.btn--theme-switcher
-    user-select: none
-
-.btn:hover
-    color: var(--button--state-hover)
-
-.btn:active
-    color: var(--button--state-active)
+    &:hover
+        color: var(--text-color--highlight)
+    &:active
+        color: var(--text-color--normal)
 
 button:focus
     outline: 0
 
 #app
-    padding: 20px
+    padding: 0px
 
 #left
     width: 20%
     position: absolute
 
 #right
-    padding-top: 100px
-    width: 70%
+    width: 50%
     float: right
 
+@keyframes grow
+  from
+    margin-left: 20px
+  to
+    margin-left: 21px
+
 #header-marcus
+    text-shadow: 0 0 200px var(--text-color--highlight)
+    font-family: 'Caveat', cursive
     text-align: left
     font-size: 30px
-    margin: 0
-    padding: 4px
+    margin-left: 20px
+    color: var(--text-color--highlight)
 
 #header-mathiassen
+    text-shadow: 0 0 200px var(--text-color--highlight)
+    font-family: 'Caveat', cursive
     text-align: left
     font-size: 40px
-    margin: 0
-    padding: 4px
+    margin-left: 20px
+    color: var(--text-color--highlight)
 
 #header-avatar
-    border-radius: 20px
+    border-radius: 5px
     margin: 10px
-    border-style: solid
-    border-width: 2px
-    border-color: var(--text-color--normal)
-
-#last-repo-updated
-    text-align: center
+    box-shadow: 0 3px 5px rgba(0,0,0,.5)
 
 .post-content
+    box-shadow: 0 3px 5px rgba(0,0,0,.5)
     max-width: 960px
     color: var(--text-color--normal)
     background-color: var(--background--content)

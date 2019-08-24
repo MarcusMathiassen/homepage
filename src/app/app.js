@@ -62,50 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const app = $('#app')
 
-    fetch(`https://api.github.com/graphql`, {
-        method: 'post',
-        headers: {
-            Authorization: `bearer ${process.env.githubToken}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            query: `query { viewer { repositories(first: 20) { edges { node { name pushedAt } } } } }`,
-        }),
-    })
-        .then(res => res.json())
-        .then(json => {
-            var edges = json.data.viewer.repositories.edges
-            // Sort the repositories by pushdate
-            edges.sort((a, b) => {
-                return (
-                    new Date(b.node.pushedAt).getTime() -
-                    new Date(a.node.pushedAt).getTime()
-                )
-            })
-            const nameOfLastRepoUpdated = edges[0].node.name
-            fetch(`https://api.github.com/graphql`, {
-                method: 'post',
-                headers: {
-                    Authorization:
-                        `bearer ${process.env.githubToken}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    query: `query { viewer { repository(name:"${nameOfLastRepoUpdated}") { description } } }`,
-                }),
-            })
-                .then(res => res.json())
-                .then(json => {
-                    console.log(json)
-                    const desc = json.data.viewer.repository.description
-                    $(
-                        '#last-repo-updated'
-                    ).innerHTML = `Currently working on <h1>${nameOfLastRepoUpdated}</h1> <p>${desc}</p>`
-                })
-        })
-
-    // <img src="smiley.gif" alt="Smiley face" height="42" width="42">
-
     const left = $('<div>')
     left.id = 'left'
     app.appendChild(left)
@@ -120,12 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const marcus = $('<h1>')
     marcus.id = 'header-marcus'
-    marcus.innerHTML = 'Marcus'
+    marcus.innerText = 'Marcus'
     header.appendChild(marcus)
 
     const mathiassen = $('<h1>')
     mathiassen.id = 'header-mathiassen'
-    mathiassen.innerHTML = 'Mathiassen'
+    mathiassen.innerText = 'Mathiassen'
     header.appendChild(mathiassen)
 
     const picture = $('<img>')
@@ -135,20 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
     picture.height = '250'
     header.appendChild(picture)
 
-    const h = $('<p>')
-    h.id = 'last-repo-updated'
-    h.innerHTML = `Currently working on <h1>???</h1> <p>...</p>`
-    left.appendChild(h)
-
-    const button = $('<button>')
-    button.className = 'btn btn--theme-switcher'
-    button.innerHTML = 'this should have a name. Something must be wrong.'
-    left.appendChild(button)
-    left.appendChild(button)
-
-    // const posts = $('<div>')
-    // posts.className = 'post-content'
-    // app.appendChild(posts)
+    // const button = $('<button>')
+    // button.className = 'btn btn--theme-switcher'
+    // button.innerHTML = 'this should have a name. Something must be wrong.'
+    // left.appendChild(button)
 
     // Setup our post-content div..
     const post = $('<div>')
@@ -157,13 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ... and lets add a P2D demo for testing.
     const p2dEl = $('<div>')
-    p2dEl.id = '111'
+    p2dEl.id = 'p2d'
     post.appendChild(p2dEl)
 
+    // PS: I removed the button for now..
     themer = new Themer({
         defaultTheme: 'light',
-        themes: ['light', 'dark', 'purple', 'swamp'],
-        className: button.className,
+        themes: ['light', 'dark'],
+        className: "",
         themedElement: 'html',
         event: 'click',
     })

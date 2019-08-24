@@ -44,11 +44,11 @@ import { AssertionError } from 'assert'
     let ui
 
     let enableCollision = true
-    let showNodes = false
+    let showNodes = true
     let useQuadtree = true
     let useOptimizedBounds = false
     let paused = false
-    let showInfopanel = true
+    let showInfopanel = false
     let enableGravity = false
 
     let quadtreeBounds
@@ -1228,7 +1228,6 @@ import { AssertionError } from 'assert'
 
         gl.enableVertexAttribArray(positionAttribLocation)
         gl.enableVertexAttribArray(colorAttribLocation)
-
         animate()
     }
 
@@ -1351,7 +1350,7 @@ import { AssertionError } from 'assert'
                         new v2(x, y),
                         new v2(x + width, y + height),
                         frontColor,
-                        1 * devicePixelRatio
+                        2 * devicePixelRatio
                     )
                 }
             }

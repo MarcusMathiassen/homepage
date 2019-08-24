@@ -5,7 +5,7 @@ import Particle from './particle'
 import { addProgressBar, Rect, getMinAndMaxPosition } from './utility'
 import Quadtree from './quadtree'
 
-let id = '111'
+let id = 'p2d'
 
 let comparisons = 0
 let hits = 0
@@ -16,11 +16,11 @@ let frontColor = { r: 255, g: 255, b: 255 }
 let canvas
 
 let enableCollision = true
-let showNodes = false
+let showNodes = true
 let useQuadtree = true
 let useOptimizedBounds = false
 let paused = false
-let showInfopanel = true
+let showInfopanel = false
 let enableGravity = false
 
 let quadtreeBounds
