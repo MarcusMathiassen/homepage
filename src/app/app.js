@@ -3,47 +3,27 @@ import { attachTo } from '@/utils/webgl'
 
 import Color from "color";
 
-const updateValues = () => {
-    const styleTextNormal = getComputedStyle(
-        document.documentElement
-    ).getPropertyValue('--text-color--normal')
+const setStyle = (e, p, v) => e.style.setProperty(p, v)
+const getStyleAsRGB = (e, p) => Color(getComputedStyle(e).getPropertyValue(p).trim()).object()
 
-    const styleTextRicher = getComputedStyle(
-        document.documentElement
-    ).getPropertyValue('--text-color--richer')
-
-    const styleTextHighlight = getComputedStyle(
-        document.documentElement
-    ).getPropertyValue('--text-color--highlight')
-
-    const styleBackground = getComputedStyle(
-        document.documentElement
-    ).getPropertyValue('--background')
-
-    const styleBackgroundContent = getComputedStyle(
-        document.documentElement
-    ).getPropertyValue('--background--content')
-
-    // Update our global object with the app colors.
+const updateGlobalColorVariables = () => {
     window.color = {
-        textNormal: Color(styleTextNormal.trim()).object(),
-        textRicher: Color(styleTextRicher.trim()).object(),
-        textHighlight: Color(styleTextHighlight.trim()).object(),
-        background: Color(styleBackground.trim()).object(),
-        backgroundContent: Color(styleBackgroundContent.trim()).object(),
+        textNormal: getStyleAsRGB(document.documentElement, '--text-color--normal'),
+        textRicher: getStyleAsRGB(document.documentElement, '--text-color--richer'),
+        textHighlight: getStyleAsRGB(document.documentElement, '--text-color--highlight'),
+        background: getStyleAsRGB(document.documentElement, '--background'),
+        backgroundContent: getStyleAsRGB(document.documentElement, '--background--content'),
     }
 }
 
-const css = (el, p, v) => el.style.setProperty(p, v)
-
 document.addEventListener('DOMContentLoaded', () => {
-    window.matchMedia('(prefers-color-scheme: light)').addListener(updateValues)
-    const app = $('#app')
-    updateValues()
-
-
-    const fontSize = 12
-    css($('#app'), 'font-size', fontSize + 'px')
+    
+    // This will make sure our global color variables are updated when
+    // the user changes color schemes.
+    window.matchMedia('(prefers-color-scheme: light)').addListener(updateGlobalColorVariables)
+    
+    // Initialize the global color variables
+    updateGlobalColorVariables()
     
     window.attachTo('p2d')
 })

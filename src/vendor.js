@@ -1,1 +1,1 @@
-console.log('Hi from vendor.js')
+console.log('Hi from vendor.js!')

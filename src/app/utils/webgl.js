@@ -13,7 +13,7 @@ import {
     addProgressBar,
 } from './utility'
 import Quadtree from './quadtree'
-import ZingTouch from 'zingtouch'
+import Hammer from 'hammerjs'
 import { AssertionError } from 'assert'
 ;(exports => {
     let viewportSize = 0
@@ -30,6 +30,8 @@ import { AssertionError } from 'assert'
     let positionAttribLocation = 0
     let colorAttribLocation = 1
 
+    let focused = false
+
     let comparisons = 0
     let hits = 0
 
@@ -44,7 +46,7 @@ import { AssertionError } from 'assert'
     let ui
 
     let enableCollision = true
-    let showNodes = false
+    let showNodes = true
     let useQuadtree = true
     let useOptimizedBounds = false
     let paused = false
@@ -79,27 +81,27 @@ import { AssertionError } from 'assert'
         parent.appendChild(el)
         el.addEventListener('mousemove', updateMousePos)
 
-        let activeRegion = ZingTouch.Region(el)
+        const mc = new Hammer.Manager(parent)
+        const hammer = new Hammer(parent)
 
-        activeRegion.bind(parent, 'pan', () => {
+        parent.addEventListener('mouseenter', () => focused = !focused)
+        parent.addEventListener('mouseleave', () => focused = !focused)
+
+        mc.add(new Hammer.Press({
+            event: 'tap',
+            pointer: 1,
+            threshold: 100,
+            time: 1,
+        }))
+        hammer.on('pan', () => {
             spawnParticle()
         })
 
-        // We dont want the mouse to lock on to the last edge it touched.
-        parent.addEventListener('mouseleave', event => {
-            mouse = { x: -999999, y: -999999 }
+        mc.on('tap', () => {
+            spawnParticle()
         })
 
         canvas = el
-
-        activeRegion.bind(parent, 'expand', event => {
-            console.log(event)
-            particleSize = event.deltaY
-        })
-        // parent.addEventListener('mousewheel', event => {
-        //     console.log(event)
-        //     particleSize = event.deltaY
-        // })
         startWebGL()
     }
 
@@ -1007,13 +1009,16 @@ import { AssertionError } from 'assert'
 
     const drawUI = () => {
         // Show the cursor as a hollow circle with the current selected size.
-        drawHollowCircle(
-            mouse,
-            frontColor,
-            getParticleSize(),
-            0.5 * devicePixelRatio,
-            36
-        )
+
+        // But only if it is inside the canvas
+        if (focused)
+            drawHollowCircle(
+                mouse,
+                frontColor,
+                getParticleSize(),
+                0.5 * devicePixelRatio,
+                36
+            )
         updateUI(showInfopanel)
     }
     const baseLineComparisons = () => {
