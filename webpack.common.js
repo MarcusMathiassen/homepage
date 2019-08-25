@@ -25,6 +25,11 @@ module.exports = {
                 use: ['html-loader'],
             },
             {
+                test: /\.pug$/,
+                include: path.join(__dirname, 'src'),
+                loaders: [ 'pug-loader' ]
+            },
+            {
                 test: /\.(svg|png|jpg|gif)$/,
                 use: {
                     loader: 'file-loader',
