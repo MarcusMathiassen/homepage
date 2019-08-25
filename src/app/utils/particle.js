@@ -81,10 +81,8 @@ export default class Particle {
             const scal_norm_2 = v2.dot(norm_vec, bvel)
             const scal_tang_1 = v2.dot(tang_vec, this.velocity)
             const scal_tang_2 = v2.dot(tang_vec, bvel)
-            const scal_norm_1_after =
-                (scal_norm_1 * (m1 - m2) + 2 * m2 * scal_norm_2) / (m1 + m2)
-            const scal_norm_2_after =
-                (scal_norm_2 * (m2 - m1) + 2 * m1 * scal_norm_1) / (m1 + m2)
+            const scal_norm_1_after = (scal_norm_1 * (m1 - m2) + 2 * m2 * scal_norm_2) / (m1 + m2)
+            const scal_norm_2_after = (scal_norm_2 * (m2 - m1) + 2 * m1 * scal_norm_1) / (m1 + m2)
             const scal_norm_1_after_vec = v2.scale(norm_vec, scal_norm_1_after)
             const scal_norm_2_after_vec = v2.scale(norm_vec, scal_norm_2_after)
             const scal_norm_1_vec = v2.scale(tang_vec, scal_tang_1)
