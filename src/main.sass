@@ -43,8 +43,8 @@
         --background: rgb(245,245,245)
         --background-color--selection: yellow
     h1, h2, h3, .big-glowy-name
-        text-shadow: 0 3px 10px
-
+        text-shadow: 0 1px 1px var(--c_black), 0 3px 5px var(--c_almond)
+        
 @media (prefers-color-scheme: dark)
     \:root
         --text-color--normal: var(--c_white)
@@ -55,13 +55,33 @@
         --background--content: var(--c_black)
         --background: rgb(30,30,30)
         --background-color--selection: var(--apple_pink)
-
     h1, h2, h3, .big-glowy-name
-        text-shadow: 0 3px 10px black
+        text-shadow: 0 0.2px 1px var(--c_black), 0 3px 5px black
+
+// More rhythm = less tips
+// Depth = tips height
+@mixin ripped-effect($rhythm, $depth)
+  $tip: calc(100% - #{$depth})
+  $ripped: '100% 0, 100% #{$tip}, '
+  $end: 100 - $rhythm
+  $isPrevTip: true
+
+  @for $i from $end through 1
+    @if $i % $rhythm == 0
+      @if $isPrevTip
+        $ripped: #{$ripped + $i + '% 100%, '}
+        $isPrevTip: false
+      @else
+        $ripped: #{$ripped + $i + '% #{$tip}, '}
+        $isPrevTip: true
+
+  $ripped: #{$ripped + '0 #{$tip}, 0 0'}
+
+  clip-path: polygon($ripped)
+
 
 .big-glowy-name
     -webkit-transform: rotate(-5deg)
-
 *
     font-family: 'Kalam', cursive
 
@@ -159,3 +179,43 @@ img
         color: var(--text-color--highlight)
     &:active
         color: var(--text-color--normal)
+
+
+.reveal-text
+    --animation-delay: 0
+    
+.reveal-text, .reveal-text::after
+	animation-delay: var(--animation-delay, 2s)
+	animation-iteration-count: var(--iterations, 1)
+	animation-duration: var(--duration, 800ms)
+	animation-fill-mode: both
+	animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1)
+
+.reveal-text
+	animation-name: clip-text
+	&::after 
+		content: ""
+		position: absolute
+		z-index: 999
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		background-color: var(--background-color--selection)
+		transform: scaleX(0)
+		transform-origin: 0 50%
+		animation-name: text-revealer
+@keyframes clip-text 
+	from 
+		clip-path: inset(0 100% 0 0)
+	to 
+		clip-path: inset(0 0 0 0)
+@keyframes text-revealer
+	0%, 50%
+		transform-origin: 0 50%
+	60%, 100% 
+		transform-origin: 100% 50%
+	60% 
+		transform: scaleX(1)
+	100% 
+		transform: scaleX(0)
