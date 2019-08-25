@@ -10,18 +10,19 @@ head
     meta(name="viewport" content="width=device-width, initial-scale=1")
     script(defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous")
 body
-    div(id="app")
-        div(class="sidenav")
-            h1(class="big-glowy-name reveal-text") Marcus Mathiassen
+    #app
+        .sidenav
+            h1.big-glowy-name.reveal-text Marcus Mathiassen
             <!-- <img src="images/avatar.png" alt="picture of me"> -->
             a(href="#" aria-label="The Thi Programming Langauge") The Thi Programming Language
             a(href="#" aria-label="2D Collisions") 2D Collisions
             a(href="#" aria-label="About") About
-        div(class="content")
+        .content
             h1 2D Collisions
-            div(id="p2d")
-            p This is a test paragraf.
-            b I am bold
+            #p2d
+            p
+                | This is a test paragraf. 
+                b I am bold
             p.
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
                 aliqua. Porttitor eget dolor morbi non arcu risus. Egestas integer eget aliquet nibh praesent tristique magna sit.
@@ -64,15 +65,15 @@ body
                 amet justo donec enim diam vulputate. Iaculis urna id volutpat lacus laoreet non curabitur. Ultrices dui sapien eget mi
                 proin. Pulvinar elementum integer enim neque volutpat ac. Lobortis feugiat vivamus at augue.</p>
 footer
-    button(class="btn btn--icon contact")
+    button.btn.btn--icon.contact
         a(href="https://www.linkedin.com/in/marcus-mathiassen-418296132" aria-label="Visit out my LinkedIn")
-            i(class="btn fab fa-linkedin fa-2x")
+            i.btn.fab.fa-linkedin.fa-2x
             title LinkedIn
-    button(class="btn btn--icon contact")
+    button.btn.btn--icon.contact
         a(href="https://www.youtube.com/user/MathiassenMarcus" aria-label="Visit my Youtube")
+            i.btn.fab.fa-youtube.fa-2x
             title YouTube
-            i(class="btn fab fa-youtube fa-2x")
-    button(class="btn btn--icon contact")
+    button.btn.btn--icon.contact
         a(href="https://github.com/MarcusMathiassen" aria-label="Visit my Github")
+            i.btn.fab.fa-github.fa-2x
             title GitHub
-            i(class="btn fab fa-github fa-2x")
