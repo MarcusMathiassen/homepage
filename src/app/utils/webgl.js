@@ -1268,18 +1268,19 @@ import { AssertionError } from 'assert'
 
     function drawAllParticles() {
         const particleCount = particles.length
+        const vertexCount = 36*3
         for (let i = 0; i < particleCount; ++i) {
             const particle = particles[i]
             const position = particle.position
             const radius = particle.radius
             const color = particleColors[i]
-            drawCircle(position, color, radius, 36)
+            drawCircle(position, color, radius, vertexCount)
             drawHollowCircle(
                 position,
                 backColor,
                 radius,
                 0.3 * devicePixelRatio,
-                36
+                vertexCount
             )
             particleColors[i] = {
                 r: frontColor.r,
@@ -1314,7 +1315,9 @@ import { AssertionError } from 'assert'
     }
 
     function animate() {
+        
         updateValues()
+
         gl.clearColor(backColor.r, backColor.g, backColor.b, 1.0)
         gl.clear(gl.COLOR_BUFFER_BIT)
 

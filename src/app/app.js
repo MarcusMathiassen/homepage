@@ -26,4 +26,34 @@ document.addEventListener('DOMContentLoaded', () => {
     updateGlobalColorVariables()
     
     window.attachTo('p2d')
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['0', '3', '9', '81', '1000'],
+        responsive: true,
+        datasets: [{
+            label: 'Naive',
+            fill: false,
+            data: [0, 3, 9, 81, 1000],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+            ],
+        },{
+            label: 'Quadtree',
+            fill: false,
+            data: [4, 50, 50, 120, 300],
+            backgroundColor: [
+                'rgba(35, 99, 255, 0.2)',
+            ],
+            borderColor: [
+                'rgba(35, 99, 132, 1)',
+            ],
+        }]
+    },
+});
 })
