@@ -34,9 +34,16 @@ const updateValues = () => {
     }
 }
 
+const css = (el, p, v) => el.style.setProperty(p, v)
+
 document.addEventListener('DOMContentLoaded', () => {
     window.matchMedia('(prefers-color-scheme: light)').addListener(updateValues)
     const app = $('#app')
     updateValues()
+
+
+    const fontSize = 12
+    css($('#app'), 'font-size', fontSize + 'px')
+    
     window.attachTo('p2d')
 })
