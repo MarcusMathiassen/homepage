@@ -44,7 +44,7 @@ import { AssertionError } from 'assert'
     let ui
 
     let enableCollision = true
-    let showNodes = true
+    let showNodes = false
     let useQuadtree = true
     let useOptimizedBounds = false
     let paused = false
@@ -973,8 +973,8 @@ import { AssertionError } from 'assert'
     }
 
     let updateValues = function() {
-        canvasWidth = parent.offsetWidth
-        canvasHeight = 300
+        canvasWidth = parent.offsetWidth - (1*devicePixelRatio)
+        canvasHeight = 500 - (1 * devicePixelRatio)
 
         var desiredCSSWidth = canvasWidth
         var desiredCSSHeight = canvasHeight
@@ -989,20 +989,15 @@ import { AssertionError } from 'assert'
         canvasWidth *= devicePixelRatio
         canvasHeight *= devicePixelRatio
 
-        // console.log(canvasWidth, canvasHeight)
-
         frontColor = normalize(window.color.textNormal)
         frontColor.a = 1
 
-        backColor = normalize(window.color.backgroundContent)
+        backColor = normalize(window.color.background)
         backColor.a = 1
 
-        boundsHighlightColor = normalize(window.color.textRicher)
+        boundsHighlightColor = normalize(window.color.textHighlight)
         boundsHighlightColor.a = 1
 
-        // console.log(frontColor)
-        // console.log(backColor)
-        // console.log(boundsHighlightColor)
     }
 
     const erase = () => {
@@ -1404,7 +1399,7 @@ import { AssertionError } from 'assert'
             }
         }
 
-        const col = HSLtoRGBA(Math.cos(time * 0.3) * 360, 70, 50)
+        // const col = HSLtoRGBA(Math.cos(time * 0.3) * 360, 70, 50)
 
         drawAllParticles()
         draw()

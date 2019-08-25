@@ -1,5 +1,4 @@
 \:root
-        
     --apple_retro_green: #61bb46
     --apple_retro_yellow: #fdb827
     --apple_retro_orange: #f5821f
@@ -33,70 +32,45 @@
     --keyword: var(--apple_pink)
     --compile_time_resolved: var(--apple_indigo)
 
-    --hue: 300
-    --accent-hue: 350
-    --text-color--normal: hsl(var(--hue), 10%, 62%)
-    --text-color--light: hsl(var(--hue), 15%, 35%)
-    --text-color--richer: hsl(var(--hue), 50%, 72%)
-    --text-color--highlight: hsl(var(--accent-hue), 70%, 45%)
-    --link-color: hsl(var(--hue), 90%, 70%)
-    --accent-color: hsl(var(--accent-hue), 100%, 70%)
-    --error-color: rgb(240, 50, 50)
-    --button-background: hsl(var(--hue), 63%, 73%)
-    --button-text-color: black
-    
-    --background: hsl(var(--hue), 20%, 2%)
-    --background--content: hsl(var(--hue), 20%, 12%)
-    --text-color--selection: hsl(var(--accent-hue), 70%, 45%)
-    --background-color--selection: hsl(var(--accent-hue), 50%, 45%)
+@media (prefers-color-scheme: light)
+    \:root
+        --text-color--normal: var(--c_black)
+        --text-color--light: var(--c_black)
+        --text-color--richer: var(--c_black)
+        --text-color--highlight: var(--apple_pink)
+        --text-color--comment: var(--comment)
+        --background--content: var(--c_white)
+        --background: rgb(245,245,245)
+        --background-color--selection: yellow
+    h1, h2, h3, .big-glowy-name
+        text-shadow: 0 3px 10px
 
-html[theme='light']
-    --hue: 0
-    --accent-hue: 30
-    --text-color--normal: var(--c_black)
-    --text-color--light: var(--c_black)
-    --text-color--richer: var(--c_black)
-    --text-color--highlight: var(--apple_pink)
-    --link-color: var(--apple_red)
-    --accent-color: hsl(var(--accent-hue), 100%, 70%)
-    --button-background: hsl(var(--hue), 63%, 13%)
-    --background--content: hsl(var(--c_white), 100%, 95%)
-    --background: var(--c_white)
+@media (prefers-color-scheme: dark)
+    \:root
+        --text-color--normal: var(--c_white)
+        --text-color--light: var(--c_white)
+        --text-color--richer: var(--c_white)
+        --text-color--highlight: var(--apple_pink)
+        --text-color--comment: var(--comment)
+        --background--content: var(--c_black)
+        --background: rgb(30,30,30)
+        --background-color--selection: var(--apple_pink)
 
-html[theme='dark']
-    --hue: 0
-    --accent-hue: 30
-    --text-color--normal: var(--c_white)
-    --text-color--light: var(--c_white)
-    --text-color--richer: var(--c_white)
-    --text-color--highlight: var(--apple_pink)
-    --link-color: var(--apple_red)
-    --accent-color: hsl(var(--accent-hue), 100%, 70%)
-    --button-background: hsl(var(--hue), 63%, 13%)
-    --background--content: hsl(var(--c_black), 100%, 95%)
-    --background: var(--c_black)
+    h1, h2, h3, .big-glowy-name
+        text-shadow: 0 3px 10px black
 
-html
-    background: var(--background)
-    background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=00000000&noise=626262&density=100&opacity=5)
+.big-glowy-name
+    -webkit-transform: rotate(-5deg)
 
 *
-    transition-duration: 0.1s
-    transition-timing-function: ease-out
+    font-family: 'Kalam', cursive
 
-h1
-    color: var(--text-color--richer)
-    font-size: 43px
-    margin: 0 auto
-    font-family: 'Helvetica Neue', sans-serif
-    font-size: 18*3px
-    line-height: 1
+html
+    padding: 20px
+    background: var(--background)
+
+footer
     text-align: center
-    animation: grow 3s ease-in-out infinite alternate
-
-b
-    color: var(--text-color--highlight)
-    text-shadow: 0 0 200px var(--text-color--highlight)
 
 p
     font-size: 18px
@@ -107,9 +81,70 @@ p
     color: var(--text-color--selection)
     background-color: var(--background-color--selection)
 
-.img--small
-    width: 100%
+// Chrome draws an ugly outline when buttons are pressed
+button:focus
+    outline: 0
+
+h1, h2, h3
+    font-family: 'Caveat', cursive
+    color: var(--text-color--highlight)
+
+img
+    width: 20%
     border-radius: 5px
+    margin: 10px
+    box-shadow: 0 3px 5px rgba(0,0,0,.5)
+
+.p2d-move-mouse
+    color: red
+#p2d
+    cursor: none
+
+.demo-info-list
+    position: absolute
+    list-style-type: none
+    pointer-events: none
+    margin: 10px
+    padding: 0
+
+.demo-info-list-element
+    border-radius: 7px
+    border-width: 1px
+    border-style: solid
+    color: var(--text-color--normal)
+    border-color: var(--text-color--normal)
+    width: max-content
+    height: auto
+    padding: 2px
+    padding-left: 5px
+    padding-right: 5px
+    margin-top: 4px
+    margin-bottom: 4px
+    background-color: var(--background)
+
+.content
+    margin-left: 160px
+    padding: 0px 10px
+
+.sidenav
+    padding-left: 20px
+    width: 160px
+    position: fixed
+    overflow-x: hidden
+    z-index: 1
+    top: 0
+    left: 0
+
+.sidenav a 
+    padding: 6px 8px 6px 16px
+    text-decoration: none
+    font-size: 16px
+    color: var(--text-color--normal)
+    display: block
+    &:hover
+        color: var(--text-color--highlight)
+    &:active
+        color: var(--text-color--normal)
 
 .btn
     color: var(--text-color--normal)
@@ -124,78 +159,3 @@ p
         color: var(--text-color--highlight)
     &:active
         color: var(--text-color--normal)
-
-button:focus
-    outline: 0
-
-#app
-    padding: 0px
-
-#left
-    width: 20%
-    position: absolute
-
-#right
-    width: 50%
-    float: right
-
-@keyframes grow
-  from
-    margin-left: 20px
-  to
-    margin-left: 21px
-
-#header-marcus
-    text-shadow: 0 0 200px var(--text-color--highlight)
-    font-family: 'Caveat', cursive
-    text-align: left
-    font-size: 30px
-    margin-left: 20px
-    color: var(--text-color--highlight)
-
-#header-mathiassen
-    text-shadow: 0 0 200px var(--text-color--highlight)
-    font-family: 'Caveat', cursive
-    text-align: left
-    font-size: 40px
-    margin-left: 20px
-    color: var(--text-color--highlight)
-
-#header-avatar
-    border-radius: 5px
-    margin: 10px
-    box-shadow: 0 3px 5px rgba(0,0,0,.5)
-
-.post-content
-    box-shadow: 0 3px 5px rgba(0,0,0,.5)
-    max-width: 960px
-    color: var(--text-color--normal)
-    background-color: var(--background--content)
-    width: 80%
-    margin: auto
-    border-radius: 5px
-    padding: 20px
-
-.demo
-    cursor: none
-
-.demo-info-list
-    position: absolute
-    list-style-type: none
-    pointer-events: none
-    margin: 10px
-    padding: 0
-
-.demo-info-list-element
-    border-radius: 7px
-    border-width: 1px
-    border-style: solid
-    border-color: var(--text-color--normal)
-    width: max-content
-    height: auto
-    padding: 2px
-    padding-left: 5px
-    padding-right: 5px
-    margin-top: 4px
-    margin-bottom: 4px
-    background-color: var(--background--content)

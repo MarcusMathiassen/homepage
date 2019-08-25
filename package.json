@@ -12,9 +12,9 @@
     "author": "Marcus Mathiassen",
     "license": "ISC",
     "dependencies": {
+        "color": "^3.1.2",
         "gl-matrix": "^3.0.0",
         "graphql": "^14.3.1",
-        "p5": "^0.7.3",
         "zingtouch": "^1.0.6"
     },
     "devDependencies": {
