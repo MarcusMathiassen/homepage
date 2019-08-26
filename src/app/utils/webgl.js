@@ -523,7 +523,7 @@ import { AssertionError } from 'assert'
             }
         }
     }
-    function resolveCollisions(particles) {
+    const resolveCollisions = (particles) => {
         let comparisons = 0
         let hits = 0
         const particleCount = particles.length
@@ -543,7 +543,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    function resolveCollisionsQuadtree(particles, tree) {
+    const resolveCollisionsQuadtree = (particles, tree) => {
         let comparisons = 0
         let hits = 0
         for (const node of tree) {
@@ -564,7 +564,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    let extractRGB = function(str) {
+    const extractRGB = (str) => {
         const rgb = str
             .substring(4, str.length - 1)
             .replace(/ /g, '')
@@ -586,7 +586,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    function drawTriangle(positions, color, size) {
+    const drawTriangle = (positions, color, size) => {
         addVertices([
             -size + positions.x,
             -size + positions.y,
@@ -609,7 +609,7 @@ import { AssertionError } from 'assert'
         ])
     }
 
-    function drawRectRange(min, max, color) {
+    const drawRectRange = (min, max, color) => {
         addVertices([
             min.x,
             max.y,
@@ -710,7 +710,7 @@ import { AssertionError } from 'assert'
             color
         )
     }
-    function drawRect(position, color, size) {
+    const drawRect = (position, color, size) => {
         addVertices([
             -size + position.x,
             size + position.y,
@@ -773,11 +773,8 @@ import { AssertionError } from 'assert'
         }
     }
 
-    function drawLine(p1, p2, color, size) {
+    const drawLine = (p1, p2, color, size) => {
         if (size < 0.0) size = 0.001
-
-        // drawRect(p1, { r: 1, g: 0, b: 1, a: 1 }, size) // DEBUG
-        // drawRect(p2, { r: 1, g: 1, b: 0, a: 1 }, size) // DEBUG
 
         // Get the distance between our two points
         let d = v2.distance(p1, p2) * 0.5
@@ -788,29 +785,19 @@ import { AssertionError } from 'assert'
         // Get the angle between our two points (radians)
         let theta = Math.atan2(dy, dx)
 
-        // Draw the end caps
-        // drawHalfCircle(p1, color, size, theta + Math.PI / 2, 12)
-        // drawHalfCircle(p2, color, size, theta - Math.PI / 2, 12)
-
         let s = size
 
         let center = v2.add(p1, p2).scale(0.5)
-        // drawRect(center, { r: 1, g: 0, b: 0, a: 1 }, 0.1) // DEBUG
 
         // Draw center debug rects
         let bot = { x: center.x - d + s, y: center.y }
         let top = { x: center.x + d - s, y: center.y }
-        // drawRect(bot, { r: 1, g: 0, b: 1, a: 1 }, size) // DEBUG
-        // drawRect(top, { r: 1, g: 0, b: 1, a: 1 }, size) // DEBUG
 
         // Rotate
         const min = v2.subs(bot, s)
         const max = v2.adds(top, s)
 
-        // drawRectRange(min, max, { r: 1, g: 1, b: 1, a: 1 }) // DEBUG
-
         // P1 and P2 should be min and max
-
         const pos2 = [
             new v2(min.x, max.y),
             new v2(max.x, max.y),
@@ -931,7 +918,7 @@ import { AssertionError } from 'assert'
         addVertices(verts)
     }
 
-    function drawCircle(center, color, size, num_vertices) {
+    const drawCircle = (center, color, size, num_vertices) => {
         // Setup the particle vertices
         let verts = []
 
@@ -969,12 +956,12 @@ import { AssertionError } from 'assert'
         addVertices(verts)
     }
 
-    function addVertices(verts) {
+    const addVertices = (verts) => {
         // Update our vertices
         vertices.push(...verts)
     }
 
-    let updateValues = function() {
+    const updateValues = () => {
         canvasWidth = parent.offsetWidth - (1*devicePixelRatio)
         canvasHeight = 500 - (1 * devicePixelRatio)
 
@@ -1028,14 +1015,14 @@ import { AssertionError } from 'assert'
     const comparisonsDelta = () => {
         return baseLineComparisons() / comparisons
     }
-    function addUI() {
+    const addUI = () => {
         ui = $('<ul>')
         ui.id = `${parent.id}-info`
         ui.className = 'demo-info-list'
         parent.insertBefore(ui, canvas)
     }
 
-    function updateUI(show = true, fontSize = 14) {
+    const updateUI = (show = true, fontSize = 14) => {
         ui.innerHTML = ''
         ui.style = `font-size: ${fontSize}px; display: ${
             show ? 'inline' : 'none'
@@ -1054,7 +1041,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    function startWebGL() {
+    const startWebGL = () => {
         const div = $('<div>')
         div.id = `${parent.id}-settings`
         parent.append(div)
@@ -1233,7 +1220,7 @@ import { AssertionError } from 'assert'
 
     let vertices = []
 
-    function getRelativeMousePosition(event, target) {
+    const getRelativeMousePosition = (event, target) => {
         target = target || event.target
         const rect = target.getBoundingClientRect()
 
@@ -1243,7 +1230,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    function updateMousePos(event, target) {
+    const updateMousePos = (event, target) => {
         target = target || event.target
         let pos = getRelativeMousePosition(event, target)
 
@@ -1253,7 +1240,7 @@ import { AssertionError } from 'assert'
         mouse = pos
     }
 
-    function getMousePosInViewspace() {
+    const getMousePosInViewspace = () => {
         const x = mouse.x
         const y = mouse.y
 
@@ -1266,7 +1253,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    function drawAllParticles() {
+    const drawAllParticles = () => {
         const particleCount = particles.length
         const vertexCount = 36*3
         for (let i = 0; i < particleCount; ++i) {
@@ -1291,7 +1278,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    function spawnParticle() {
+    const spawnParticle = () => {
         const size = getParticleSize()
         for (let i = 0; i < 2; ++i) {
             let particle = new Particle(mouse.x, mouse.y, size)
@@ -1300,7 +1287,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    function toViewspace(v) {
+    const toViewspace = (v) => {
         const w = canvasWidth
         const h = canvasHeight
 
@@ -1314,7 +1301,7 @@ import { AssertionError } from 'assert'
         return particleSize * devicePixelRatio
     }
 
-    function animate() {
+    const animate = () => {
         
         updateValues()
 
@@ -1416,7 +1403,7 @@ import { AssertionError } from 'assert'
         window.requestAnimationFrame(animate)
     }
 
-    function draw() {
+    const draw = () => {
         if (vertices.length === 0) return
 
         const displaySize = new v2(canvasWidth, canvasHeight)
@@ -1460,7 +1447,7 @@ import { AssertionError } from 'assert'
         vertices = []
         updateFPS()
     }
-    function updateFPS() {
+    const updateFPS = () => {
         lastFps = 1 / (getTime() - lastTime)
         lastTime = getTime()
         lastFps = lastFps.toFixed(0)
