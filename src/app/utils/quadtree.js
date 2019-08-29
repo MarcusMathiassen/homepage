@@ -17,6 +17,17 @@ export default class Quadtree {
         this.hasSplit = false
     }
 
+    visit(callback) {
+        if (this.hasSplit) {
+            this.subnodes[0].visit(callback)
+            this.subnodes[1].visit(callback)
+            this.subnodes[2].visit(callback)
+            this.subnodes[3].visit(callback)
+            return
+        }
+        return callback(this)
+    }
+
     split() {
         const min = this.bounds.min
         const max = this.bounds.max

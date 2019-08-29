@@ -11,7 +11,10 @@ export default class Themer {
 
         let startingTheme = this.defaultTheme
         // Check if the browser supporst the query. If not, set it manually
-        if (window.matchMedia('(prefers-color-scheme: light)').media != 'not all') {
+        if (
+            window.matchMedia('(prefers-color-scheme: light)').media !=
+            'not all'
+        ) {
             // The OS preference overrides the app preference.
             // So we watch on changes and update appropriataly.
             const res = window.matchMedia('(prefers-color-scheme: light)')
@@ -21,7 +24,6 @@ export default class Themer {
             const el = $(this.themedElement)[0]
             el.setAttribute('theme', this.defaultTheme)
         }
-
     }
 
     osUpdateTheme(query) {

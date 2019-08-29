@@ -2,19 +2,16 @@ import $ from './query'
 
 import { mat4 } from 'gl-matrix'
 import Particle from './particle'
-import { v2, v4 } from './math'
+import { v2 } from './math'
 import {
-    HSLtoRGBA,
     getTime,
     Rect,
     getMinAndMaxPosition,
     getExt,
     addButton,
-    addProgressBar,
 } from './utility'
 import Quadtree from './quadtree'
 import Hammer from 'hammerjs'
-import { AssertionError } from 'assert'
 ;(exports => {
     let viewportSize = 0
 
@@ -64,6 +61,7 @@ import { AssertionError } from 'assert'
         y: 0,
     }
 
+    let particleSystem
     let particles = []
     let particleColors = []
     let particleSize = 8
@@ -84,21 +82,35 @@ import { AssertionError } from 'assert'
         const mc = new Hammer.Manager(parent)
         const hammer = new Hammer(parent)
 
-        parent.addEventListener('mouseenter', () => focused = !focused)
-        parent.addEventListener('mouseleave', () => focused = !focused)
+        parent.addEventListener('mouseenter', () => (focused = !focused))
+        parent.addEventListener('mouseleave', () => (focused = !focused))
 
-        mc.add(new Hammer.Press({
-            event: 'tap',
-            pointer: 1,
-            threshold: 100,
-            time: 1,
-        }))
+        mc.add(
+            new Hammer.Press({
+                event: 'tap',
+                pointer: 1,
+                threshold: 100,
+                time: 1,
+            })
+        )
         hammer.on('pan', () => {
             spawnParticle()
+            // particleSystem.addParticle({
+            //     position: mouse,
+            //     velocity: new v2(0.0, 0.0),
+            //     color: particleColor,
+            //     radius: getParticleSize(),
+            // })
         })
 
         mc.on('tap', () => {
             spawnParticle()
+            // particleSystem.addParticle({
+            //     position: mouse,
+            //     velocity: new v2(0.0, 0.0),
+            //     color: particleColor,
+            //     radius: getParticleSize(),
+            // })
         })
 
         canvas = el
@@ -122,39 +134,19 @@ import { AssertionError } from 'assert'
         destroy() {
             gl.deleteProgram(this.program)
         }
-        createShader(source, type) {
-            this.sources.push(source)
-            let shader
-            switch (type) {
-                case 'vertex':
-                    shader = gl.createShader(gl.VERTEX_SHADER)
-                    break
-                case 'fragment':
-                    shader = gl.createShader(gl.FRAGMENT_SHADER)
-                    break
-                case 'geometry':
-                    shader = gl.createShader(gl.GEOMETRY_SHADER)
-                    break
-                case 'compute':
-                    shader = gl.createShader(gl.COMPUTE_SHADER)
-                    break
-            }
-            gl.compileShader(shader)
-            return shader
-        }
 
         link() {
             gl.linkProgram(this.program)
             gl.validateProgram(this.program)
 
-            for (const { name, shader } of shaders) {
+            for (const shader of this.shaders) {
                 gl.detachShader(this.program, shader)
                 gl.deleteShader(shader)
             }
             this.isLinked = true
 
             for (const uniform in this.uniforms) {
-                uniformsMap.set(
+                this.uniformsMap.set(
                     uniform,
                     gl.getUniformLocation(this.program, uniform)
                 )
@@ -166,32 +158,38 @@ import { AssertionError } from 'assert'
 
         finish() {
             this.program = gl.createProgram()
-
             for (const source of this.sources) {
-                const ext = getExt(source)
-
                 let shader
-                switch (ext) {
-                    case 'vert':
-                        shader = this.createShader(source, 'vertex')
+                switch (source.type) {
+                    case 'vertex':
+                        shader = gl.createShader(gl.VERTEX_SHADER)
                         break
-                    case 'frag':
-                        shader = this.createShader(source, 'fragment')
+                    case 'fragment':
+                        shader = gl.createShader(gl.FRAGMENT_SHADER)
                         break
-                    case 'geom':
-                        shader = this.createShader(source, 'geometry')
+                    case 'geometry':
+                        shader = gl.createShader(gl.GEOMETRY_SHADER)
                         break
-                    case 'comp':
-                        shader = this.createShader(source, 'compute')
+                    case 'compute':
+                        shader = gl.createShader(gl.COMPUTE_SHADER)
                         break
                 }
+                gl.shaderSource(shader, source.src)
+                gl.compileShader(shader)
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.error(
+                        'ERROR compiling shader!',
+                        gl.getShaderInfoLog(shader)
+                    )
+                    return
+                }
                 gl.attachShader(this.program, shader)
-                shaders.push(shader)
+                this.shaders.push(shader)
             }
 
             let i = 0
             for (const attrib of this.attribs) {
-                uniformsMap.set(uniform, i)
+                // this.uniformsMap.set(uniform, i)
                 gl.bindAttribLocation(this.program, i, attrib)
                 i++
             }
@@ -200,31 +198,41 @@ import { AssertionError } from 'assert'
         }
 
         setUniform2f(name, x, y) {
-            gl.uniform2f(uniformsMap.get(name), x, y)
+            gl.uniform2f(this.uniformsMap.get(name), x, y)
         }
         setUniform3f(name, x, y, z) {
-            gl.uniform3f(uniformsMap.get(name), x, y, z)
+            gl.uniform3f(this.uniformsMap.get(name), x, y, z)
         }
-        setUniform2f(name, v) {
-            gl.uniform2f(uniformsMap.get(name), v.x, v.y)
+        setUniform2fv(name, v) {
+            gl.uniform2f(this.uniformsMap.get(name), v.x, v.y)
         }
-        setUniform3f(name, v) {
-            gl.uniform3f(uniformsMap.get(name), v.x, v.y, v.z)
+        setUniform3fv(name, v) {
+            gl.uniform3f(this.uniformsMap.get(name), v.x, v.y, v.z)
         }
-        setUniform4f(name, v) {
-            gl.uniform4f(uniformsMap.get(name), v.x, v.y, v.z, v.w)
+        setUniform4fv(name, v) {
+            gl.uniform4f(this.uniformsMap.get(name), v.x, v.y, v.z, v.w)
         }
         setUniformMatrix4fv(name, m) {
-            gl.uniformMatrix4fv(uniformsMap.get(name), 1, gl.FALSE, m[0][0])
+            gl.uniformMatrix4fv(
+                this.uniformsMap.get(name),
+                1,
+                gl.FALSE,
+                m[0][0]
+            )
         }
         setUniformMatrix3fv(name, m) {
-            gl.uniformMatrix3fv(uniformsMap.get(name), 1, gl.FALSE, m[0][0])
+            gl.uniformMatrix3fv(
+                this.uniformsMap.get(name),
+                1,
+                gl.FALSE,
+                m[0][0]
+            )
         }
         setUniform1f(name, val) {
-            gl.uniform1f(uniformsMap.get(name), val)
+            gl.uniform1f(this.uniformsMap.get(name), val)
         }
         setUniform1i(name, val) {
-            gl.uniform1i(uniformsMap.get(name), val)
+            gl.uniform1i(this.uniformsMap.get(name), val)
         }
     }
 
@@ -251,9 +259,9 @@ import { AssertionError } from 'assert'
         }
         update(name, data, dataSize) {
             gl.bindVertexArray(this.vao)
-            let vbo = vbos.find(name)
+            let vbo = this.vbos.get(name)
 
-            gl.bindBuffer(vbo)
+            gl.bindBuffer(vbo.type, vbo.handle)
             if (dataSize > vbo.dataSize) {
                 gl.bufferData(vbo.type, dataSize, data, vbo.usage)
                 vbo.dataSize = dataSize
@@ -263,11 +271,10 @@ import { AssertionError } from 'assert'
         }
 
         destroy() {
-            gl.deleteVertexArray(vao)
-
-            for (const { name, vbo } of vbos) {
-                gl.deleteBuffer(vbo)
-            }
+            gl.deleteVertexArray(this.vao)
+            this.vbos.forEach((key, vbo) => {
+                gl.deleteBuffer(vbo.handle)
+            })
         }
         bind() {
             gl.bindVertexArray(this.vao)
@@ -275,9 +282,9 @@ import { AssertionError } from 'assert'
         finish() {
             this.vao = gl.createVertexArray()
             this.bind()
-
-            for (const { name, vbo } of vbos) {
-                vbo = gl.createBuffer()
+            let updatedMap = new Map()
+            this.vbos.forEach((key, vbo) => {
+                vbo.handle = gl.createBuffer()
 
                 if (vbo.hasData) {
                     gl.bufferData(vbo.type, vbo.dataSize, vbo.data, vbo.usage)
@@ -294,7 +301,7 @@ import { AssertionError } from 'assert'
                         vbo.pointer
                     )
                     if (vbo.divisor) {
-                        glVertexAttribDivisor(vbo.attrib_num, vbo.divisor)
+                        gl.vertexAttribDivisor(vbo.attrib_num, vbo.divisor)
                     }
                 } else {
                     for (let i = 0; i < vbo.dataMemberCount; i++) {
@@ -315,7 +322,9 @@ import { AssertionError } from 'assert'
                         }
                     }
                 }
-            }
+                updatedMap.set(key, vbo)
+            })
+            this.vbos = updatedMap
         }
     }
 
@@ -376,8 +385,10 @@ import { AssertionError } from 'assert'
             return this.shader
         }
         makeBuffer(name) {
-            this.buffer.vbos.get(name).attribNum = this.buffer.attribCounter++
-            return this.buffer.vbos.get(name)
+            let vbo = new VBO()
+            vbo.attribNum = this.buffer.attribCounter++
+            return this.buffer.vbos.set(name, vbo)
+            // return vbo
         }
         finish() {
             this.shader.finish()
@@ -388,6 +399,7 @@ import { AssertionError } from 'assert'
     class ParticleSystem {
         constructor() {
             this.particleCount = 0
+
             this.positions = []
             this.velocities = []
             this.sizes = []
@@ -396,14 +408,15 @@ import { AssertionError } from 'assert'
             this.vertices = []
             this.indices = []
 
-            this.numVerticesPerParticle = 36
             this.renderer = new Renderer()
+
+            this.numVerticesPerParticle = 36
 
             // Add indices
             for (let n = 0; n < this.numVerticesPerParticle - 2; ++n) {
-                this.indices[n] = 0
-                this.indices[n + 1] = n + 1
-                this.indices[n + 2] = n + 2
+                this.indices.push(0)
+                this.indices.push(n + 1)
+                this.indices.push(n + 2)
             }
 
             // Add vertices
@@ -412,7 +425,10 @@ import { AssertionError } from 'assert'
                 this.vertices[i] = new v2(Math.cos(cont), Math.sin(cont))
             }
 
-            let vs_src = `
+            let shader = this.renderer.makeShader()
+            shader.sources = [
+                {
+                    src: `
     precision mediump float;
 
     attribute vec2 vertices;
@@ -430,18 +446,18 @@ import { AssertionError } from 'assert'
         gl_Position = vec4(pos, 0.0, 1.0);
         color0 = color;
     }
-    `
-            let fs_src = `
+    `,
+                    type: 'vertex',
+                },
+                {
+                    src: `
     precision mediump float;
     varying vec4 color0;
     void main() {
       gl_FragColor = color0;
-    }`
-
-            let shader = this.renderer.makeShader()
-            shader.sources = [
-                'default_particle_shader.vert',
-                'default_particle_shader.frag',
+    }`,
+                    type: 'fragment',
+                },
             ]
             shader.attribs = ['vertices', 'position', 'color', 'radius']
             shader.uniforms = ['viewport_size']
@@ -477,16 +493,27 @@ import { AssertionError } from 'assert'
             // indices_buffer.dataSize = indices.size() * sizeof(indices[0]);
             // indices_buffer.type = buffer_type::element_array;
 
-            renderer.finish()
+            this.renderer.finish()
+        }
+
+        addParticle(particle) {
+            this.positions.push(particle.position)
+            this.velocities.push(particle.velocity)
+            this.sizes.push(particle.radius)
+            this.colors.push(particle.color)
+            this.particleCount++
         }
 
         update() {
             for (let i = 0; i < this.particleCount; i++) {
-                this.positions[i].add(this.velocities[i])
+                this.positions[i].x += this.velocities[i].x
+                this.positions[i].y += this.velocities[i].y
             }
         }
 
         draw() {
+            this.updateGPUBuffers()
+
             let cmdBuffer = new CommandBuffer()
             cmdBuffer.type = gl.TRIANGLE_FAN
             cmdBuffer.count = this.numVerticesPerParticle
@@ -494,36 +521,38 @@ import { AssertionError } from 'assert'
             this.renderer.bind()
             this.renderer.shader.setUniform2f(
                 'viewport_size',
-                new v2(canvasWidth, canvasHeight)
+                canvasWidth,
+                canvasHeight
             )
             this.renderer.draw(cmdBuffer)
         }
+
         // Update the gpu buffers incase of more particles..
         updateGPUBuffers() {
-            if (this.position.length != 0) {
+            if (this.positions.length != 0) {
                 this.renderer.updateBuffer(
                     'position',
-                    this.position,
+                    this.positions,
                     this.positions.length * Float32Array.BYTES_PER_ELEMENT * 2
                 )
             }
-            if (this.color.length != 0) {
+            if (this.colors.length != 0) {
                 this.renderer.updateBuffer(
                     'color',
-                    this.color,
-                    this.color.length * Float32Array.BYTES_PER_ELEMENT * 4
+                    this.colors,
+                    this.colors.length * Float32Array.BYTES_PER_ELEMENT * 4
                 )
             }
-            if (this.radius.length != 0) {
+            if (this.sizes.length != 0) {
                 this.renderer.updateBuffer(
                     'radius',
-                    this.radius,
-                    this.radius.length * Float32Array.BYTES_PER_ELEMENT
+                    this.sizes,
+                    this.sizes.length * Float32Array.BYTES_PER_ELEMENT
                 )
             }
         }
     }
-    const resolveCollisions = (particles) => {
+    const resolveCollisions = particles => {
         let comparisons = 0
         let hits = 0
         const particleCount = particles.length
@@ -564,7 +593,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    const extractRGB = (str) => {
+    const extractRGB = str => {
         const rgb = str
             .substring(4, str.length - 1)
             .replace(/ /g, '')
@@ -887,18 +916,17 @@ import { AssertionError } from 'assert'
                     verts.push(last_vert.x)
                     verts.push(last_vert.y)
                     break
-                case 1:
+                case 1: {
                     k += 1
                     const cont = angle + ((i - 1) * Math.PI) / n_vertices
-                    const x = Math.cos(cont)
-                    const y = Math.sin(cont)
                     last_vert = new v2(
-                        center.x + radius * x,
-                        center.y + radius * y
+                        center.x + radius * Math.cos(cont),
+                        center.y + radius * Math.sin(cont)
                     )
                     verts.push(last_vert.x)
                     verts.push(last_vert.y)
                     break
+                }
                 case 2:
                     k = 0
                     verts.push(center.x)
@@ -956,14 +984,14 @@ import { AssertionError } from 'assert'
         addVertices(verts)
     }
 
-    const addVertices = (verts) => {
+    const addVertices = verts => {
         // Update our vertices
         vertices.push(...verts)
     }
 
     const updateValues = () => {
-        canvasWidth = parent.offsetWidth - (1*devicePixelRatio)
-        canvasHeight = 500 - (1 * devicePixelRatio)
+        canvasWidth = parent.offsetWidth - 1 * devicePixelRatio
+        canvasHeight = 500 - 1 * devicePixelRatio
 
         var desiredCSSWidth = canvasWidth
         var desiredCSSHeight = canvasHeight
@@ -986,7 +1014,6 @@ import { AssertionError } from 'assert'
 
         boundsHighlightColor = normalize(window.color.textHighlight)
         boundsHighlightColor.a = 1
-
     }
 
     const erase = () => {
@@ -1124,7 +1151,7 @@ import { AssertionError } from 'assert'
         gl.enable(gl.BLEND)
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
-        // let particleSystem = new ParticleSystem()
+        // particleSystem = new ParticleSystem()
 
         program = gl.createProgram()
         let vs = gl.createShader(gl.VERTEX_SHADER)
@@ -1255,7 +1282,7 @@ import { AssertionError } from 'assert'
 
     const drawAllParticles = () => {
         const particleCount = particles.length
-        const vertexCount = 36*3
+        const vertexCount = 36 * 3
         for (let i = 0; i < particleCount; ++i) {
             const particle = particles[i]
             const position = particle.position
@@ -1287,7 +1314,7 @@ import { AssertionError } from 'assert'
         }
     }
 
-    const toViewspace = (v) => {
+    const toViewspace = v => {
         const w = canvasWidth
         const h = canvasHeight
 
@@ -1302,7 +1329,6 @@ import { AssertionError } from 'assert'
     }
 
     const animate = () => {
-        
         updateValues()
 
         gl.clearColor(backColor.r, backColor.g, backColor.b, 1.0)
@@ -1344,14 +1370,15 @@ import { AssertionError } from 'assert'
                     )
                 }
             }
+
             let neighbours = []
             quadtree.getNeighbourNodes(neighbours, {
                 position: mouse,
                 radius: getParticleSize(),
             })
 
+            // Draw all neighbours in a highlight color.
             neighbours.forEach(node => {
-                // Draw the bound
                 const bound = node.bounds
                 const x = bound.min.x
                 const y = bound.min.y
@@ -1361,7 +1388,7 @@ import { AssertionError } from 'assert'
                     new v2(x, y),
                     new v2(x + width, y + height),
                     boundsHighlightColor,
-                    3 * devicePixelRatio
+                    2 * devicePixelRatio
                 )
                 // Draw the particles
                 node.indices.forEach(index => {
@@ -1398,6 +1425,8 @@ import { AssertionError } from 'assert'
 
         drawAllParticles()
         draw()
+        // particleSystem.update()
+        // particleSystem.draw()
         drawUI()
 
         window.requestAnimationFrame(animate)

@@ -1,4 +1,4 @@
- import { v2 } from './math'
+import { v2 } from './math'
 import $ from './query'
 
 /**
@@ -12,10 +12,12 @@ export const getMinAndMaxPosition = objects => {
 
     for (const object of objects) {
         const pos = object.position
+
         if (pos.x > max.x) max.x = pos.x
+        else if (pos.x < min.x) min.x = pos.x
+
         if (pos.y > max.y) max.y = pos.y
-        if (pos.x < min.x) min.x = pos.x
-        if (pos.y < min.y) min.y = pos.y
+        else if (pos.y < min.y) min.y = pos.y
     }
 
     return {

@@ -26,7 +26,7 @@
     --c_cadedblue: #5C9EAD
     --c_carib_green: #02C39A
 
-    --storage: var(--c_cadedblue) 
+    --storage: var(--c_cadedblue)
     --literal: var(--c_carib_green)
     --comment: var(--c_orange)
     --keyword: var(--apple_pink)
@@ -44,7 +44,7 @@
         --background-color--selection: yellow
     h1, h2, h3, .big-glowy-name
         text-shadow: 0 1px 1px var(--c_black), 0 3px 5px var(--c_almond)
-        
+
 @media (prefers-color-scheme: dark)
     \:root
         --text-color--normal: var(--c_white)
@@ -157,7 +157,7 @@ img
     top: 0
     left: 0
 
-.sidenav a 
+.sidenav a
     padding: 6px 8px 6px 16px
     text-decoration: none
     font-size: 16px
@@ -185,7 +185,7 @@ img
 
 .reveal-text
     --animation-delay: 0
-    
+
 .reveal-text, .reveal-text::after
 	animation-delay: var(--animation-delay, 2s)
 	animation-iteration-count: var(--iterations, 1)
@@ -195,7 +195,7 @@ img
 
 .reveal-text
 	animation-name: clip-text
-	&::after 
+	&::after
 		content: ""
 		position: absolute
 		z-index: 999
@@ -207,17 +207,17 @@ img
 		transform: scaleX(0)
 		transform-origin: 0 50%
 		animation-name: text-revealer
-@keyframes clip-text 
-	from 
+@keyframes clip-text
+	from
 		clip-path: inset(0 100% 0 0)
-	to 
+	to
 		clip-path: inset(0 0 0 0)
 @keyframes text-revealer
 	0%, 50%
 		transform-origin: 0 50%
-	60%, 100% 
+	60%, 100%
 		transform-origin: 100% 50%
-	60% 
+	60%
 		transform: scaleX(1)
-	100% 
+	100%
 		transform: scaleX(0)
