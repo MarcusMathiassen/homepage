@@ -3,13 +3,7 @@ import $ from './query'
 import { mat4 } from 'gl-matrix'
 import Particle from './particle'
 import { v2 } from './math'
-import {
-    getTime,
-    Rect,
-    getMinAndMaxPosition,
-    getExt,
-    addButton,
-} from './utility'
+import { getTime, Rect, getMinAndMaxPosition, addButton } from './utility'
 import Quadtree from './quadtree'
 import Hammer from 'hammerjs'
 ;(exports => {
@@ -70,6 +64,15 @@ import Hammer from 'hammerjs'
     let boundsHighlightColor = { r: 0, g: 1, b: 0, a: 1 }
     let highlightColor = { r: 1, g: 1, b: 0, a: 1 }
 
+    // gl.bindVertexArray(this.vao)
+    // gl.useProgram(this.program)
+    // gl.drawArraysInstanced(
+    //     gl.TRIANGLE_FAN,
+    //     0,
+    //     this.numVerticesPerParticle,
+    //     this.particleCount
+    // )
+
     exports.attachTo = id => {
         const el = $('<canvas>')
         el.id = `${id}-canvas`
@@ -98,8 +101,8 @@ import Hammer from 'hammerjs'
             // particleSystem.addParticle({
             //     position: mouse,
             //     velocity: new v2(0.0, 0.0),
-            //     color: particleColor,
             //     radius: getParticleSize(),
+            //     color: particleColor,
             // })
         })
 
@@ -108,8 +111,8 @@ import Hammer from 'hammerjs'
             // particleSystem.addParticle({
             //     position: mouse,
             //     velocity: new v2(0.0, 0.0),
-            //     color: particleColor,
             //     radius: getParticleSize(),
+            //     color: particleColor,
             // })
         })
 
@@ -189,7 +192,6 @@ import Hammer from 'hammerjs'
 
             let i = 0
             for (const attrib of this.attribs) {
-                // this.uniformsMap.set(uniform, i)
                 gl.bindAttribLocation(this.program, i, attrib)
                 i++
             }
@@ -260,34 +262,36 @@ import Hammer from 'hammerjs'
         update(name, data, dataSize) {
             gl.bindVertexArray(this.vao)
             let vbo = this.vbos.get(name)
+            vbo.data = data
 
             gl.bindBuffer(vbo.type, vbo.handle)
             if (dataSize > vbo.dataSize) {
-                gl.bufferData(vbo.type, dataSize, data, vbo.usage)
+                gl.bufferData(vbo.type, vbo.data, vbo.usage, 0, 0)
                 vbo.dataSize = dataSize
             } else {
-                gl.bufferSubData(vbo.type, 0, vbo.dataSize, data)
+                gl.bufferSubData(vbo.type, 0, vbo.data, 0, 0)
             }
         }
 
         destroy() {
             gl.deleteVertexArray(this.vao)
-            this.vbos.forEach((key, vbo) => {
+            for (const [key, vbo] of this.vbos.entries()) {
                 gl.deleteBuffer(vbo.handle)
-            })
+            }
         }
         bind() {
             gl.bindVertexArray(this.vao)
         }
         finish() {
             this.vao = gl.createVertexArray()
-            this.bind()
-            let updatedMap = new Map()
-            this.vbos.forEach((key, vbo) => {
+            gl.bindVertexArray(this.vao)
+            for (const [key, vbo] of this.vbos.entries()) {
+                console.log(key, vbo)
                 vbo.handle = gl.createBuffer()
+                gl.bindBuffer(vbo.type, vbo.handle)
 
-                if (vbo.hasData) {
-                    gl.bufferData(vbo.type, vbo.dataSize, vbo.data, vbo.usage)
+                if (vbo.data.length) {
+                    gl.bufferData(vbo.type, vbo.data, vbo.usage, 0, 0)
                 }
 
                 if (!vbo.isMatrix) {
@@ -322,9 +326,7 @@ import Hammer from 'hammerjs'
                         }
                     }
                 }
-                updatedMap.set(key, vbo)
-            })
-            this.vbos = updatedMap
+            }
         }
     }
 
@@ -364,6 +366,43 @@ import Hammer from 'hammerjs'
         }
     }
 
+    const glCheckError = () => {
+        let err = gl.getError()
+
+        while (err != gl.NO_ERROR) {
+            let error
+
+            switch (err) {
+                case gl.INVALID_ENUM:
+                    error =
+                        'gl.INVALID_ENUM: An unacceptable value has been specified for an enumerated argument. The command is ignored and the error flag is set.'
+                    break
+                case gl.INVALID_VALUE:
+                    error =
+                        'gl.INVALID_VALUE: A numeric argument is out of range. The command is ignored and the error flag is set.'
+                    break
+                case gl.INVALID_OPERATION:
+                    error =
+                        'gl.INVALID_OPERATION: The specified command is not allowed for the current state. The command is ignored and the error flag is set.'
+                    break
+                case gl.INVALID_FRAMEBUFFER_OPERATION:
+                    error =
+                        'gl.INVALID_FRAMEBUFFER_OPERATION: The currently bound framebuffer is not framebuffer complete when trying to render to or to read from it.'
+                    break
+                case gl.OUT_OF_MEMORY:
+                    error =
+                        'gl.OUT_OF_MEMORY: Not enough memory is left to execute the command.'
+                    break
+                case gl.CONTEXT_LOST_WEBGL:
+                    error =
+                        'gl.CONTEXT_LOST_WEBGL: If the WebGL context is lost, this error is returned on the first call to getError. Afterwards and until the context has been restored, it returns gl.NO_ERROR.'
+                    break
+            }
+            err = gl.getError()
+            console.log(error)
+        }
+    }
+
     class Renderer {
         constructor() {
             this.name = ''
@@ -385,10 +424,10 @@ import Hammer from 'hammerjs'
             return this.shader
         }
         makeBuffer(name) {
-            let vbo = new VBO()
+            const vbo = new VBO()
             vbo.attribNum = this.buffer.attribCounter++
-            return this.buffer.vbos.set(name, vbo)
-            // return vbo
+            this.buffer.vbos.set(name, vbo)
+            return vbo
         }
         finish() {
             this.shader.finish()
@@ -422,7 +461,8 @@ import Hammer from 'hammerjs'
             // Add vertices
             for (let i = 0; i < this.numVerticesPerParticle; ++i) {
                 const cont = (i * Math.PI * 2) / this.numVerticesPerParticle
-                this.vertices[i] = new v2(Math.cos(cont), Math.sin(cont))
+                this.vertices.push(Math.cos(cont))
+                this.vertices.push(Math.sin(cont))
             }
 
             let shader = this.renderer.makeShader()
@@ -463,7 +503,7 @@ import Hammer from 'hammerjs'
             shader.uniforms = ['viewport_size']
 
             let vertex_buffer = this.renderer.makeBuffer('vertices')
-            vertex_buffer.data = vertices
+            vertex_buffer.data = new Float32Array(this.vertices)
             vertex_buffer.dataSize =
                 this.vertices.length * Float32Array.BYTES_PER_ELEMENT
             vertex_buffer.dataMemberCount = 2
@@ -494,62 +534,64 @@ import Hammer from 'hammerjs'
             // indices_buffer.type = buffer_type::element_array;
 
             this.renderer.finish()
+            glCheckError()
         }
 
         addParticle(particle) {
-            this.positions.push(particle.position)
-            this.velocities.push(particle.velocity)
+            this.positions.push(particle.position.x)
+            this.positions.push(particle.position.y)
+            this.velocities.push(particle.velocity.x)
+            this.velocities.push(particle.velocity.y)
             this.sizes.push(particle.radius)
-            this.colors.push(particle.color)
+            this.colors.push(particle.color.r)
+            this.colors.push(particle.color.g)
+            this.colors.push(particle.color.b)
+            this.colors.push(particle.color.a)
             this.particleCount++
+
+            this.updateGPUBuffers()
         }
 
         update() {
             for (let i = 0; i < this.particleCount; i++) {
-                this.positions[i].x += this.velocities[i].x
-                this.positions[i].y += this.velocities[i].y
+                this.positions[i] += this.velocities[i]
+                this.positions[i + 1] += this.velocities[i + 1]
             }
         }
 
+        // Update the gpu buffers incase of more particles..
+        updateGPUBuffers() {
+            this.renderer.updateBuffer(
+                'position',
+                new Float32Array(this.positions),
+                this.positions.length * Float32Array.BYTES_PER_ELEMENT
+            )
+            this.renderer.updateBuffer(
+                'color',
+                new Float32Array(this.colors),
+                this.colors.length * Float32Array.BYTES_PER_ELEMENT
+            )
+            this.renderer.updateBuffer(
+                'radius',
+                new Float32Array(this.sizes),
+                this.sizes.length * Float32Array.BYTES_PER_ELEMENT
+            )
+            console.log(this)
+        }
         draw() {
-            this.updateGPUBuffers()
-
             let cmdBuffer = new CommandBuffer()
             cmdBuffer.type = gl.TRIANGLE_FAN
             cmdBuffer.count = this.numVerticesPerParticle
-            cmdBuffer.primitive_count = this.particleCount
+            cmdBuffer.primitiveCount = this.particleCount
+
             this.renderer.bind()
             this.renderer.shader.setUniform2f(
                 'viewport_size',
                 canvasWidth,
                 canvasHeight
             )
-            this.renderer.draw(cmdBuffer)
-        }
 
-        // Update the gpu buffers incase of more particles..
-        updateGPUBuffers() {
-            if (this.positions.length != 0) {
-                this.renderer.updateBuffer(
-                    'position',
-                    this.positions,
-                    this.positions.length * Float32Array.BYTES_PER_ELEMENT * 2
-                )
-            }
-            if (this.colors.length != 0) {
-                this.renderer.updateBuffer(
-                    'color',
-                    this.colors,
-                    this.colors.length * Float32Array.BYTES_PER_ELEMENT * 4
-                )
-            }
-            if (this.sizes.length != 0) {
-                this.renderer.updateBuffer(
-                    'radius',
-                    this.sizes,
-                    this.sizes.length * Float32Array.BYTES_PER_ELEMENT
-                )
-            }
+            this.renderer.draw(cmdBuffer)
         }
     }
     const resolveCollisions = particles => {
@@ -1158,26 +1200,26 @@ import Hammer from 'hammerjs'
         let fs = gl.createShader(gl.FRAGMENT_SHADER)
 
         let vs_src = `
-    precision mediump float;
+        precision mediump float;
 
-    uniform mat4 projectionMatrix;
-    attribute vec2 position;
-    attribute vec4 color;
+        uniform mat4 projectionMatrix;
+        attribute vec2 position;
+        attribute vec4 color;
 
-    varying vec4 color0;
+        varying vec4 color0;
 
-    void main() {
-        gl_Position = projectionMatrix * vec4(position, 0.0, 1.0);
-        color0 = color;
-    }
-    `
+        void main() {
+            gl_Position = projectionMatrix * vec4(position, 0.0, 1.0);
+            color0 = color;
+        }
+        `
 
         let fs_src = `
-    precision mediump float;
-    varying vec4 color0;
-    void main() {
-      gl_FragColor = color0;
-    }`
+        precision mediump float;
+        varying vec4 color0;
+        void main() {
+          gl_FragColor = color0;
+        }`
 
         gl.shaderSource(vs, vs_src)
         gl.shaderSource(fs, fs_src)
@@ -1282,7 +1324,7 @@ import Hammer from 'hammerjs'
 
     const drawAllParticles = () => {
         const particleCount = particles.length
-        const vertexCount = 36 * 3
+        const vertexCount = 36
         for (let i = 0; i < particleCount; ++i) {
             const particle = particles[i]
             const position = particle.position
@@ -1457,6 +1499,7 @@ import Hammer from 'hammerjs'
             0.0,
             1.0
         )
+
         gl.useProgram(program)
         gl.uniformMatrix4fv(gAttribLocationProjMtx, gl.FALSE, ortho_projection)
         gl.bindVertexArray(vao)
@@ -1472,7 +1515,6 @@ import Hammer from 'hammerjs'
 
         // console.log('vertices', vertices.length)
         // console.log('particles', particles.length)
-
         vertices = []
         updateFPS()
     }
