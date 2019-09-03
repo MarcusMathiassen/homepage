@@ -1,3 +1,5 @@
+$comment-border-width: 0.5em
+
 \:root
     --apple_retro_green: #61bb46
     --apple_retro_yellow: #fdb827
@@ -40,7 +42,7 @@
         --text-color--highlight: var(--apple_pink)
         --text-color--comment: var(--comment)
         --background--content: rgb(255,255,255)
-        --background: rgb(230,230,230)
+        --background: rgb(245,245,245)
         --background-color--selection: yellow
 
 @media (prefers-color-scheme: dark)
@@ -129,15 +131,12 @@ button:focus
 h1, h2, h3
     color: var(--text-color--highlight)
 
-.landing-page--hero
-    border-radius: 50px 10px 10px 50px
 
 @keyframes animate
     0%
         background-position: -500%
     100%
         background-position: 500%
-
 img
     -webkit-transition: all 0.5s
     width: 20%
@@ -146,6 +145,7 @@ img
 
 .p2d-move-mouse
     color: red
+
 #p2d
     cursor: none
 
@@ -175,7 +175,7 @@ img
 .center
     width: 50%
     background: var(--background--content)
-    @media only screen and (max-width: 600px)
+    @media only screen and (max-width: 900px)
         width: 100%
 
 .left, .right
@@ -234,12 +234,21 @@ img
 		transform: scaleX(0)
 
 body
+    margin: 0
     font-family: 'Helvetica'
     font-size: 1em
     line-height: 1.5
     color: var(--text-color--normal)
     background-color: var(--background)
     text-align: center
+
+.content
+    margin: 20px
+    padding: 20px
+    border-radius: 5px
+    background-color: var(--background--content)
+    @media only screen and (min-width: 900px)
+        width: 60%
 
 p
     margin: 10px 0
@@ -260,40 +269,19 @@ p
     &.fourth
         animation-delay: 1.5s
 
-.col
-    float: left
-    width: 33.33%´
-
-.row:after
-    content: ""
-    display: table
-    clear: both
-
-.page
-    display: none
-
-
 pre
-    font-size: 0.4em
     text-align: left
 
 .comment
-    text-align: left
-    position: absolute
+    border-radius: 5px
+    position: relative
     padding: 10px
     margin: 10px
     font-size: 0.75em
-    left: 75%
-    max-width: 25%
-    border-left: 10px solid
+    border-left: $comment-border-width solid
     border-left-color: var(--c_carib_green)
     color: var(--text-color--normal)
     background: var(--background)
-
-    @media only screen and (max-width: 600px)
-        position: relative
-        left: 0%
-        max-width: 100%
 
     &.advice
         border-left-color: var(--c_carib_green)
@@ -325,7 +313,6 @@ pre
         left: 0%
         width: 100%
 
-
 @keyframes fade-in
   from
     opacity: 0
@@ -341,3 +328,32 @@ pre
     opacity: 1
     -webkit-transform: none
     transform: none
+
+button#burger
+    color: var(--text-color--normal)
+    background: none
+    display: block
+    padding: 1vw
+    font-size: 3vh
+    border: none
+    outline: none
+    cursor: pointer
+
+.nav--item
+    text-decoration: none
+    fony-family: monospace
+    font-size: 3vh
+    padding: 2vw
+    text-decoration: none
+    display: block
+
+#top-nav
+    position: fixed
+    width: 100%
+    color: var(--text-color--normal)
+    background: none
+
+.nav--list
+    margin: 0
+    padding: 0
+    display: none

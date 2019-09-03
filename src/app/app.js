@@ -4,15 +4,15 @@ import Color from 'color'
 import $ from './utils/query'
 import avatar from 'images/avatar.png'
 
-const setStyle = (e, p, v) => e.style.setProperty(p, v)
-const getStyleAsRGB = (e, p) =>
-    Color(
-        getComputedStyle(e)
-            .getPropertyValue(p)
-            .trim()
-    ).object()
 
 const updateGlobalColorVariables = () => {
+    const setStyle = (e, p, v) => e.style.setProperty(p, v)
+    const getStyleAsRGB = (e, p) =>
+        Color(
+            getComputedStyle(e)
+                .getPropertyValue(p)
+                .trim()
+        ).object()
     window.color = {
         textNormal: getStyleAsRGB(
             document.documentElement,
@@ -34,8 +34,6 @@ const updateGlobalColorVariables = () => {
     }
 }
 
-let currentPage
-
 document.addEventListener('DOMContentLoaded', () => {
     // This will make sure our global color variables are updated when
     // the user changes color schemes.
@@ -46,18 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the global color variables
     updateGlobalColorVariables()
 
-    const hide = el => (el.style.display = 'none')
-    const show = el => (el.style.display = 'block')
-
-    currentPage = $('#landing-page')
-    show(currentPage)
-    $('#clickme').onclick = () => {
-        hide(currentPage)
-        show((currentPage = $('#2d-collisions')))
+    const burger = $('#burger')
+    burger.onclick = () => {
+        burger.innerText = burger.innerText === '✖' ? '☰' : '✖'
+        $('.nav--list').forEach(el => el.style.display =  el.style.display === 'block' ? 'none' : 'block')
     }
-
-    // const 2dCol = pages.find(el => el.id === '2D Collision')
-    // app.innerHTML = 2dCol.innerHTML
 
     window.attachTo('p2d')
 })
