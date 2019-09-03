@@ -1119,14 +1119,14 @@ import Hammer from 'hammerjs'
 
         addButton({
             label: 'clear',
-            className: 'btn',
+            className: 'btn small',
             callback: erase,
             parent: div.id,
         })
 
         addButton({
             label: 'quadtree',
-            className: 'btn',
+            className: 'btn small',
             callback: () => {
                 useQuadtree ^= 1
             },
@@ -1134,7 +1134,7 @@ import Hammer from 'hammerjs'
         })
         addButton({
             label: 'optimized quadtree bounds',
-            className: 'btn',
+            className: 'btn small',
             callback: () => {
                 useOptimizedBounds ^= 1
             },
@@ -1142,7 +1142,7 @@ import Hammer from 'hammerjs'
         })
         addButton({
             label: 'show quadtree nodes',
-            className: 'btn',
+            className: 'btn small',
             callback: () => {
                 showNodes ^= 1
             },
@@ -1150,7 +1150,7 @@ import Hammer from 'hammerjs'
         })
         addButton({
             label: 'collisions',
-            className: 'btn',
+            className: 'btn small',
             callback: () => {
                 enableCollision ^= 1
             },
@@ -1158,7 +1158,7 @@ import Hammer from 'hammerjs'
         })
         addButton({
             label: 'gravity',
-            className: 'btn',
+            className: 'btn small',
             callback: () => {
                 enableGravity ^= 1
             },
@@ -1166,7 +1166,7 @@ import Hammer from 'hammerjs'
         })
         addButton({
             label: 'info',
-            className: 'btn',
+            className: 'btn small',
             callback: () => {
                 showInfopanel ^= 1
             },
@@ -1174,7 +1174,7 @@ import Hammer from 'hammerjs'
         })
         addButton({
             label: 'pause',
-            className: 'btn',
+            className: 'btn small',
             callback: () => {
                 paused ^= 1
             },

@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
     entry: {
-        main: './src/index.js',
+        index: './src/index.js',
         vendor: './src/vendor.js',
     },
     resolve: {
@@ -15,7 +15,7 @@ module.exports = {
         },
     },
     output: {
-        filename: 'main.[contentHash].js',
+        filename: '[name].[contentHash].js',
         path: path.resolve(__dirname, 'docs'),
     },
     module: {
@@ -26,8 +26,8 @@ module.exports = {
             },
             {
                 test: /\.pug$/,
-                include: path.join(__dirname, 'src'),
-                loaders: [ 'pug-loader' ]
+                include: path.join(__dirname, 'src/templates'),
+                loader: ['pug-loader'],
             },
             {
                 test: /\.(svg|png|jpg|gif)$/,

@@ -11,5 +11,5 @@ const $ = query =>
         ? [...document.getElementsByClassName(query.slice(1, query.length))]
         : query[0] === '<'
         ? document.createElement(query.slice(1, query.length - 1))
-        : document.querySelectorAll(query)
+        : [...document.querySelectorAll(query)]
 export default $

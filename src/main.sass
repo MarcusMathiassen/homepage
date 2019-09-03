@@ -39,11 +39,9 @@
         --text-color--richer: var(--c_black)
         --text-color--highlight: var(--apple_pink)
         --text-color--comment: var(--comment)
-        --background--content: var(--c_white)
-        --background: rgb(245,245,245)
+        --background--content: rgb(255,255,255)
+        --background: rgb(230,230,230)
         --background-color--selection: yellow
-    h1, h2, h3, .big-glowy-name
-        text-shadow: 0 1px 1px var(--c_black), 0 3px 5px var(--c_almond)
 
 @media (prefers-color-scheme: dark)
     \:root
@@ -52,68 +50,99 @@
         --text-color--richer: var(--c_white)
         --text-color--highlight: var(--apple_pink)
         --text-color--comment: var(--comment)
-        --background--content: var(--c_black)
-        --background: rgb(30,30,30)
+        --background--content: rgb(30,30,30)
+        --background: rgb(40,40,40)
         --background-color--selection: var(--apple_pink)
-    h1, h2, h3, .big-glowy-name
-        text-shadow: 0 0.2px 1px var(--c_black), 0 3px 5px black
-
-// More rhythm = less tips
-// Depth = tips height
-@mixin ripped-effect($rhythm, $depth)
-  $tip: calc(100% - #{$depth})
-  $ripped: '100% 0, 100% #{$tip}, '
-  $end: 100 - $rhythm
-  $isPrevTip: true
-
-  @for $i from $end through 1
-    @if $i % $rhythm == 0
-      @if $isPrevTip
-        $ripped: #{$ripped + $i + '% 100%, '}
-        $isPrevTip: false
-      @else
-        $ripped: #{$ripped + $i + '% #{$tip}, '}
-        $isPrevTip: true
-
-  $ripped: #{$ripped + '0 #{$tip}, 0 0'}
-
-  clip-path: polygon($ripped)
 
 
-.big-glowy-name
-    -webkit-transform: rotate(-5deg)
-*
-    font-family: 'Helvetica', cursive
-
-html
-    padding: 20px
-    background: var(--background)
-
-footer
+header, footer
     text-align: center
+    bottom: 0
+    box-sizing: border-box
+
+@mixin createButton($gradientFirst, $gradientThird, $shadowColor)
+    background-image: linear-gradient( 135deg, $gradientFirst 0%, $gradientThird 100%)
+    box-shadow: 0 20px 30px -6px $shadowColor
+    outline: none
+    border: none
+    color: white
+
+.btn
+    transition: all .3s ease-in-out
+    &:hover
+        transform: translatey(10px)
+        box-shadow: none
+
+    &:active
+        opacity: 0.5
+
+    max-width: 19em
+    border-radius: 5px
+    @media(min-width: 600px)
+        margin: 0 1em 2em
+        &:hover
+            text-decoration: none
+
+    &.icon
+        margin: auto
+
+
+    &.fancy
+        @include createButton(#E2B0FF,#9F44D3, rgba(171,88,219,0.5))
+        border-radius: 30px 10px 30px 10px
+        width: 30%
+        padding: 10px
+        letter-spacing: 1px
+        font-weight: 900
+
+    &.small
+        color: white
+        background-color: rgba(171,88,219,0.5)
+        border: 1px solid rgba(171,88,219,0.5)
+        box-shadow: 0 20px 30px -6px rgba(171,88,219,0.5)
+        margin: 3px
+        font-weight: 500
+
+    &.big
+        margin-top: 10px
+        @include createButton(#FEB692,#EA5455, rgba(238,103,97,0.5))
+        font-size: 1em
+        text-transform: uppercase
+        line-height: 45px
+        letter-spacing: 1px
+        font-weight: 900
+
 
 p
-    font-size: 18px
-    line-height: 1.5
+    font-size: 1em
+    font-family: 'Roboto', sans-serif
+    line-height: 1.0
     color: var(--text-color--normal)
 
 ::selection
     color: var(--text-color--selection)
     background-color: var(--background-color--selection)
 
-// Chrome draws an ugly outline when buttons are pressed
 button:focus
     outline: 0
 
 h1, h2, h3
-    font-family: 'Menlo', cursive
     color: var(--text-color--highlight)
 
+.landing-page--hero
+    border-radius: 50px 10px 10px 50px
+
+@keyframes animate
+    0%
+        background-position: -500%
+    100%
+        background-position: 500%
+
 img
+    -webkit-transition: all 0.5s
     width: 20%
-    border-radius: 5px
+    border-radius: 50px 10px 50px 50px
     margin: 10px
-    box-shadow: 0 3px 5px rgba(0,0,0,.5)
 
 .p2d-move-mouse
     color: red
@@ -142,20 +171,17 @@ img
     margin-bottom: 4px
     background-color: var(--background)
 
-.content
-    margin: 5px
-    margin-left: 160px
-    padding: 0px 10px
 
-.sidenav
-    margin: 5px
-    padding-left: 20px
-    width: 160px
-    position: fixed
+.center
+    width: 50%
+    background: var(--background--content)
+    @media only screen and (max-width: 600px)
+        width: 100%
+
+.left, .right
     overflow-x: hidden
-    z-index: 1
-    top: 0
-    left: 0
+    width: 25%
+    height: 100px
 
 .sidenav a
     padding: 6px 8px 6px 16px
@@ -167,21 +193,6 @@ img
         color: var(--text-color--highlight)
     &:active
         color: var(--text-color--normal)
-
-.btn
-    color: var(--text-color--normal)
-    cursor: pointer
-    border: none
-    border-radius: 2px
-    margin-top: 5px
-    padding: 4px
-    user-select: none
-    background: transparent
-    &:hover
-        color: var(--text-color--highlight)
-    &:active
-        color: var(--text-color--normal)
-
 
 .reveal-text
     --animation-delay: 0
@@ -221,3 +232,112 @@ img
 		transform: scaleX(1)
 	100%
 		transform: scaleX(0)
+
+body
+    font-family: 'Helvetica'
+    font-size: 1em
+    line-height: 1.5
+    color: var(--text-color--normal)
+    background-color: var(--background)
+    text-align: center
+
+p
+    margin: 10px 0
+    opacity: 0
+    animation: fade-in 0.5s ease-in-out 0s forwards
+    display: inline-block
+
+    &.subtitle
+        // Todo: fix the color here
+        color: white
+
+    &.first
+        animation-delay: 0.5s
+    &.second
+        animation-delay: 1.0s
+    &.third
+        animation-delay: 1.3s
+    &.fourth
+        animation-delay: 1.5s
+
+.col
+    float: left
+    width: 33.33%´
+
+.row:after
+    content: ""
+    display: table
+    clear: both
+
+.page
+    display: none
+
+
+pre
+    font-size: 0.4em
+    text-align: left
+
+.comment
+    text-align: left
+    position: absolute
+    padding: 10px
+    margin: 10px
+    font-size: 0.75em
+    left: 75%
+    max-width: 25%
+    border-left: 10px solid
+    border-left-color: var(--c_carib_green)
+    color: var(--text-color--normal)
+    background: var(--background)
+
+    @media only screen and (max-width: 600px)
+        position: relative
+        left: 0%
+        max-width: 100%
+
+    &.advice
+        border-left-color: var(--c_carib_green)
+    &.warning
+        border-left-color: var(--apple_orange)
+    &.info
+        border-left-color: gray
+
+
+.underline
+    animation-delay: 3s
+    animation: underline-grow 1s ease-in-out forwards
+    width: 0
+    height: 1px
+    position: relative
+    background: gray
+    -webkit-transition: 0.5s ease
+
+.emphasis
+    color: rgba(238,103,97,0.8)
+    font-weight: 100
+    font-size: 2em
+
+@keyframes underline-grow
+    from
+        left: 50%
+        width: 0%
+    to
+        left: 0%
+        width: 100%
+
+
+@keyframes fade-in
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+@keyframes fade-in-up
+  from
+    opacity: 0
+    -webkit-transform: translate3d(0, 100%, 0)
+    transform: translate3d(0, 100%, 0)
+  to
+    opacity: 1
+    -webkit-transform: none
+    transform: none
