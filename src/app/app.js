@@ -45,19 +45,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the global color variables
     updateGlobalColorVariables()
 
-    const burger = $('#burger')
-    burger.onclick = () => {
-        burger.innerText = burger.innerText === '✖' ? '☰' : '✖'
-        $('.nav--list').forEach(el => el.style.display =  el.style.display === 'block' ? 'none' : 'block')
-    }
-
     // Toggles the global font on click
     // @Audit, @HardCoded
-    $('#icantread').onclick = () => {
-        $('#icantread').innerText = $('#icantread').innerText === 'font is painful' ? 'no no ill take the pain' : 'font is painful'
+    const l1 = 'change to a readable font'
+    const l2 = 'change to an unreadable font'
+    const cantread = $('#icantread')
+    cantread.innerText = l1
+    cantread.onclick = () => {
+        cantread.innerText = cantread.innerText === l1 ? l2 : l1
         const font = getComputedStyle(document.documentElement).getPropertyValue('--font').trim()
         document.documentElement.style.setProperty('--font', font === 'Helvetica' ? 'pxplus_ibm_vga8regular' : 'Helvetica');
     }
+
+    // fetch('about.html').then(res => {
+    //     return res.text()
+    // }).then(text => {
+    //     console.log(text)
+    //     $('#app').innerHTML = text
+    // })
 
     window.attachTo('p2d')
 })
