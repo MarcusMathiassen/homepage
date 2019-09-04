@@ -6,6 +6,7 @@ import $ from './utils/query'
 import avatar from 'images/avatar.png'
 import avatar_pixelated from 'images/avatar_pixelated.jpg'
 
+
 const updateGlobalColorVariables = () => {
     const setStyle = (e, p, v) => e.style.setProperty(p, v)
     const getStyleAsRGB = (e, p) =>
@@ -57,12 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.style.setProperty('--font', font === 'Helvetica' ? 'pxplus_ibm_vga8regular' : 'Helvetica');
     }
 
-    // fetch('about.html').then(res => {
-    //     return res.text()
-    // }).then(text => {
-    //     console.log(text)
-    //     $('#app').innerHTML = text
-    // })
+    // @Messy, @BetterWay 
+    const hero = $('#avatar')
+    if (hero) {
+        hero.src = avatar_pixelated
+        hero.onmouseover = () => {
+            const src = hero.getAttribute('src') === avatar_pixelated ? avatar :  avatar_pixelated
+            hero.setAttribute('src', src)
+        }
+        hero.onmouseleave = () => {
+            const src = hero.getAttribute('src') === avatar_pixelated ? avatar :  avatar_pixelated
+            hero.setAttribute('src', src)
+        }
+    }
 
     window.attachTo('p2d')
 })

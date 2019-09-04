@@ -30,12 +30,22 @@ module.exports = {
                 loader: ['pug-loader'],
             },
             {
-                test: /\.(svg|png|jpg|woff|woff2|gif)$/,
+                test: /\.(png|jp(e*)g|svg)$/,  
+                use: [{
+                    loader: 'url-loader',
+                    options: { 
+                        limit: 8000, // Convert images < 8kb to base64 strings
+                        name: 'images/[hash]-[name].[ext]'
+                    } 
+                }]
+            },
+            {
+                test: /\.(woff|woff2|gif)$/,
                 use: {
                     loader: 'file-loader',
                     options: {
                         name: '[name].[hash].[ext]',
-                        outputPath: 'images',
+                        outputPath: 'resources',
                     },
                 },
             },
