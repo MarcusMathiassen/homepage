@@ -37,9 +37,10 @@ import Hammer from 'hammerjs'
     let ui
 
     let enableCollision = true
-    let showNodes = true
+    let showNodes = false
     let useQuadtree = true
-    let useOptimizedBounds = false
+    let useOptimizedBounds = true
+    let showNeighbours = false
     let paused = false
     let showInfopanel = false
     let enableGravity = false
@@ -96,25 +97,9 @@ import Hammer from 'hammerjs'
                 time: 1,
             })
         )
-        hammer.on('pan', () => {
-            spawnParticle()
-            // particleSystem.addParticle({
-            //     position: mouse,
-            //     velocity: new v2(0.0, 0.0),
-            //     radius: getParticleSize(),
-            //     color: particleColor,
-            // })
-        })
 
-        mc.on('tap', () => {
-            spawnParticle()
-            // particleSystem.addParticle({
-            //     position: mouse,
-            //     velocity: new v2(0.0, 0.0),
-            //     radius: getParticleSize(),
-            //     color: particleColor,
-            // })
-        })
+        hammer.on('pan', () => spawnParticle())
+        mc.on('tap', () => spawnParticle())
 
         canvas = el
         startWebGL()
@@ -1125,6 +1110,15 @@ import Hammer from 'hammerjs'
         })
 
         addButton({
+            label: 'show neighbours',
+            className: 'btn small',
+            callback: () => {
+                showNeighbours = !showNeighbours
+            },
+            parent: div.id,
+        })
+
+        addButton({
             label: 'quadtree',
             className: 'btn small',
             callback: () => {
@@ -1349,11 +1343,9 @@ import Hammer from 'hammerjs'
 
     const spawnParticle = () => {
         const size = getParticleSize()
-        for (let i = 0; i < 2; ++i) {
-            let particle = new Particle(mouse.x, mouse.y, size)
-            particles.push(particle)
-            particleColors.push(particleColor)
-        }
+        let particle = new Particle(mouse.x, mouse.y, size)
+        particles.push(particle)
+        particleColors.push(particleColor)
     }
 
     const toViewspace = v => {
@@ -1413,30 +1405,38 @@ import Hammer from 'hammerjs'
                 }
             }
 
-            let neighbours = []
-            quadtree.getNeighbourNodes(neighbours, {
-                position: mouse,
-                radius: getParticleSize(),
-            })
+            // Only draw the neighbours if the app
+            // is in focus.
+            // Otherwise when the user leaves the region
+            // the mouse will be stuck in the last place and
+            // distract the user.
+            if (focused && showNeighbours) {
 
-            // Draw all neighbours in a highlight color.
-            neighbours.forEach(node => {
-                const bound = node.bounds
-                const x = bound.min.x
-                const y = bound.min.y
-                const width = bound.max.x - bound.min.x - 1
-                const height = bound.max.y - bound.min.y - 1
-                drawHollowRectRange(
-                    new v2(x, y),
-                    new v2(x + width, y + height),
-                    boundsHighlightColor,
-                    2 * devicePixelRatio
-                )
-                // Draw the particles
-                node.indices.forEach(index => {
-                    particleColors[index] = boundsHighlightColor
+                let neighbours = []
+                quadtree.getNeighbourNodes(neighbours, {
+                    position: mouse,
+                    radius: getParticleSize(),
                 })
-            })
+
+                // Draw all neighbours in a highlight color.
+                neighbours.forEach(node => {
+                    const bound = node.bounds
+                    const x = bound.min.x
+                    const y = bound.min.y
+                    const width = bound.max.x - bound.min.x - 1
+                    const height = bound.max.y - bound.min.y - 1
+                    drawHollowRectRange(
+                        new v2(x, y),
+                        new v2(x + width, y + height),
+                        boundsHighlightColor,
+                        2 * devicePixelRatio
+                    )
+                    // Draw the particles
+                    node.indices.forEach(index => {
+                        particleColors[index] = boundsHighlightColor
+                    })
+                })
+            }
         }
 
         if (enableCollision) {
@@ -1463,12 +1463,8 @@ import Hammer from 'hammerjs'
             }
         }
 
-        // const col = HSLtoRGBA(Math.cos(time * 0.3) * 360, 70, 50)
-
         drawAllParticles()
         draw()
-        // particleSystem.update()
-        // particleSystem.draw()
         drawUI()
 
         window.requestAnimationFrame(animate)

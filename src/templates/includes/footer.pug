@@ -1,4 +1,16 @@
+- var webpack_href = "https://webpack.js.org"
+- var sass_href = "https://sass-lang.com"
+- var pug_href = "https://pugjs.org/api/getting-started.html"
+- var font_href = "https://int10h.org/oldschool-pc-fonts/"
+- var github_pages_href = "https://pages.github.com"
 footer
-    p Built using #[b Sass] and #[b Pug]
-    br
-    b &copy Marcus Mathiassen
+    button.btn.small#icantread font is painful
+    .faint.
+        Built using
+        #[b #[a(href=webpack_href target="__blank") Webpack]]
+        &
+        #[b #[a(href=sass_href target="__blank") Sass]]
+        &
+        #[b #[a(href=pug_href target="__blank") Pug]]
+    .faint Font: #[b #[a(href=font_href target="__blank") PxPlus IBM VGA8]]
+    .faint Host: #[b #[a(href=github_pages_href target="__blank") Github Pages]]

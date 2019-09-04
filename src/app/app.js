@@ -50,5 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
         $('.nav--list').forEach(el => el.style.display =  el.style.display === 'block' ? 'none' : 'block')
     }
 
+    // Toggles the global font on click
+    // @Audit, @HardCoded
+    $('#icantread').onclick = () => {
+        $('#icantread').innerText = $('#icantread').innerText === 'font is painful' ? 'no no ill take the pain' : 'font is painful'
+        const font = getComputedStyle(document.documentElement).getPropertyValue('--font').trim()
+        document.documentElement.style.setProperty('--font', font === 'Helvetica' ? 'pxplus_ibm_vga8regular' : 'Helvetica');
+    }
+
     window.attachTo('p2d')
 })

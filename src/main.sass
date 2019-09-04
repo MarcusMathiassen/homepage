@@ -1,6 +1,18 @@
+@font-face
+    font-family: 'pxplus_ibm_vga8regular'
+    src: url('pxplus_ibm_vga8-webfont.woff2') format('woff2'), url('pxplus_ibm_vga8-webfont.woff') format('woff')
+    font-weight: normal
+    font-style: normal
+
 $comment-border-width: 0.5em
+$backgroundColor: #F8F0DA
+$textColor: #3E4E50
+
+$go-ham-on-my-eyes-font: 'pxplus_ibm_vga8regular'
+$eye-saver-font: 'Helvetica'
 
 \:root
+    --font: 'pxplus_ibm_vga8regular'
     --apple_retro_green: #61bb46
     --apple_retro_yellow: #fdb827
     --apple_retro_orange: #f5821f
@@ -31,18 +43,18 @@ $comment-border-width: 0.5em
     --storage: var(--c_cadedblue)
     --literal: var(--c_carib_green)
     --comment: var(--c_orange)
-    --keyword: var(--apple_pink)
+    --keyword: rgb(255, 100, 130)
     --compile_time_resolved: var(--apple_indigo)
 
 @media (prefers-color-scheme: light)
     \:root
-        --text-color--normal: var(--c_black)
+        --text-color--normal: #{$textColor}
         --text-color--light: var(--c_black)
         --text-color--richer: var(--c_black)
         --text-color--highlight: var(--apple_pink)
         --text-color--comment: var(--comment)
         --background--content: rgb(255,255,255)
-        --background: rgb(245,245,245)
+        --background: #{$backgroundColor}
         --background-color--selection: yellow
 
 @media (prefers-color-scheme: dark)
@@ -53,73 +65,41 @@ $comment-border-width: 0.5em
         --text-color--highlight: var(--apple_pink)
         --text-color--comment: var(--comment)
         --background--content: rgb(30,30,30)
-        --background: rgb(40,40,40)
+        --background: #000
         --background-color--selection: var(--apple_pink)
+
+body, p, b, button
+    // font-smooth: never
+    // -webkit-font-smoothing : none
+    text-align: center
+    line-height: 1.5
+    font-size: 16px
+    font-family: var(--font)
+    color: $textColor
+    background: $backgroundColor
 
 
 header, footer
-    text-align: center
+    display: block
+    margin: 20px
+
+footer
+    left: 0
+    right: 0
     bottom: 0
-    box-sizing: border-box
 
-@mixin createButton($gradientFirst, $gradientThird, $shadowColor)
-    background-image: linear-gradient( 135deg, $gradientFirst 0%, $gradientThird 100%)
-    box-shadow: 0 20px 30px -6px $shadowColor
-    outline: none
-    border: none
-    color: white
-
-.btn
-    transition: all .3s ease-in-out
+button, a
+    color: saturate($textColor, 30)
     &:hover
-        transform: translatey(10px)
-        box-shadow: none
-
+        color: lighten($textColor, 30)
     &:active
-        opacity: 0.5
-
-    max-width: 19em
-    border-radius: 5px
-    @media(min-width: 600px)
-        margin: 0 1em 2em
-        &:hover
-            text-decoration: none
-
+        color: lighten($textColor, 80)
     &.icon
         margin: auto
-
-
-    &.fancy
-        @include createButton(#E2B0FF,#9F44D3, rgba(171,88,219,0.5))
-        border-radius: 30px 10px 30px 10px
-        width: 30%
-        padding: 10px
-        letter-spacing: 1px
-        font-weight: 900
-
     &.small
-        color: white
-        background-color: rgba(171,88,219,0.5)
-        border: 1px solid rgba(171,88,219,0.5)
-        box-shadow: 0 20px 30px -6px rgba(171,88,219,0.5)
-        margin: 3px
-        font-weight: 500
-
-    &.big
-        margin-top: 10px
-        @include createButton(#FEB692,#EA5455, rgba(238,103,97,0.5))
-        font-size: 1em
-        text-transform: uppercase
-        line-height: 45px
-        letter-spacing: 1px
-        font-weight: 900
-
-
-p
-    font-size: 1em
-    font-family: 'Roboto', sans-serif
-    line-height: 1.0
-    color: var(--text-color--normal)
+        font-size: 14px
+        margin: 0px
+        border: none
 
 ::selection
     color: var(--text-color--selection)
@@ -127,24 +107,6 @@ p
 
 button:focus
     outline: 0
-
-h1, h2, h3
-    color: var(--text-color--highlight)
-
-
-@keyframes animate
-    0%
-        background-position: -500%
-    100%
-        background-position: 500%
-img
-    -webkit-transition: all 0.5s
-    width: 20%
-    border-radius: 50px 10px 50px 50px
-    margin: 10px
-
-.p2d-move-mouse
-    color: red
 
 #p2d
     cursor: none
@@ -160,7 +122,6 @@ img
     border-radius: 7px
     border-width: 1px
     border-style: solid
-    color: var(--text-color--normal)
     border-color: var(--text-color--normal)
     width: max-content
     height: auto
@@ -171,108 +132,12 @@ img
     margin-bottom: 4px
     background-color: var(--background)
 
-
-.center
-    width: 50%
-    background: var(--background--content)
-    @media only screen and (max-width: 900px)
-        width: 100%
-
-.left, .right
-    overflow-x: hidden
-    width: 25%
-    height: 100px
-
-.sidenav a
-    padding: 6px 8px 6px 16px
-    text-decoration: none
-    font-size: 16px
-    color: var(--text-color--normal)
-    display: block
-    &:hover
-        color: var(--text-color--highlight)
-    &:active
-        color: var(--text-color--normal)
-
-.reveal-text
-    --animation-delay: 0
-
-.reveal-text, .reveal-text::after
-	animation-delay: var(--animation-delay, 2s)
-	animation-iteration-count: var(--iterations, 1)
-	animation-duration: var(--duration, 800ms)
-	animation-fill-mode: both
-	animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1)
-
-.reveal-text
-	animation-name: clip-text
-	&::after
-		content: ""
-		position: absolute
-		z-index: 999
-		top: 0
-		left: 0
-		right: 0
-		bottom: 0
-		background-color: var(--background-color--selection)
-		transform: scaleX(0)
-		transform-origin: 0 50%
-		animation-name: text-revealer
-@keyframes clip-text
-	from
-		clip-path: inset(0 100% 0 0)
-	to
-		clip-path: inset(0 0 0 0)
-@keyframes text-revealer
-	0%, 50%
-		transform-origin: 0 50%
-	60%, 100%
-		transform-origin: 100% 50%
-	60%
-		transform: scaleX(1)
-	100%
-		transform: scaleX(0)
-
-body
-    margin: 0
-    font-family: 'Helvetica'
-    font-size: 1em
-    line-height: 1.5
-    color: var(--text-color--normal)
-    background-color: var(--background)
-    text-align: center
-
 .content
-    margin: 20px
-    padding: 20px
     border-radius: 5px
-    background-color: var(--background--content)
-    @media only screen and (min-width: 900px)
-        width: 60%
-
-p
-    margin: 10px 0
-    opacity: 0
-    animation: fade-in 0.5s ease-in-out 0s forwards
-    display: inline-block
-
-    &.subtitle
-        // Todo: fix the color here
-        color: white
-
-    &.first
-        animation-delay: 0.5s
-    &.second
-        animation-delay: 1.0s
-    &.third
-        animation-delay: 1.3s
-    &.fourth
-        animation-delay: 1.5s
-
-pre
-    text-align: left
+    background: desaturate($backgroundColor, 20)
 
 .comment
+    background: desaturate($backgroundColor, 20)
     border-radius: 5px
     position: relative
     padding: 10px
@@ -280,8 +145,6 @@ pre
     font-size: 0.75em
     border-left: $comment-border-width solid
     border-left-color: var(--c_carib_green)
-    color: var(--text-color--normal)
-    background: var(--background)
 
     &.advice
         border-left-color: var(--c_carib_green)
@@ -290,44 +153,13 @@ pre
     &.info
         border-left-color: gray
 
-
 .underline
-    animation-delay: 3s
-    animation: underline-grow 1s ease-in-out forwards
-    width: 0
-    height: 1px
-    position: relative
-    background: gray
-    -webkit-transition: 0.5s ease
+    height: 0.1em
+    background: rgba(0,0,0,0.05)
 
 .emphasis
-    color: rgba(238,103,97,0.8)
     font-weight: 100
     font-size: 2em
-
-@keyframes underline-grow
-    from
-        left: 50%
-        width: 0%
-    to
-        left: 0%
-        width: 100%
-
-@keyframes fade-in
-  from
-    opacity: 0
-  to
-    opacity: 1
-
-@keyframes fade-in-up
-  from
-    opacity: 0
-    -webkit-transform: translate3d(0, 100%, 0)
-    transform: translate3d(0, 100%, 0)
-  to
-    opacity: 1
-    -webkit-transform: none
-    transform: none
 
 button#burger
     color: var(--text-color--normal)
@@ -339,12 +171,13 @@ button#burger
     outline: none
     cursor: pointer
 
+    @media only screen and (min-width: 900px)
+        display: none
+
 .nav--item
     text-decoration: none
-    fony-family: monospace
     font-size: 3vh
     padding: 2vw
-    text-decoration: none
     display: block
 
 #top-nav
@@ -357,3 +190,71 @@ button#burger
     margin: 0
     padding: 0
     display: none
+    float: left
+    @media only screen and (min-width: 900px)
+        display: inline
+        position: fixed
+        left: 0
+        top: 0
+
+
+img
+    margin: 20px
+    max-width: 30%
+    max-height: 30%
+    border-radius: 50px
+    @media only screen and (min-width: 600px)
+        float: right
+
+.landing-page--hero
+    display: inline
+    width: 30%
+
+.swapOnHover img:last-child
+    display: none
+
+.swapOnHover:hover img:first-child
+    display: none
+
+.swapOnHover:hover img:last-child
+    display: inline
+
+.landing-page--subtitle
+    display: block
+    text-align: center
+
+.landing-page--title
+    display: block
+    font-size: 30px
+    font-weight: 900
+    text-align: center
+
+@mixin syntax($name, $color, $fontStyle: "normal")
+    .#{$name}
+        display: inline-block
+        padding: 1px
+        color: $color
+        background: rgba($color, 0.1)
+        font-style: unquote($fontStyle)
+
+@include syntax("entity", #F79D65, "italic")
+@include syntax("keyword", #ff6482)
+@include syntax("keyword", #ff6482)
+
+.faint
+    color: rgba($textColor, 0.5)
+
+#app
+    padding: 20px
+
+a
+    text-decoration: none
+
+pre
+    font-family: 'pxplus_ibm_vga8regular'
+    padding: 5px
+    margin: 5px
+    line-height: 1
+    background: darken($backgroundColor, 1)
+    background: black
+    text-align: left
