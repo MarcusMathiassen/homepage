@@ -3,7 +3,7 @@ import { attachTo } from '@/utils/webgl'
 import Color from 'color'
 import $ from './utils/query'
 import avatar from 'images/avatar.png'
-
+import avatar_pixelated from 'images/avatar_pixelated.jpg'
 
 const updateGlobalColorVariables = () => {
     const setStyle = (e, p, v) => e.style.setProperty(p, v)
