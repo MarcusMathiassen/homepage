@@ -51,14 +51,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const l1 = 'change to a readable font'
     const l2 = 'change to an unreadable font'
     const cantread = $('#icantread')
+    const readableFont = `-apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif`
+    const pixelatedFont = 'pxplus_ibm_vga8regular'
     cantread.innerText = l1
     cantread.onclick = () => {
         cantread.innerText = cantread.innerText === l1 ? l2 : l1
-        const font = getComputedStyle(document.documentElement).getPropertyValue('--font').trim()
-        document.documentElement.style.setProperty('--font', font === 'Helvetica' ? 'pxplus_ibm_vga8regular' : 'Helvetica');
+        const font = getComputedStyle(document.documentElement)
+            .getPropertyValue('--font')
+            .trim()
+        document.documentElement.style.setProperty(
+            '--font',
+            font === pixelatedFont ? readableFont : pixelatedFont
+        )
     }
 
-    // // @Messy, @BetterWay 
+    // // @Messy, @BetterWay
     // const hero = $('#avatar')
     // if (hero) {
     //     hero.src = avatar_pixelated
