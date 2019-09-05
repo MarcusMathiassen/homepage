@@ -3,9 +3,9 @@ import { attachTo } from '@/utils/webgl'
 import Color from 'color'
 import $ from './utils/query'
 
-import avatar from 'images/avatar.png'
-import avatar_pixelated from 'images/avatar_pixelated.jpg'
-
+// import favicon from 'images/favicon.ico'
+// import avatar from 'images/avatar.png'
+// import avatar_pixelated from 'images/avatar_pixelated.jpg'
 
 const updateGlobalColorVariables = () => {
     const setStyle = (e, p, v) => e.style.setProperty(p, v)
@@ -58,19 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.style.setProperty('--font', font === 'Helvetica' ? 'pxplus_ibm_vga8regular' : 'Helvetica');
     }
 
-    // @Messy, @BetterWay 
-    const hero = $('#avatar')
-    if (hero) {
-        hero.src = avatar_pixelated
-        hero.onmouseover = () => {
-            const src = hero.getAttribute('src') === avatar_pixelated ? avatar :  avatar_pixelated
-            hero.setAttribute('src', src)
-        }
-        hero.onmouseleave = () => {
-            const src = hero.getAttribute('src') === avatar_pixelated ? avatar :  avatar_pixelated
-            hero.setAttribute('src', src)
-        }
-    }
+    // // @Messy, @BetterWay 
+    // const hero = $('#avatar')
+    // if (hero) {
+    //     hero.src = avatar_pixelated
+    //     hero.onmouseover = () => {
+    //         const src = hero.getAttribute('src') === avatar_pixelated ? avatar :  avatar_pixelated
+    //         hero.setAttribute('src', src)
+    //     }
+    //     hero.onmouseleave = () => {
+    //         const src = hero.getAttribute('src') === avatar_pixelated ? avatar :  avatar_pixelated
+    //         hero.setAttribute('src', src)
+    //     }
+    // }
 
     window.attachTo('p2d')
 })
