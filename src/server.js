@@ -3,13 +3,12 @@ import polka from 'polka'
 import compression from 'compression'
 import * as sapper from '@sapper/server'
 
-require('dotenv').config()
-
 console.log('Hello from server!')
-console.log(process.env)
 
-const { PORT, NODE_ENV } = process.env
+const { PORT, NODE_ENV, GITHUB_TOKEN } = process.env
 const dev = NODE_ENV === 'development'
+
+console.log(GITHUB_TOKEN)
 
 polka() // You can also use Express
     .use(
@@ -17,9 +16,6 @@ polka() // You can also use Express
         sirv('static', { dev }),
         sapper.middleware()
     )
-    .get('/users', (req, res) => {
-        console.log(`~> Hello from polka! user!`)
-    })
     .listen(PORT, err => {
         if (err) console.log('error', err)
         console.log(`> Running on ${PORT}`)

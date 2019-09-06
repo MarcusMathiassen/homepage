@@ -67,4 +67,5 @@
         I do compilers and languages.
         Interested in systems design and UX.
 
+    a(href="/.netlify/functions/hello-world") hello!
 </template>
