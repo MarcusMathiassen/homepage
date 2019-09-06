@@ -1,7 +1,12 @@
-import fetch from 'node-fetch'
+import axios from 'axios'
+
+const apiRoot = 'https://jsonplaceholder.typicode.com/todos/1'
 
 exports.handler = async (event, context) => {
-    return fetch('https://jsonplaceholder.typicode.com/todos/1')
-        .then(response => response.json())
-        .then(json => json)
+    return axios({
+        method: 'get',
+        url: apiRoot,
+    })
+        .then(res => res.json())
+        .then(text => text)
 }
