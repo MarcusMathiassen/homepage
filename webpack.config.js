@@ -15,6 +15,14 @@ const extensions = ['.mjs', '.js', '.json', '.svelte', '.html']
 const mainFields = ['svelte', 'module', 'browser', 'main']
 
 module.exports = {
+    devServer: {
+        proxy: {
+            '/.netlify': {
+                target: 'http://localhost:8888',
+                pathRewrite: { '^/.netlify/functions': '' },
+            },
+        },
+    },
     client: {
         entry: config.client.entry(),
         output: config.client.output(),
