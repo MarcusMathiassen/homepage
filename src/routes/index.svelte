@@ -1,16 +1,13 @@
 <script>
     import P2D from '../components/p2d.svelte'
-    import { onMount } from 'svelte'
 
     let repo = ""
     let repoDesc = ""
 
-    onMount(() => {
-        fetch("/.netlify/functions/hello-world").then(res => res.json()).then(json => {
-            console.log(json)
-            repo = json.lastRepoUpdated
-            repoDesc = json.lastRepoUpdatedDesc
-        })
+    fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
+        console.log(json)
+        repo = json.lastRepoUpdated
+        repoDesc = json.lastRepoUpdatedDesc
     })
 
 </script>
