@@ -1,6 +1,9 @@
 <script>
     import P2D from '../components/p2d.svelte'
 
+    let response = ""
+
+
     //    fetch(`https://api.github.com/graphql`, {
     //     method: 'post',
     //     headers: {
@@ -43,6 +46,11 @@
     //             })
     //     })
 
+    function handleClick(event) {
+        fetch("/.netlify/functions/hello-world").then(res => res.text()).then(text => {
+                response = text
+            })
+    }
 </script>
 
 <style lang="sass">
@@ -66,6 +74,7 @@
     p.landing-page--subtitle.
         I do compilers and languages.
         Interested in systems design and UX.
-
-    a(href="/.netlify/functions/hello-world") hello!
 </template>
+<button on:click={handleClick}>
+    response: {response}
+</button>
