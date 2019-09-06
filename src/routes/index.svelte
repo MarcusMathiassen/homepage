@@ -3,54 +3,9 @@
 
     let response = ""
 
-
-    //    fetch(`https://api.github.com/graphql`, {
-    //     method: 'post',
-    //     headers: {
-    //         Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         query: `query { viewer { repositories(first: 20) { edges { node { name pushedAt } } } } }`,
-    //     }),
-    // })
-    //     .then(res => res.json())
-    //     .then(json => {
-    //         var edges = json.data.viewer.repositories.edges
-    //         // Sort the repositories by pushdate
-    //         edges.sort((a, b) => {
-    //             return (
-    //                 new Date(b.node.pushedAt).getTime() -
-    //                 new Date(a.node.pushedAt).getTime()
-    //             )
-    //         })
-    //         const nameOfLastRepoUpdated = edges[0].node.name
-    //         fetch(`https://api.github.com/graphql`, {
-    //             method: 'post',
-    //             headers: {
-    //                 Authorization:
-    //                     `bearer ${process.env.GITHUB_TOKEN}`,
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-    //                 query: `query { viewer { repository(name:"${nameOfLastRepoUpdated}") { description } } }`,
-    //             }),
-    //         })
-    //             .then(res => res.json())
-    //             .then(json => {
-    //                 console.log(json)
-    //                 const desc = json.data.viewer.repository.description
-    //                 // $(
-    //                 //     '#last-repo-updated'
-    //                 // ).innerHTML = `Currently working on <h1>${nameOfLastRepoUpdated}</h1> <p>${desc}</p>`
-    //             })
-    //     })
-
-    function handleClick(event) {
-        fetch("/.netlify/functions/hello-world").then(res => res.text()).then(text => {
-                response = text
-            })
-    }
+    fetch("/.netlify/functions/github").then(res => res.text()).then(text => {
+            response = text
+    })
 </script>
 
 <style lang="sass">
@@ -74,7 +29,5 @@
     p.landing-page--subtitle.
         I do compilers and languages.
         Interested in systems design and UX.
+    p currently working on: {response}
 </template>
-<button on:click={handleClick}>
-    response: {response}
-</button>
