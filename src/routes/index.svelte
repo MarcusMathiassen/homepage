@@ -30,8 +30,5 @@
     p.landing-page--subtitle.
         I do compilers and languages.
         Interested in systems design and UX.
-    <!-- p currently working on: {response} -->
+    p currently working on: {response}
 </template>
-<button on:click={handleClick}>
-	response: {response}
-</button>
