@@ -12,11 +12,18 @@ const alias = { svelte: path.resolve('node_modules', 'svelte') }
 const extensions = ['.mjs', '.js', '.json', '.svelte', '.html']
 const mainFields = ['svelte', 'module', 'browser', 'main']
 
+const TerserPlugin = require('terser-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+
 module.exports = {
     client: {
         entry: config.client.entry(),
         output: config.client.output(),
         resolve: { alias, extensions, mainFields },
+        optimization: {
+            minimizer: [new OptimizeCssAssetsPlugin(), new TerserPlugin()],
+        },
         module: {
             rules: [
                 {
