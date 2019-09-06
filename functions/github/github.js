@@ -1,12 +1,12 @@
-import fetch from 'node-fetch'
+const fetch = require('node-fetch')
+const apiRoot = 'https://api.github.com/graphql'
 
 exports.handler = async (event, context) => {
-    let bodyContent = ''
-    fetch(`https://api.github.com/graphql`, {
-        method: 'post',
+    return fetch(apiRoot, {
+        method: 'POST',
         headers: {
-            Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-            'Content-Type': 'application/json',
+            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify({
             query: `query { viewer { repositories(first: 20) { edges { node { name pushedAt } } } } }`,
@@ -23,11 +23,12 @@ exports.handler = async (event, context) => {
                 )
             })
             const nameOfLastRepoUpdated = edges[0].node.name
-            fetch(`https://api.github.com/graphql`, {
-                method: 'post',
+
+            return fetch(apiRoot, {
+                method: 'POST',
                 headers: {
-                    Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-                    'Content-Type': 'application/json',
+                    Authorization: `token ${process.env.GITHUB_TOKEN}`,
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify({
                     query: `query { viewer { repository(name:"${nameOfLastRepoUpdated}") { description } } }`,
@@ -35,11 +36,14 @@ exports.handler = async (event, context) => {
             })
                 .then(res => res.json())
                 .then(json => {
-                    console.log(json)
                     const desc = json.data.viewer.repository.description
-                    bodyContent = `Currently working on <h1>${nameOfLastRepoUpdated}</h1> <p>${desc}</p>`
+                    return {
+                        statusCode: 200,
+                        body: JSON.stringify({
+                            lastRepoUpdated: nameOfLastRepoUpdated,
+                            lastRepoUpdatedDesc: desc,
+                        }),
+                    }
                 })
         })
-
-    return bodyContent
 }

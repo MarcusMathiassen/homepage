@@ -1,11 +1,12 @@
 <script>
     import P2D from '../components/p2d.svelte'
 
-    let response = ""
+    let repo, repoDesc
 
-    fetch("/.netlify/functions/hello-world").then(res => res.text()).then(text => {
-            console.log(text)
-            response = text
+    fetch("/.netlify/functions/hello-world").then(res => res.json()).then(json => {
+            console.log(json)
+            repo = json.lastRepoUpdated
+            repoDesc = json.lastRepoUpdatedDesc
     })
 
 </script>
@@ -31,5 +32,6 @@
     p.landing-page--subtitle.
         I do compilers and languages.
         Interested in systems design and UX.
-    p currently working on: {response}
+    p currently working on: {repo}
+    .faint {repoDesc }
 </template>
