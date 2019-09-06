@@ -4,6 +4,7 @@
     let response = ""
 
     fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
+            console.log(json)
             response = json['body']
     })
 
