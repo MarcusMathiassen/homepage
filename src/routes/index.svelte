@@ -3,9 +3,9 @@
 
     let response = ""
 
-    fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
-            console.log(json)
-            response = json['body']
+    fetch("/.netlify/functions/github").then(res => res.text()).then(text => {
+            console.log(text)
+            response = text
     })
 
 </script>
