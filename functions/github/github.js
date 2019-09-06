@@ -1,3 +1,5 @@
+const fetch = require('node-fetch')
+
 exports.handler = async (event, context) => {
     let bodyContent = ''
     fetch(`https://api.github.com/graphql`, {
