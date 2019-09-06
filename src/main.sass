@@ -1,6 +1,6 @@
 @font-face
     font-family: 'pxplus_ibm_vga8regular'
-    src: url('pxplus_ibm_vga8-webfont.woff2') format('woff2'), url('pxplus_ibm_vga8-webfont.woff') format('woff')
+    src: url('../static/pxplus_ibm_vga8-webfont.woff2') format('woff2'), url('../static/pxplus_ibm_vga8-webfont.woff') format('woff')
     font-weight: normal
     font-style: normal
 
@@ -10,9 +10,6 @@ $comment-border-color--info: #5C9EAD
 $comment-border-color--warning: #F79D65
 $backgroundColor: #F8F0DA
 $textColor: #3E4E50
-
-$go-ham-on-my-eyes-font: 'pxplus_ibm_vga8regular'
-$eye-saver-font: 'Helvetica'
 
 \:root
     --font: 'pxplus_ibm_vga8regular'
@@ -49,15 +46,19 @@ $eye-saver-font: 'Helvetica'
     --keyword: rgb(255, 100, 130)
     --compile_time_resolved: var(--apple_indigo)
 
+    --font: 'pxplus_ibm_vga8regular'
+    --text: #3e4e50
+    --background: #f8f0da
+
 @media (prefers-color-scheme: light)
     \:root
-        --text-color--normal: #{$textColor}
+        --text-color--normal: var(--text)
         --text-color--light: var(--c_black)
         --text-color--richer: var(--c_black)
-        --text-color--highlight: var(--apple_pink)
+        --text-color--highlight: var(--keyword)
         --text-color--comment: var(--comment)
-        --background--content: rgb(255,255,255)
-        --background: #{$backgroundColor}
+        --background--content: rgb(255, 255, 255)
+        --background: #f8f0da
         --background-color--selection: yellow
 
 @media (prefers-color-scheme: dark)
@@ -67,9 +68,18 @@ $eye-saver-font: 'Helvetica'
         --text-color--richer: var(--c_white)
         --text-color--highlight: var(--apple_pink)
         --text-color--comment: var(--comment)
-        --background--content: rgb(30,30,30)
+        --background--content: rgb(30, 30, 30)
         --background: #000
         --background-color--selection: var(--apple_pink)
+
+html[theme='retro']
+    --font: 'pxplus_ibm_vga8regular'
+
+html[theme='modern']
+    --text: black
+    --background: white
+    --background--content: white
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
 
 .content
     // border: 1px solid var(--text-color--normal)
@@ -90,8 +100,8 @@ body, p, b, button
     line-height: 1.5
     font-size: 1em
     font-family: var(--font)
-    color: $textColor
-    background: $backgroundColor
+    color: var(--text)
+    background: var(--background)
 
 p
     background: none
