@@ -2,16 +2,26 @@
     import P2D from '../components/p2d.svelte'
 </script>
 
+<style lang="sass">
+.landing-page--hero
+    width: 50%
+    margin: 20px auto
+    display: block
+    background-image: var(--avatar)
+    background-size: cover
+    width: 300px
+    height: 300px
+</style>
+
 <svelte:head>
     <title>Home</title>
 </svelte:head>
-<div class=".landing-page--hero swapOnHover">
-    <img src="avatar_pixelated.jpg" alt="picture of me" />
-    <img src="avatar.png" alt="picture of me" />
-</div>
-<p class="landing-page--title">Marcus Mathiassen</p>
-<p class="landing-page--subtitle">
-    I do compilers and languages.
-    <br />
-    Interested in systems design and UX.
-</p>
+
+<template lang="pug">
+    .landing-page--hero
+    p.landing-page--title Marcus Mathiassen
+    p.landing-page--subtitle.
+        I do compilers and languages.
+        Interested in systems design and UX.
+
+</template>

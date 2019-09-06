@@ -11,8 +11,8 @@ $comment-border-color--warning: #F79D65
 $backgroundColor: #F8F0DA
 $textColor: #3E4E50
 
-\:root
-    --font: 'pxplus_ibm_vga8regular'
+html
+    --theme: 'retro'
     --apple_retro_green: #61bb46
     --apple_retro_yellow: #fdb827
     --apple_retro_orange: #f5821f
@@ -46,12 +46,26 @@ $textColor: #3E4E50
     --keyword: rgb(255, 100, 130)
     --compile_time_resolved: var(--apple_indigo)
 
-    --font: 'pxplus_ibm_vga8regular'
     --text: #3e4e50
     --background: #f8f0da
+    --font: 'pxplus_ibm_vga8regular'
+    --avatar: url("../static/avatar_pixelated.jpg")
+
+    &[theme='retro']
+        --theme: 'retro'
+        --font: 'pxplus_ibm_vga8regular'
+        --avatar: url("../static/avatar_pixelated.jpg")
+    &[theme='modern']
+        --theme: 'modern'
+        --avatar: url("../static/avatar.png")
+        --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
+
+        .landing-page--hero
+            border-radius: 50px
+
 
 @media (prefers-color-scheme: light)
-    \:root
+    html
         --text-color--normal: var(--text)
         --text-color--light: var(--c_black)
         --text-color--richer: var(--c_black)
@@ -61,8 +75,14 @@ $textColor: #3E4E50
         --background: #f8f0da
         --background-color--selection: yellow
 
+        &[theme='modern']
+            --text: black
+            --background: white
+            --background--content: white
+
+
 @media (prefers-color-scheme: dark)
-    \:root
+    html
         --text-color--normal: var(--c_white)
         --text-color--light: var(--c_white)
         --text-color--richer: var(--c_white)
@@ -72,14 +92,13 @@ $textColor: #3E4E50
         --background: #000
         --background-color--selection: var(--apple_pink)
 
-html[theme='retro']
-    --font: 'pxplus_ibm_vga8regular'
-
-html[theme='modern']
-    --text: black
-    --background: white
-    --background--content: white
-    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
+        &[theme='modern']
+            --text: white
+            --background: black
+            --background--content: black
+            --text-color--normal: var(--text)
+            --text-color--light: var(--text)
+            --text-color--richer: var(--text)
 
 .content
     // border: 1px solid var(--text-color--normal)
@@ -236,7 +255,6 @@ a
     text-decoration: none
 
 pre
-    font-family: 'pxplus_ibm_vga8regular'
     padding: 5px
     margin: 5px
     line-height: 1

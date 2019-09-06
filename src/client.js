@@ -33,6 +33,19 @@ const updateGlobalColorVariables = () => {
     console.log('theme changed')
 }
 
+var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.type == 'attributes') {
+            console.log('attributes changed')
+            updateGlobalColorVariables()
+        }
+    })
+})
+
+observer.observe(document.documentElement, {
+    attributes: true, //configure it to listen to attribute changes
+})
+
 window
     .matchMedia('(prefers-color-scheme: light)')
     .addListener(updateGlobalColorVariables)

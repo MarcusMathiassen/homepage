@@ -16,6 +16,13 @@
     footer
         text-align: center
         background: none
+    .icon-list
+        display: flex
+        justify-content: center
+
+        a
+            font-size: 2em
+            margin: 5px
 </style>
 
 <template lang="pug">
@@ -44,4 +51,8 @@ footer
     button.btn.small#icantread
     button.btn.small#modernize retro
     .faint Contact: #[b mathiassenmarcus@gmail.com]
+
+    .icon-list
+        a(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener") #[i.fab.fa-github]
+        a(href="https://www.youtube.com/channel/UCZ7FbQ4Bvi3GkV0k5ENoXYQ" target="_blank" rel="noopener") #[i.fab.fa-youtube]
 </template>
