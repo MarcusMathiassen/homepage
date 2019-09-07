@@ -1,3 +1,5 @@
+@import 'sierra-library/lib/index'
+
 @font-face
     font-family: 'pxplus_ibm_vga8regular'
     src: url('../static/pxplus_ibm_vga8-webfont.woff2') format('woff2'), url('../static/pxplus_ibm_vga8-webfont.woff') format('woff')
@@ -46,8 +48,12 @@ html
     --keyword: rgb(255, 100, 130)
     --compile_time_resolved: var(--apple_indigo)
 
-    --text: #3e4e50
-    --background: #f8f0da
+    --text-base: 62, 78, 80
+    --text: rgba(var(--text-base), 1)
+
+    --background-base: 248, 240, 218
+    --background: rgba(var(--background-base), 1)
+
     --font: 'pxplus_ibm_vga8regular'
     --avatar: url("../static/avatar_pixelated.jpg")
 
@@ -72,27 +78,13 @@ html
         --text-color--highlight: var(--keyword)
         --text-color--comment: var(--comment)
         --background--content: rgb(255, 255, 255)
-        --background: #f8f0da
+        --background-base: 248, 240, 218
         --background-color--selection: yellow
 
         &[theme-style='modern']
-            --text: black
-            --background: white
+            --text-base: 0, 0, 0
+            --background-base: 255, 255, 255
             --background--content: white
-html[theme="light"]
-    --text-color--normal: var(--text)
-    --text-color--light: var(--c_black)
-    --text-color--richer: var(--c_black)
-    --text-color--highlight: var(--keyword)
-    --text-color--comment: var(--comment)
-    --background--content: rgb(255, 255, 255)
-    --background: #f8f0da
-    --background-color--selection: yellow
-
-    &[theme-style='modern']
-        --text: black
-        --background: white
-        --background--content: white
 
 @media (prefers-color-scheme: dark)
     html
@@ -102,16 +94,31 @@ html[theme="light"]
         --text-color--highlight: var(--apple_pink)
         --text-color--comment: var(--comment)
         --background--content: rgb(30, 30, 30)
-        --background: #000
+        --background-base: 0,0,0
         --background-color--selection: var(--apple_pink)
 
         &[theme-style='modern']
-            --text: white
-            --background: black
+            --text-base: 255,255,255
+            --background-base: 0,0,0
             --background--content: black
             --text-color--normal: var(--text)
             --text-color--light: var(--text)
             --text-color--richer: var(--text)
+
+html[theme="light"]
+    --text-color--normal: var(--text)
+    --text-color--light: var(--c_black)
+    --text-color--richer: var(--c_black)
+    --text-color--highlight: var(--keyword)
+    --text-color--comment: var(--comment)
+    --background--content: rgb(255, 255, 255)
+    --background-base: 248, 240, 218
+    --background-color--selection: yellow
+
+    &[theme-style='modern']
+        --text-base: 0,0,0
+        --background-base: 255,255,255
+        --background--content: white
 
 html[theme='dark']
     --text-color--normal: var(--c_white)
@@ -120,12 +127,12 @@ html[theme='dark']
     --text-color--highlight: var(--apple_pink)
     --text-color--comment: var(--comment)
     --background--content: rgb(30, 30, 30)
-    --background: #000
+    --background-base: 0,0,0
     --background-color--selection: var(--apple_pink)
 
     &[theme-style='modern']
-        --text: white
-        --background: black
+        --text-base: 255,255,255
+        --background-base: 0,0,0
         --background--content: black
         --text-color--normal: var(--text)
         --text-color--light: var(--text)
