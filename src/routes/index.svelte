@@ -37,14 +37,18 @@
 <ul>
 	{#each repos as repo}
     <li>
-        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h1> name {repo.node.name} </h1> </a>
+        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h3> name {repo.node.name} </h3> </a>
         {#if repo.node.description}
-            <h2> description: {repo.node.description} </h2>
+            <h4> {repo.node.description} </h4>
         {/if}
         {#if repo.node.primaryLanguage}
-            <h3> lanuage: {repo.node.primaryLanguage.name}</h3>
+            {#if repo.node.primaryLanguage.name === 'javascript'}
+                <i class="fab fa-js"></i>
+            {:else}
+                <p> {repo.node.primaryLanguage.name}</p>
+            {/if}
         {/if}
-        <h3> stars: {repo.node.stargazers.totalCount}</h3>
+        <i class="fas fa-star">{repo.node.stargazers.totalCount}</i>
     </li>
 	{/each}
 </ul>
