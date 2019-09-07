@@ -41,13 +41,13 @@
 	{#each repos as repo}
     <li>
         a(href="{repo.url}") #[h1 name {repo.name}]
-        {#if {lastRepo.description}}
-            h2 description: {lastRepo.description}
+        {#if {repo.description}}
+            h2 description: {repo.description}
         {/if}
-        {#if {lastRepo.primaryLanguage}}
-            h3 lanuage: {lastRepo.primaryLanguage.name}
+        {#if {repo.primaryLanguage}}
+            h3 lanuage: {repo.primaryLanguage.name}
         {/if}
-        h3 stars: {lastRepo.stargazers.totalCount}
+        h3 stars: {repo.stargazers.totalCount}
     </li>
 	{/each}
 </ul>

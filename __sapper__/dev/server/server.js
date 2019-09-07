@@ -406,7 +406,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*! exports provided: default */
 /***/ (function(module, exports) {
 
-eval("throw new Error(\"Module build failed (from ./node_modules/svelte-loader/index.js):\\nError: ParseError: Unexpected token (38:22)\\n36:     <li>\\n37:         a(href=\\\"{repo.url}\\\") #[h1 name {repo.name}]\\n38:         {#if {lastRepo.description}}\\n                          ^\\n39:             h2 description: {lastRepo.description}\\n40:         {/if}\\n    at /Users/marcusmathiassen/dev/homepage/node_modules/svelte-loader/index.js:181:12\");\n\n//# sourceURL=webpack:///./src/routes/index.svelte?");
+eval("throw new Error(\"Module build failed (from ./node_modules/svelte-loader/index.js):\\nError: ParseError: Unexpected token (38:18)\\n36:     <li>\\n37:         a(href=\\\"{repo.url}\\\") #[h1 name {repo.name}]\\n38:         {#if {repo.description}}\\n                      ^\\n39:             h2 description: {repo.description}\\n40:         {/if}\\n    at /Users/marcusmathiassen/dev/homepage/node_modules/svelte-loader/index.js:181:12\");\n\n//# sourceURL=webpack:///./src/routes/index.svelte?");
 
 /***/ }),
 
