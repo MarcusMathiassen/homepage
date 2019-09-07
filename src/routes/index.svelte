@@ -42,7 +42,7 @@
             {#if repo.node.primaryLanguage.name === 'JavaScript'}
                 <i class="fab fa-js"></i>
             {:else}
-                <p> {repo.node.primaryLanguage.name}</p>
+                <span> {repo.node.primaryLanguage.name}</span>
             {/if}
         {/if}
         <i class="fas fa-star">{repo.node.stargazers.totalCount}</i></h3> </a>
