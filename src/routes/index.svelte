@@ -54,20 +54,20 @@ li, ul
 <ul>
 	{#each repos as repo}
     <li>
-        <a href="{repo.node.url}" target="_blank" rel="noopener">
-        <span class="repo--name">{repo.node.name}
+        <a href="{repo.url}" target="_blank" rel="noopener">
+        <span class="repo--name">{repo.name}
             <span class="repo--badges">
-                {#if repo.node.primaryLanguage}
-                    <span style="color: {repo.node.primaryLanguage.color}"> {repo.node.primaryLanguage.name}</span>
+                {#if repo.primaryLanguage}
+                    <span style="color: {repo.primaryLanguage.color}"> {repo.primaryLanguage.name}</span>
                 {/if}
-                {#if repo.node.stargazers.totalCount}
+                {#if repo.stargazers.totalCount}
                     <span>
-                        <i class="fas fa-star">{repo.node.stargazers.totalCount}</i>
+                        <i class="fas fa-star">{repo.stargazers.totalCount}</i>
                     </span>
                 {/if}
-                {#if repo.node.forkCount}
+                {#if repo.forkCount}
                     <span>
-                        <i class="fas fa-code-branch"> {repo.node.forkCount}</i>
+                        <i class="fas fa-code-branch"> {repo.forkCount}</i>
                     </span>
                 {/if}
             </span>

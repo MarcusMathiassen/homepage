@@ -5,8 +5,7 @@ const githubQuery_GetLast30UpdatedRepos = `
 {
   viewer {
     repositories(first: 30, isFork: false, privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}) {
-      edges {
-        node {
+        nodes {
           primaryLanguage {
             name
             color
@@ -27,7 +26,6 @@ const githubQuery_GetLast30UpdatedRepos = `
             name
           }
         }
-      }
     }
   }
 }
@@ -49,7 +47,7 @@ exports.handler = async (event, context) => {
         .then(json => {
             return {
                 statusCode: 200,
-                body: JSON.stringify(json.data.viewer.repositories.edges),
+                body: JSON.stringify(json.data.viewer.repositories.nodes),
             }
         })
 }
