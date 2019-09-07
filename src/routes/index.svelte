@@ -20,11 +20,14 @@
     height: 300px
 
 li, ul
-    margin: 10px
+    margin: 5px
+    margin-top: 10px
     list-style-type: none
 
 .repo--name
     font-size: 1em
+    padding: 0
+    margin: 0
 .repo--badges
     margin: 5px
     padding: 5px
@@ -64,7 +67,7 @@ li, ul
                 {/if}
                 {#if repo.node.forkCount}
                     <span>
-                        <i class="fas fa-code-branch">{repo.node.forkCount}</i>
+                        <i class="fas fa-code-branch"> {repo.node.forkCount}</i>
                     </span>
                 {/if}
             </span>
