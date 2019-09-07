@@ -1,11 +1,9 @@
 <script>
     import P2D from '../components/p2d.svelte'
-    let repos
-
+    let repos = ""
     fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
         repos = json
     })
-
 
 //     repos = [
 //     {
