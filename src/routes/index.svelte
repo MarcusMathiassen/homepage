@@ -1,6 +1,6 @@
 <script>
     import P2D from '../components/p2d.svelte'
-    let repos = ""
+    let repos
     fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
         repos = json
     })
@@ -12,7 +12,7 @@
 //         "name": "Leticia Hansen",
 //         "primaryLanguage": {
 //             "name": "JavaScript",
-//             "color": "#00f"
+//             "color": "#00f5"
 //         },
 //         "stargazers": {
 //             "totalCount": 30
@@ -24,7 +24,7 @@
 //         "name": "Candy Vasquez",
 //         "primaryLanguage": {
 //             "name": "C++",
-//             "color": "#ff0"
+//             "color": "#ff01"
 //         },
 //         "stargazers": {
 //             "totalCount": 26
@@ -36,7 +36,7 @@
 //         "name": "Lamb Johnson",
 //         "primaryLanguage": {
 //             "name": "C++",
-//             "color": "#f00"
+//             "color": "#f007"
 //         },
 //         "stargazers": {
 //             "totalCount": 24
@@ -48,7 +48,7 @@
 //         "name": "Solomon Medina",
 //         "primaryLanguage": {
 //             "name": "C++",
-//             "color": "#f00"
+//             "color": "#f00f"
 //         },
 //         "stargazers": {
 //             "totalCount": 39
@@ -60,7 +60,7 @@
 //         "name": "Richmond Hess",
 //         "primaryLanguage": {
 //             "name": "C++",
-//             "color": "#ff0"
+//             "color": "#ff03"
 //         },
 //         "stargazers": {
 //             "totalCount": 24
@@ -72,7 +72,7 @@
 //         "name": "Spencer Bush",
 //         "primaryLanguage": {
 //             "name": "C++",
-//             "color": "#ff0"
+//             "color": "#ff04"
 //         },
 //         "stargazers": {
 //             "totalCount": 33
@@ -84,7 +84,7 @@
 //         "name": "Hammond Mann",
 //         "primaryLanguage": {
 //             "name": "JavaScript",
-//             "color": "#ff0"
+//             "color": "#ff06"
 //         },
 //         "stargazers": {
 //             "totalCount": 22
@@ -165,7 +165,8 @@ span
         <li class="repo">
             <a href="{repo.url}" target="_blank" rel="noopener">
             <span class="repo--name">{repo.name} </span>
-            <span class="repo--badges" style="background:{repo.primaryLanguage.color}5">
+            <span class="repo--badges" style="background:{repo.primaryLanguage.color.substring(0, repo.primaryLanguage.color.length - 1)
+            }5">
             {#if repo.primaryLanguage}
                 <span class="repo--langauge"> {repo.primaryLanguage.name}</span>
             {/if}
