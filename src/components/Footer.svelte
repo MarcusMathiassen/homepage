@@ -1,12 +1,24 @@
 <script>
     import { onMount } from 'svelte'
 
-    onMount(() => {
+onMount(() => {
+        const themeEl = document.getElementById('theme')
+        window.matchMedia('(prefers-color-scheme: light)').addListener(() => {
+            themeEl.innerText = window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark'
+        })
+        themeEl.onclick = () => {
+            const theme =
+            document.documentElement.getAttribute('theme') === 'light' ? 'dark' : 'light'
+            document.documentElement.setAttribute('theme', theme)
+            themeEl.innerText = theme
+        }
         const modernize = document.getElementById('modernize')
         modernize.onclick = () => {
             const theme =
-            document.documentElement.getAttribute('theme') === 'retro' ? 'modern' : 'retro'
-            document.documentElement.setAttribute('theme', theme)
+            document.documentElement.getAttribute('theme-style') === 'retro' ? 'modern' : 'retro'
+            document.documentElement.setAttribute('theme-style', theme)
             modernize.innerText = theme
         }
     })
@@ -48,8 +60,8 @@ footer
     .faint Font: #[b #[a(href=font_href target="_blank" rel="noopener") PxPlus IBM VGA8]]
     .faint Host: #[b #[a(href=github_pages_href target="_blank" rel="noopener") Github Pages]]
     br
-    button.btn.small#icantread
-    button.btn.small#modernize retro
+    button.btn.small#modernize modern
+    button.btn.small#theme light
     .faint Contact: #[b mathiassenmarcus@gmail.com]
 
     .icon-list
