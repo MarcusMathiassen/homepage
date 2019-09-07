@@ -6,8 +6,8 @@
 
     fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
         console.log(json)
-        repos = node
-        lastRepo = node[0]
+        repos = json
+        lastRepo = json[0]
     })
 
 </script>
