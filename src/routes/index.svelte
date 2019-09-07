@@ -40,14 +40,14 @@
 <ul>
 	{#each repos as repo}
     <li>
-        a(href="{repo.url}") #[h1 name {repo.name}]
+        <a href="{repo.url}" target="_blank" rel="noopener"> <h1> name {repo.name}] </h1> </a>
         {#if {repo.description}}
-            h2 description: {repo.description}
+            <h2> description: {repo.description} </h2>
         {/if}
         {#if {repo.primaryLanguage}}
-            h3 lanuage: {repo.primaryLanguage.name}
+            <h3> lanuage: {repo.primaryLanguage.name}</h3>
         {/if}
-        h3 stars: {repo.stargazers.totalCount}
+        <h3> stars: {repo.stargazers.totalCount}</h3>
     </li>
 	{/each}
 </ul>
