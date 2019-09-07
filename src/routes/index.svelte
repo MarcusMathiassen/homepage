@@ -27,8 +27,9 @@ li, ul
     font-size: 1em
 .repo--badges
     margin: 5px
-    padding: 3px
+    padding: 5px
     border-radius: 5px
+    border: 1px solid var(--text)
     font-size: 0.75em
     span
         margin: 2px
