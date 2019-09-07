@@ -1,9 +1,10 @@
 const fetch = require('node-fetch')
 const apiRoot = 'https://api.github.com/graphql'
 
-const githubQuery_GetLast30UpdatedRepos = `{
+const githubQuery_GetLast30UpdatedRepos = `
+{
   viewer {
-    repositories(first: 30, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    repositories(first: 30, isFork: false, privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}) {
       edges {
         node {
           primaryLanguage {
@@ -29,6 +30,7 @@ const githubQuery_GetLast30UpdatedRepos = `{
     }
   }
 }
+
 `
 
 exports.handler = async (event, context) => {
