@@ -37,16 +37,17 @@
 <ul>
 	{#each repos as repo}
     <li>
-        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h3> {repo.node.name} <i class="fas fa-star">{repo.node.stargazers.totalCount}</i></h3> </a>
-        {#if repo.node.description}
-            <h4> {repo.node.description} </h4>
-        {/if}
+        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h3> {repo.node.name}
         {#if repo.node.primaryLanguage}
             {#if repo.node.primaryLanguage.name === 'JavaScript'}
                 <i class="fab fa-js"></i>
             {:else}
                 <p> {repo.node.primaryLanguage.name}</p>
             {/if}
+        {/if}
+        <i class="fas fa-star">{repo.node.stargazers.totalCount}</i></h3> </a>
+        {#if repo.node.description}
+            <h4> {repo.node.description} </h4>
         {/if}
     </li>
 	{/each}
