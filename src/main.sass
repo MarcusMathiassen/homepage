@@ -92,7 +92,7 @@ html[theme='dark']
     --text-color--highlight: var(--apple_pink)
     --text-color--comment: var(--comment)
     --background--content: rgb(30, 30, 30)
-    --background-base: 0,0,0
+    --background-base: 14,23,32
     --background-color--selection: var(--apple_pink)
 
     &[theme-style='modern']
@@ -130,8 +130,13 @@ body, p, b, button
     color: var(--text-color--selection)
     background-color: var(--background-color--selection)
 
-button:focus
-    outline: 0
+button
+    border: none
+    color: rgba(var(--text-base), .6)
+    &:hover
+        color: rgba(var(--text-base), 1)
+    &:focus
+        outline: 0
 
 #p2d
     cursor: none
@@ -146,19 +151,16 @@ button:focus
     border-left: $comment-border-width solid
     &.advice
         p
-            color: mix($textColor, $comment-border-color--advice) !important
+            color: mix($textColor, $comment-border-color--advice)
         border-color: $comment-border-color--advice
-        background: mix($backgroundColor, $comment-border-color--advice) !important
     &.warning
         p
-            color: mix($textColor, $comment-border-color--warning) !important
+            color: mix($textColor, $comment-border-color--warning)
         border-color: $comment-border-color--warning
-        background: mix($backgroundColor, $comment-border-color--warning) !important
     &.info
         p
-            color: mix($textColor, $comment-border-color--info) !important
+            color: mix($textColor, $comment-border-color--info)
         border-color: $comment-border-color--info
-        background: mix($backgroundColor, $comment-border-color--info) !important
 
 .underline
     height: 0.1em
@@ -229,7 +231,7 @@ img
 @include syntax("keyword", #ff6482)
 
 .faint
-    color: rgba(var(--text-base), .5)
+    color: rgba(var(--text-base), .4)
 
 a
     text-decoration: none
@@ -237,3 +239,9 @@ a
 
     &:hover
         color: rgba(var(--text-base), 1)
+
+hr
+    border-color: rgba(var(--text-base), 0.1)
+    border-width: 0.5px
+    margin: 20px auto
+    width: 60%

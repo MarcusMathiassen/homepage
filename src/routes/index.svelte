@@ -1,6 +1,6 @@
 <script>
     import P2D from '../components/p2d.svelte'
-    let repos
+    let repos = ""
     fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
         repos = json
     })
@@ -135,6 +135,7 @@ span
 
 .repo--badges
     --c: blue
+    background: rgba(var(--text-base), 0.03)
     margin: 5px
     padding: 5px
     border-radius: 5px
@@ -164,7 +165,6 @@ span
 <p class="landing-page--subtitle">I do compilers and languages.
 <br>
         Interested in systems design and UX.</p>
-<hr>
 <ul class="repos">
     <h2>Repositories</h2>
 	{#each repos as repo}

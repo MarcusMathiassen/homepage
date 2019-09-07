@@ -4,8 +4,7 @@
 
 <style>
     nav {
-        border-bottom: 1px solid rgba(255, 62, 0, 0.1);
-        font-weight: 300;
+        font-weight: 600;
         padding: 0 1em;
     }
 
@@ -27,6 +26,7 @@
     }
 
     .selected {
+        color: var(--text);
         position: relative;
         display: inline-block;
     }
@@ -35,21 +35,19 @@
         position: absolute;
         content: '';
         width: calc(100% - 1em);
-        height: 2px;
-        background-color: rgb(255, 62, 0);
         display: block;
-        bottom: -1px;
     }
 
     a {
         text-decoration: none;
-        padding: 1em 0.5em;
+        margin-top: 20px;
+        padding: 0em 2em;
         display: block;
     }
 
     ul {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
     }
 </style>
 
@@ -75,3 +73,4 @@
         </li>
     </ul>
 </nav>
+<hr>

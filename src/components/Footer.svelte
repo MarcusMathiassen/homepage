@@ -8,12 +8,14 @@ onMount(() => {
             ? 'light'
             : 'dark'
         })
+
         themeEl.onclick = () => {
             const theme =
             document.documentElement.getAttribute('theme') === 'light' ? 'dark' : 'light'
             document.documentElement.setAttribute('theme', theme)
             themeEl.innerText = theme
         }
+
         const modernize = document.getElementById('modernize')
         modernize.onclick = () => {
             const theme =
@@ -21,6 +23,10 @@ onMount(() => {
             document.documentElement.setAttribute('theme-style', theme)
             modernize.innerText = theme
         }
+
+        // Prime them both
+        themeEl.innerText = document.documentElement.getAttribute('theme')
+        modernize.innerText = document.documentElement.getAttribute('theme-style')
     })
 </script>
 
@@ -35,10 +41,12 @@ onMount(() => {
         a
             font-size: 2em
             margin: 5px
+
 </style>
 
 <template lang="pug">
 footer
+    hr
     .faint.
         Built using
         #[b #[a(href="https://sapper.svelte.dev/" target="_blank" rel="noopener") Sapper]]
@@ -53,9 +61,9 @@ footer
     .faint Font: #[b #[a(href="https://int10h.org/oldschool-pc-fonts/" target="_blank" rel="noopener") PxPlus IBM VGA8]]
     .faint Host: #[b #[a(href="https://www.netlify.com/" target="_blank" rel="noopener") Netlify]]
     br
-    button.btn.small#modernize modern
-    button.btn.small#theme light
-    .faint Contact: #[b mathiassenmarcus@gmail.com]
+    button.btn.small#modernize
+    button.btn.small#theme
+    .faint Contact: #[p mathiassenmarcus@gmail.com]
 
     .icon-list
         a(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener") #[i.fab.fa-github]
