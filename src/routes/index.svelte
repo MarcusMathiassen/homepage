@@ -1,97 +1,97 @@
 <script>
     import P2D from '../components/p2d.svelte'
     let repos = ""
-    fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
-        repos = json
-    })
+    // fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
+    //     repos = json
+    // })
 
-//     repos = [
-//     {
-//         "forkCount": 27,
-//         "url": "blue",
-//         "name": "Leticia Hansen",
-//         "primaryLanguage": {
-//             "name": "JavaScript",
-//             "color": "#00ff"
-//         },
-//         "description": "the color blue",
-//         "stargazers": {
-//             "totalCount": 30
-//         }
-//     },
-//     {
-//         "forkCount": 40,
-//         "url": "brown",
-//         "name": "Candy Vasquez Veronic",
-//         "primaryLanguage": {
-//             "name": "C++",
-//             "color": "#ff0f"
-//         },
-//         "stargazers": {
-//             "totalCount": 26
-//         }
-//     },
-//     {
-//         "forkCount": 36,
-//         "url": "green",
-//         "name": "Lamb Johnson",
-//         "primaryLanguage": {
-//             "name": "C++",
-//             "color": "#f00f"
-//         },
-//         "stargazers": {
-//             "totalCount": 24
-//         }
-//     },
-//     {
-//         "forkCount": 23,
-//         "url": "blue",
-//         "name": "Solomon Medina",
-//         "primaryLanguage": {
-//             "name": "C++",
-//             "color": "#f00f"
-//         },
-//         "stargazers": {
-//             "totalCount": 39
-//         }
-//     },
-//     {
-//         "forkCount": 26,
-//         "url": "blue",
-//         "name": "Richmond Hess",
-//         "primaryLanguage": {
-//             "name": "C++",
-//             "color": "#ff0f"
-//         },
-//         "stargazers": {
-//             "totalCount": 24
-//         }
-//     },
-//     {
-//         "forkCount": 38,
-//         "url": "green",
-//         "name": "Spencer Bush",
-//         "primaryLanguage": {
-//             "name": "C++",
-//             "color": "#ff0f"
-//         },
-//         "stargazers": {
-//             "totalCount": 33
-//         }
-//     },
-//     {
-//         "forkCount": 22,
-//         "url": "green",
-//         "name": "Hammond Mann",
-//         "primaryLanguage": {
-//             "name": "JavaScript",
-//             "color": "#ff0f"
-//         },
-//         "stargazers": {
-//             "totalCount": 22
-//         }
-//     }
-// ]
+    repos = [
+    {
+        "forkCount": 27,
+        "url": "blue",
+        "name": "Leticia Hansen",
+        "primaryLanguage": {
+            "name": "JavaScript",
+            "color": "#00ff"
+        },
+        "description": "the color blue",
+        "stargazers": {
+            "totalCount": 30
+        }
+    },
+    {
+        "forkCount": 40,
+        "url": "brown",
+        "name": "Candy Vasquez Veronic",
+        "primaryLanguage": {
+            "name": "C++",
+            "color": "#ff0f"
+        },
+        "stargazers": {
+            "totalCount": 26
+        }
+    },
+    {
+        "forkCount": 36,
+        "url": "green",
+        "name": "Lamb Johnson",
+        "primaryLanguage": {
+            "name": "C++",
+            "color": "#f00f"
+        },
+        "stargazers": {
+            "totalCount": 24
+        }
+    },
+    {
+        "forkCount": 23,
+        "url": "blue",
+        "name": "Solomon Medina",
+        "primaryLanguage": {
+            "name": "C++",
+            "color": "#f00f"
+        },
+        "stargazers": {
+            "totalCount": 39
+        }
+    },
+    {
+        "forkCount": 26,
+        "url": "blue",
+        "name": "Richmond Hess",
+        "primaryLanguage": {
+            "name": "C++",
+            "color": "#ff0f"
+        },
+        "stargazers": {
+            "totalCount": 24
+        }
+    },
+    {
+        "forkCount": 38,
+        "url": "green",
+        "name": "Spencer Bush",
+        "primaryLanguage": {
+            "name": "C++",
+            "color": "#ff0f"
+        },
+        "stargazers": {
+            "totalCount": 33
+        }
+    },
+    {
+        "forkCount": 22,
+        "url": "green",
+        "name": "Hammond Mann",
+        "primaryLanguage": {
+            "name": "JavaScript",
+            "color": "#ff0f"
+        },
+        "stargazers": {
+            "totalCount": 22
+        }
+    }
+]
 
 </script>
 
@@ -125,9 +125,7 @@ span
 .repo
     margin: 5px
     padding: 5px
-    border-radius: 5px
     text-align: center
-
     @media only screen and (max-width: 600px)
         font-size: 0.75rem
 
@@ -138,11 +136,10 @@ span
 
 .repo--badges
     --c: blue
-    background: rgba(var(--text-base), 0.03)
+    background: rgba(var(--text-base), 0.05)
     margin: 5px
     padding: 5px
-    border-radius: 5px
-    border: 1px solid rgba(var(--text-base), 0.3)
+    border-radius: var(--border-radius)
     font-size: 0.75em
     span
         margin: 2px
@@ -180,14 +177,14 @@ span
             {/if}
             {#if repo.stargazers.totalCount}
                 <span>
-                    <i class="fas fa-star">
-                    <span>{repo.stargazers.totalCount}</span></i>
+                    <i class="fas fa-star" style="color: gold !important"></i>
+                    <span>{repo.stargazers.totalCount}</span>
                 </span>
             {/if}
             {#if repo.forkCount}
                 <span>
-                    <i class="fas fa-code-branch">
-                    <span>{repo.forkCount}</span></i>
+                    <i class="fas fa-code-branch" style="color: purple !important"></i>
+                    <span>{repo.forkCount}</span>
                 </span>
             {/if}
             </span>
