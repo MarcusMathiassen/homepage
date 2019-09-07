@@ -1,6 +1,36 @@
 const fetch = require('node-fetch')
 const apiRoot = 'https://api.github.com/graphql'
 
+const githubQuery_GetLast30UpdatedRepos = `{
+  viewer {
+    repositories(first: 30, orderBy: {field: UPDATED_AT, direction: DESC}) {
+      edges {
+        node {
+          primaryLanguage {
+            name
+          }
+          stargazers {
+            totalCount
+          }
+          forkCount
+          createdAt
+          nameWithOwner
+          name
+          updatedAt
+          pushedAt
+          createdAt
+          description
+          url
+          licenseInfo {
+            name
+          }
+        }
+      }
+    }
+  }
+}
+`
+
 exports.handler = async (event, context) => {
     return fetch(apiRoot, {
         method: 'POST',
@@ -9,41 +39,14 @@ exports.handler = async (event, context) => {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify({
-            query: `query { viewer { repositories(first: 20) { edges { node { name pushedAt } } } } }`,
+            query: githubQuery_GetLast30UpdatedRepos,
         }),
     })
         .then(res => res.json())
         .then(json => {
-            var edges = json.data.viewer.repositories.edges
-            // Sort the repositories by pushdate
-            edges.sort((a, b) => {
-                return (
-                    new Date(b.node.pushedAt).getTime() -
-                    new Date(a.node.pushedAt).getTime()
-                )
-            })
-            const nameOfLastRepoUpdated = edges[0].node.name
-
-            return fetch(apiRoot, {
-                method: 'POST',
-                headers: {
-                    Authorization: `token ${process.env.GITHUB_TOKEN}`,
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: JSON.stringify({
-                    query: `query { viewer { repository(name:"${nameOfLastRepoUpdated}") { description } } }`,
-                }),
-            })
-                .then(res => res.json())
-                .then(json => {
-                    const desc = json.data.viewer.repository.description
-                    return {
-                        statusCode: 200,
-                        body: JSON.stringify({
-                            lastRepoUpdated: nameOfLastRepoUpdated,
-                            lastRepoUpdatedDesc: desc,
-                        }),
-                    }
-                })
+            return {
+                statusCode: 200,
+                body: JSON.stringify(json.data.viewer.repositories.edges),
+            }
         })
 }
