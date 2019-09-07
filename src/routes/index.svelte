@@ -4,7 +4,6 @@
     let repos = ""
 
     fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
-        console.log(json)
         repos = json
     })
 
@@ -21,7 +20,20 @@
     height: 300px
 
 li, ul
+    margin: 10px
     list-style-type: none
+
+.repo--name
+    font-size: 1em
+.repo--badges
+    margin: 5px
+    margin-right: 2px
+    padding: 5px
+    border-radius: 5px
+    box-shadow: 0 0 1px var(--text)
+    font-size: 0.75em
+    span
+        margin: 2px
 </style>
 
 <svelte:head>
@@ -35,20 +47,29 @@ li, ul
         I do compilers and languages.
         Interested in systems design and UX.
 </template>
-
-<h1>Repos</h1>
+<br>
+<h2>Repositories</h2>
 <ul>
 	{#each repos as repo}
     <li>
-        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h3> {repo.node.name}:
-        {#if repo.node.primaryLanguage}
-            <span style="background: {repo.node.primaryLanguage.color}"> {repo.node.primaryLanguage.name}</span>
-        {/if}
-        <i class="fas fa-star">{repo.node.stargazers.totalCount}</i>
-        {#if repo.node.description}
-            <span>: {repo.node.description} </span>
-        {/if}
-        </h3>
+        <a href="{repo.node.url}" target="_blank" rel="noopener">
+        <span class="repo--name">{repo.node.name}
+            <span class="repo--badges">
+                {#if repo.node.primaryLanguage}
+                    <span style="color: {repo.node.primaryLanguage.color}"> {repo.node.primaryLanguage.name}</span>
+                {/if}
+                {#if repo.node.stargazers.totalCount}
+                    <span>
+                        <i class="fas fa-star">{repo.node.stargazers.totalCount}</i>
+                    </span>
+                {/if}
+                {#if repo.node.forkCount}
+                    <span>
+                        <i class="fas fa-code-branch">{repo.node.forkCount}</i>
+                    </span>
+                {/if}
+            </span>
+        </span>
         </a>
     </li>
 	{/each}
