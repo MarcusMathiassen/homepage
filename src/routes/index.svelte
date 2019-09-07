@@ -129,7 +129,7 @@ span
     text-align: center
 
     @media only screen and (max-width: 600px)
-        font-size: 3vw
+        font-size: 0.75rem
 
 .repo--name
     font-size: 1em
