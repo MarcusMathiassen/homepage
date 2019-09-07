@@ -44,10 +44,12 @@ li, ul
         {#if repo.node.primaryLanguage}
             <span style="background: {repo.node.primaryLanguage.color}"> {repo.node.primaryLanguage.name}</span>
         {/if}
-        <i class="fas fa-star">{repo.node.stargazers.totalCount}</i></h3> </a>
+        <i class="fas fa-star">{repo.node.stargazers.totalCount}</i>
         {#if repo.node.description}
             <span>: {repo.node.description} </span>
         {/if}
+        </h3>
+        </a>
     </li>
 	{/each}
 </ul>
