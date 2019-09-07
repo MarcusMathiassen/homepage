@@ -123,8 +123,8 @@ span
         text-align: center
         font-weight: 500
 .repo
-    margin: 5px
-    padding: 5px
+    margin: 0
+    padding: 0
     border-radius: 5px
     text-align: center
 
