@@ -37,7 +37,7 @@ exports.handler = async (event, context) => {
         method: 'POST',
         headers: {
             Authorization: `token ${process.env.GITHUB_TOKEN}`,
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             query: githubQuery_GetLast30UpdatedRepos,

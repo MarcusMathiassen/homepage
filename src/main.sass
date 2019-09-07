@@ -69,42 +69,6 @@ html
         .landing-page--hero
             border-radius: 50px
 
-
-@media (prefers-color-scheme: light)
-    html
-        --text-color--normal: var(--text)
-        --text-color--light: var(--c_black)
-        --text-color--richer: var(--c_black)
-        --text-color--highlight: var(--keyword)
-        --text-color--comment: var(--comment)
-        --background--content: rgb(255, 255, 255)
-        --background-base: 248, 240, 218
-        --background-color--selection: yellow
-
-        &[theme-style='modern']
-            --text-base: 0, 0, 0
-            --background-base: 255, 255, 255
-            --background--content: white
-
-@media (prefers-color-scheme: dark)
-    html
-        --text-color--normal: var(--c_white)
-        --text-color--light: var(--c_white)
-        --text-color--richer: var(--c_white)
-        --text-color--highlight: var(--apple_pink)
-        --text-color--comment: var(--comment)
-        --background--content: rgb(30, 30, 30)
-        --background-base: 0,0,0
-        --background-color--selection: var(--apple_pink)
-
-        &[theme-style='modern']
-            --text-base: 255,255,255
-            --background-base: 0,0,0
-            --background--content: black
-            --text-color--normal: var(--text)
-            --text-color--light: var(--text)
-            --text-color--richer: var(--text)
-
 html[theme="light"]
     --text-color--normal: var(--text)
     --text-color--light: var(--c_black)
@@ -121,6 +85,7 @@ html[theme="light"]
         --background--content: white
 
 html[theme='dark']
+    --text-base: 248, 240, 218
     --text-color--normal: var(--c_white)
     --text-color--light: var(--c_white)
     --text-color--richer: var(--c_white)
@@ -160,32 +125,6 @@ body, p, b, button
     font-family: var(--font)
     color: var(--text)
     background: var(--background)
-
-i
-    font-family: var(--font)
-
-p
-    background: none
-
-footer
-    margin: 0 auto
-    bottom: 0
-    left: 0
-    right: 0
-    padding: 20px
-
-button
-    color: saturate($textColor, 30)
-    &:hover
-        color: lighten($textColor, 30)
-    &:active
-        color: lighten($textColor, 80)
-    &.icon
-        margin: auto
-    &.small
-        font-size: 14px
-        margin: 0px
-        border: none
 
 ::selection
     color: var(--text-color--selection)
@@ -230,7 +169,7 @@ button:focus
     font-size: 2em
 
 button#burger
-    color: var(--text-color--normal)
+    color: var(--text)
     background: none
     display: block
     padding: 1vw
@@ -290,53 +229,11 @@ img
 @include syntax("keyword", #ff6482)
 
 .faint
-    font-size: 0.75em
-    color: rgba($textColor, 0.5)
+    color: rgba(var(--text-base), .5)
 
 a
     text-decoration: none
+    color: rgba(var(--text-base), .6)
 
-pre
-    padding: 5px
-    margin: 5px
-    line-height: 1
-    background: darken($backgroundColor, 1)
-    background: black
-    text-align: left
-
-
-// .logo
-//     margin-top: 10px
-//     font-size: 1.3em
-//     text-transform: uppercase
-
-nav
-    width: 50%
-    display: inline-flex
-    justify-content: space-around
-    align-items: center
-    min-height: 8vh
-    background: none
-    ul
-        // background: green
-        li
-            // backgraound: yellow
-            display: inline
-            margin: 5px
-            padding: 5px
-
-
-a
-    color: saturate($textColor, 30)
     &:hover
-        color: rgba($textColor, 0.6)
-
-.nav-links
-    display: flex
-    justify-content: space-around
-    li
-        list-style: none
-
-.burger
-    color: white
-    display: block
+        color: rgba(var(--text-base), 1)

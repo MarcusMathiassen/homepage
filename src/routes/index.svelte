@@ -12,8 +12,9 @@
 //         "name": "Leticia Hansen",
 //         "primaryLanguage": {
 //             "name": "JavaScript",
-//             "color": "#00f5"
+//             "color": "#00ff"
 //         },
+//         "description": "the color blue",
 //         "stargazers": {
 //             "totalCount": 30
 //         }
@@ -24,7 +25,7 @@
 //         "name": "Candy Vasquez",
 //         "primaryLanguage": {
 //             "name": "C++",
-//             "color": "#ff01"
+//             "color": "#ff0f"
 //         },
 //         "stargazers": {
 //             "totalCount": 26
@@ -36,7 +37,7 @@
 //         "name": "Lamb Johnson",
 //         "primaryLanguage": {
 //             "name": "C++",
-//             "color": "#f007"
+//             "color": "#f00f"
 //         },
 //         "stargazers": {
 //             "totalCount": 24
@@ -60,7 +61,7 @@
 //         "name": "Richmond Hess",
 //         "primaryLanguage": {
 //             "name": "C++",
-//             "color": "#ff03"
+//             "color": "#ff0f"
 //         },
 //         "stargazers": {
 //             "totalCount": 24
@@ -72,7 +73,7 @@
 //         "name": "Spencer Bush",
 //         "primaryLanguage": {
 //             "name": "C++",
-//             "color": "#ff04"
+//             "color": "#ff0f"
 //         },
 //         "stargazers": {
 //             "totalCount": 33
@@ -84,7 +85,7 @@
 //         "name": "Hammond Mann",
 //         "primaryLanguage": {
 //             "name": "JavaScript",
-//             "color": "#ff06"
+//             "color": "#ff0f"
 //         },
 //         "stargazers": {
 //             "totalCount": 22
@@ -114,19 +115,18 @@ span
 
 .repos
     margin: 0 auto
-    width: 50%
+    width: 100%
     padding: 0
     h2
         margin: 5px
         padding: 5px
-        text-align: left
+        text-align: center
         font-weight: 500
 .repo
     margin: 5px
     padding: 5px
     border-radius: 5px
-    text-align: left
-
+    text-align: center
 
 .repo--name
     font-size: 1em
@@ -134,39 +134,44 @@ span
     margin: 0
 
 .repo--badges
+    --c: blue
     margin: 5px
     padding: 5px
     border-radius: 5px
-    border: 1px solid rgba(var(--text-base), 0.1)
+    border: 1px solid rgba(var(--text-base), 0.3)
     font-size: 0.75em
     span
         margin: 2px
 
 .repo--langauge
+    color: var(--c)
+    padding: 5px
+    padding-top: 1px
+    padding-bottom: 1px
+    border-radius: 5px
     font-size: 1em
+    font-weight: 700
 
 </style>
 
 <svelte:head>
     <title>Home</title>
 </svelte:head>
+<div>
 
-<template lang="pug">
-    .landing-page--hero
-    p.landing-page--title Marcus Mathiassen
-    p.landing-page--subtitle.
-        I do compilers and languages.
-        Interested in systems design and UX.
-</template>
+<div class="landing-page--hero"></div>
+<p class="landing-page--tit">Marcus Mathiassen</p>
+<p class="landing-page--subtitle">I do compilers and languages.
 <br>
+        Interested in systems design and UX.</p>
+<hr>
 <ul class="repos">
     <h2>Repositories</h2>
 	{#each repos as repo}
         <li class="repo">
             <a href="{repo.url}" target="_blank" rel="noopener">
             <span class="repo--name">{repo.name} </span>
-            <span class="repo--badges" style="background:{repo.primaryLanguage.color.substring(0, repo.primaryLanguage.color.length - 1)
-            }5">
+            <span class="repo--badges" style="--c: {repo.primaryLanguage.color}">
             {#if repo.primaryLanguage}
                 <span class="repo--langauge"> {repo.primaryLanguage.name}</span>
             {/if}
@@ -187,3 +192,4 @@ span
         </li>
 	{/each}
 </ul>
+</div>

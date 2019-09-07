@@ -28,10 +28,10 @@ onMount(() => {
     footer
         text-align: center
         background: none
+        font-size: 0.75em
     .icon-list
         display: flex
         justify-content: center
-
         a
             font-size: 2em
             margin: 5px
