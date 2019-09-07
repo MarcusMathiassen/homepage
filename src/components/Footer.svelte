@@ -38,27 +38,20 @@ onMount(() => {
 </style>
 
 <template lang="pug">
-- var sapper_href = "https://sapper.svelte.dev/"
-- var svelte_href = "https://svelte.dev/"
-- var webpack_href = "https://webpack.js.org"
-- var sass_href = "https://sass-lang.com"
-- var pug_href = "https://pugjs.org/api/getting-started.html"
-- var font_href = "https://int10h.org/oldschool-pc-fonts/"
-- var github_pages_href = "https://pages.github.com"
 footer
     .faint.
         Built using
-        #[b #[a(href=sapper_href target="_blank" rel="noopener") Sapper]]
+        #[b #[a(href="https://sapper.svelte.dev/" target="_blank" rel="noopener") Sapper]]
         &
-        #[b #[a(href=svelte_href target="_blank" rel="noopener") Svelte]]
+        #[b #[a(href="https://svelte.dev/" target="_blank" rel="noopener") Svelte]]
         &
-        #[b #[a(href=webpack_href target="_blank" rel="noopener") Webpack]]
+        #[b #[a(href="https://webpack.js.org" target="_blank" rel="noopener") Webpack]]
         &
-        #[b #[a(href=sass_href target="_blank" rel="noopener") Sass]]
+        #[b #[a(href="https://sass-lang.com" target="_blank" rel="noopener") Sass]]
         &
-        #[b #[a(href=pug_href target="_blank" rel="noopener") Pug]]
-    .faint Font: #[b #[a(href=font_href target="_blank" rel="noopener") PxPlus IBM VGA8]]
-    .faint Host: #[b #[a(href=github_pages_href target="_blank" rel="noopener") Github Pages]]
+        #[b #[a(href="https://pugjs.org/api/getting-started.html" target="_blank" rel="noopener") Pug]]
+    .faint Font: #[b #[a(href="https://int10h.org/oldschool-pc-fonts/" target="_blank" rel="noopener") PxPlus IBM VGA8]]
+    .faint Host: #[b #[a(href="https://www.netlify.com/" target="_blank" rel="noopener") Netlify]]
     br
     button.btn.small#modernize modern
     button.btn.small#theme light
