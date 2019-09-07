@@ -46,7 +46,7 @@ li, ul
         {/if}
         <i class="fas fa-star">{repo.node.stargazers.totalCount}</i></h3> </a>
         {#if repo.node.description}
-            <h4>: {repo.node.description} </h4>
+            <span>: {repo.node.description} </span>
         {/if}
     </li>
 	{/each}
