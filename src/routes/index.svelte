@@ -31,18 +31,17 @@
     p.landing-page--subtitle.
         I do compilers and languages.
         Interested in systems design and UX.
-
 </template>
 
 <h1>Repos</h1>
 <ul>
 	{#each repos as repo}
     <li>
-        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h1> name {repo.node.name}] </h1> </a>
-        {#if {repo.node.description}}
+        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h1> name {repo.node.name} </h1> </a>
+        {#if repo.node.description}
             <h2> description: {repo.node.description} </h2>
         {/if}
-        {#if {repo.node.primaryLanguage}}
+        {#if repo.node.primaryLanguage}
             <h3> lanuage: {repo.node.primaryLanguage.name}</h3>
         {/if}
         <h3> stars: {repo.node.stargazers.totalCount}</h3>
