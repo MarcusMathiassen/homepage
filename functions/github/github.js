@@ -9,6 +9,7 @@ const githubQuery_GetLast30UpdatedRepos = `
         node {
           primaryLanguage {
             name
+            color
           }
           stargazers {
             totalCount

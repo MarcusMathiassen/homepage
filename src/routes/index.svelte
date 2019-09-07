@@ -19,6 +19,9 @@
     background-size: cover
     width: 300px
     height: 300px
+
+li, ul
+    list-style-type: none
 </style>
 
 <svelte:head>
@@ -37,17 +40,13 @@
 <ul>
 	{#each repos as repo}
     <li>
-        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h3> {repo.node.name}
+        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h3> {repo.node.name}:
         {#if repo.node.primaryLanguage}
-            {#if repo.node.primaryLanguage.name === 'JavaScript'}
-                <i class="fab fa-js"></i>
-            {:else}
-                <span> {repo.node.primaryLanguage.name}</span>
-            {/if}
+            <span style="background: {repo.node.primaryLanguage.color}"> {repo.node.primaryLanguage.name}</span>
         {/if}
         <i class="fas fa-star">{repo.node.stargazers.totalCount}</i></h3> </a>
         {#if repo.node.description}
-            <h4> {repo.node.description} </h4>
+            <h4>: {repo.node.description} </h4>
         {/if}
     </li>
 	{/each}
