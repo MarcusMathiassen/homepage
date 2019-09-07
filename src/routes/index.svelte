@@ -1,13 +1,11 @@
 <script>
     import P2D from '../components/p2d.svelte'
 
-    let lastRepo = ""
     let repos = ""
 
     fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
         console.log(json)
         repos = json
-        lastRepo = json[0]
     })
 
 </script>
@@ -40,14 +38,14 @@
 <ul>
 	{#each repos as repo}
     <li>
-        <a href="{repo.url}" target="_blank" rel="noopener"> <h1> name {repo.name}] </h1> </a>
-        {#if {repo.description}}
-            <h2> description: {repo.description} </h2>
+        <a href="{repo.node.url}" target="_blank" rel="noopener"> <h1> name {repo.node.name}] </h1> </a>
+        {#if {repo.node.description}}
+            <h2> description: {repo.node.description} </h2>
         {/if}
-        {#if {repo.primaryLanguage}}
-            <h3> lanuage: {repo.primaryLanguage.name}</h3>
+        {#if {repo.node.primaryLanguage}}
+            <h3> lanuage: {repo.node.primaryLanguage.name}</h3>
         {/if}
-        <h3> stars: {repo.stargazers.totalCount}</h3>
+        <h3> stars: {repo.node.stargazers.totalCount}</h3>
     </li>
 	{/each}
 </ul>
