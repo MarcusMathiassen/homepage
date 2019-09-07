@@ -33,20 +33,20 @@
     p.landing-page--subtitle.
         I do compilers and languages.
         Interested in systems design and UX.
-    p currently working on:
-    a(href="{lastRepo.url}") #[h1 name {lastRepo.name}]
-    h2 description: {lastRepo.description}
-    h3 lanuage: {lastRepo.primaryLanguage.name}
-    h3 stars: {lastRepo.stargazers.totalCount}
 
 </template>
+
 <h1>Repos</h1>
 <ul>
 	{#each repos as repo}
     <li>
         a(href="{repo.url}") #[h1 name {repo.name}]
-        h2 description: {lastRepo.description}
-        h3 lanuage: {lastRepo.primaryLanguage.name}
+        {#if {lastRepo.description}}
+            h2 description: {lastRepo.description}
+        {/if}
+        {#if {lastRepo.primaryLanguage}}
+            h3 lanuage: {lastRepo.primaryLanguage.name}
+        {/if}
         h3 stars: {lastRepo.stargazers.totalCount}
     </li>
 	{/each}
