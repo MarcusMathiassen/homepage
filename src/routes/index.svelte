@@ -4,20 +4,22 @@
 
     let repos = []
 
-    onMount(() => {
-        const apiCall = "/.netlify/functions/github"
-        const result = sessionStorage.getItem(apiCall)
+    const getApi = async (root, storage = sessionStorage) => {
+        const result = storage.getItem(root)
         if (result !== null) {
-            console.log("fetching github data...from sessionStorage")
-            const cache = JSON.parse(result)
-            repos = cache
+            console.log("fetching github data... from storage")
+            return JSON.parse(result)
         } else {
             console.log("fetching github data... github")
-            fetch(apiCall).then(res => res.json()).then(json => {
-                sessionStorage.setItem(apiCall, JSON.stringify(json))
-                repos = json
-            })
+            const res = await fetch(root)
+            const json = await res.json()
+            storage.setItem(root, JSON.stringify(json))
+            return json
         }
+    }
+
+    onMount(async () => {
+        repos = await getApi('/.netlify/functions/github')
     })
 
 //     repos = [
