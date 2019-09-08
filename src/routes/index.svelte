@@ -130,30 +130,36 @@ li, ul
 span
     font-family: var(--font)
 
-.repos
-    margin: 0 auto
+.container
     width: 100%
-    padding: 0
+    text-align: center
+
+.repos
+    display: inline-block
     h2
-        margin: 5px
         padding: 5px
-        text-align: center
+        text-align: left
         font-weight: 500
+    @media only screen and (max-width: 600px)
+        margin: 0
+        padding: 0
+
 .repo
+    display: flex
     margin: 5px
     padding: 5px
-    text-align: center
-    @media only screen and (max-width: 600px)
-        font-size: 0.75rem
-
     opacity: 0.7
     &:hover
         opacity: 1.0
+    @media only screen and (max-width: 600px)
+        font-size: 0.75em
 
 .repo--name
     font-size: 1em
     padding: 0
     margin: 0
+    text-align: left
+
 
 .repo--badges
     --c: blue
@@ -186,6 +192,7 @@ span
 <p class="landing-page--subtitle">I do compilers and languages.
 <br>
         Interested in systems design and UX.</p>
+<div class="container">
 <ul class="repos">
     <h2>Repositories</h2>
 	{#each repos as repo}
@@ -213,4 +220,5 @@ span
         </li>
 	{/each}
 </ul>
+</div>
 </div>

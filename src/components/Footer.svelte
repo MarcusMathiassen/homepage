@@ -1,27 +1,39 @@
 <script>
     import { onMount } from 'svelte'
 
-onMount(() => {
-        const themeEl = document.getElementById('theme')
+    onMount(() => {
+
+
+        const themeEl = document.getElementById('themeToggler')
         window.matchMedia('(prefers-color-scheme: light)').addListener(() => {
             themeEl.innerText = window.matchMedia('(prefers-color-scheme: light)').matches
             ? 'light'
             : 'dark'
         })
 
+        const themes = ['light', 'dark', 'trueDark']
         themeEl.onclick = () => {
-            const theme =
-            document.documentElement.getAttribute('theme') === 'light' ? 'dark' : 'light'
-            document.documentElement.setAttribute('theme', theme)
-            themeEl.innerText = theme
+
+            const activeTheme = document.documentElement.getAttribute('theme')
+            const i = themes.findIndex(t => t === activeTheme)
+            const nextTheme = themes[(i + 1) % themes.length]
+
+            document.documentElement.setAttribute('theme', nextTheme)
+
+            themeEl.innerText = nextTheme
         }
 
-        const modernize = document.getElementById('modernize')
+        const modernize = document.getElementById('themeStyleToggler')
+        const themeStyles = ['modern', 'retro', 'comic']
         modernize.onclick = () => {
-            const theme =
-            document.documentElement.getAttribute('theme-style') === 'retro' ? 'modern' : 'retro'
-            document.documentElement.setAttribute('theme-style', theme)
-            modernize.innerText = theme
+
+            const activeThemeStyle = document.documentElement.getAttribute('theme-style')
+            const i = themeStyles.findIndex(t => t === activeThemeStyle)
+            const nextThemeStyle = themeStyles[(i + 1) % themes.length]
+
+            document.documentElement.setAttribute('theme-style', nextThemeStyle)
+
+            modernize.innerText = nextThemeStyle
         }
 
         // Prime them both
@@ -61,8 +73,8 @@ footer
     .faint Font: #[b #[a(href="https://int10h.org/oldschool-pc-fonts/" target="_blank" rel="noopener") PxPlus IBM VGA8]]
     .faint Host: #[b #[a(href="https://www.netlify.com/" target="_blank" rel="noopener") Netlify]]
     br
-    button.btn.small#modernize
-    button.btn.small#theme
+    button.btn.small#themeStyleToggler
+    button.btn.small#themeToggler
     .faint Contact: #[p mathiassenmarcus@gmail.com]
 
     .icon-list
