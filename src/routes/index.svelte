@@ -136,7 +136,7 @@ span
 
 .repo--badges
     --c: blue
-    background: rgba(var(--text-base), 0.05)
+    background: var(--secondary)
     margin: 5px
     padding: 5px
     border-radius: var(--border-radius)

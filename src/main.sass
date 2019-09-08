@@ -15,6 +15,24 @@ $textColor: #3E4E50
 
 html
     --theme-style: 'retro'
+
+    --chrome—color-light0: #FFFFFF
+    --chrome—color-light1: #F4F5F7
+    --chrome—color-light2: #E7EAED
+    --chrome—color-dark0: #202124
+    --chrome—color-dark1: #2D3033
+    --chrome—color-dark2: #323639
+
+    --text--color-base--light: 22, 21, 30
+    --background--color-base--light: 246, 239, 228
+
+    --text--color-base--dark: 246, 239, 228
+    --background--color-base--dark: 22, 21, 30
+
+    --primary: var(--chrome-color-dark0)
+    --secondary: var(--chrome—color-dark1)
+    --third: var(--chrome—color-dark2)
+
     --apple_retro_green: #61bb46
     --apple_retro_yellow: #fdb827
     --apple_retro_orange: #f5821f
@@ -48,11 +66,12 @@ html
     --keyword: rgb(255, 100, 130)
     --compile_time_resolved: var(--apple_indigo)
 
-    --text-base: 22, 21, 30
+    --text-base: blue
     --text: rgba(var(--text-base), 1)
 
-    --background-base: 246, 239, 228
-    --background: rgba(var(--background-base), 1)
+    --background-base: red
+    // --background: rgba(var(--background-base), 1)
+    --background: var(--primary)
 
     --font: 'pxplus_ibm_vga8regular'
     --avatar: url("../static/avatar_pixelated.jpg")
@@ -64,6 +83,7 @@ html
         --font: 'pxplus_ibm_vga8regular'
         --avatar: url("../static/avatar_pixelated.jpg")
         --border-radius: 0px
+
     &[theme-style='modern']
         --theme-style: 'modern'
         --border-radius: 5px
@@ -73,13 +93,19 @@ html
             border-radius: 50px
 
 html[theme="light"]
+
+    --primary: var(--chrome—color-light0)
+    --secondary: var(--chrome—color-light1)
+    --third: var(--chrome—color-light2)
+
     --text-color--normal: var(--text)
     --text-color--light: var(--c_black)
     --text-color--richer: var(--c_black)
     --text-color--highlight: var(--keyword)
     --text-color--comment: var(--comment)
     --background--content: rgb(255, 255, 255)
-    --background-base: 246, 239, 228
+    --text-base: var(--text--color-base--light)
+    --background-base: var(--background--color-base--light)
     --background-color--selection: yellow
 
     &[theme-style='modern']
@@ -88,14 +114,19 @@ html[theme="light"]
         --background--content: white
 
 html[theme='dark']
-    --text-base: 246, 239, 228
+
+    --primary: var(--chrome—color-dark0)
+    --secondary: var(--chrome—color-dark1)
+    --third: var(--chrome—color-dark2)
+
     --text-color--normal: var(--c_white)
     --text-color--light: var(--c_white)
     --text-color--richer: var(--c_white)
     --text-color--highlight: var(--apple_pink)
     --text-color--comment: var(--comment)
     --background--content: rgb(30, 30, 30)
-    --background-base: 22, 21, 30
+    --text-base: var(--text--color-base--dark)
+    --background-base: var(--background--color-base--dark)
     --background-color--selection: var(--apple_pink)
 
     &[theme-style='modern']
@@ -234,7 +265,7 @@ img
 @include syntax("keyword", #ff6482)
 
 .faint
-    color: rgba(var(--text-base), .4)
+    color: rgba(var(--text-base), .5)
 
 a
     text-decoration: none
