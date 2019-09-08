@@ -24,7 +24,7 @@
         }
 
         const modernize = document.getElementById('themeStyleToggler')
-        const themeStyles = ['modern', 'retro', 'comic']
+        const themeStyles = ['modern', 'retro']
         modernize.onclick = () => {
 
             const activeThemeStyle = document.documentElement.getAttribute('theme-style')
