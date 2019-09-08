@@ -1,7 +1,8 @@
 <script>
     import Footer from '../components/Footer.svelte'
     import Nav from '../components/Nav.svelte'
-    export let segment
+    import MovingBackground from '../components/moving-background.svelte'
+export let segment
 </script>
 
 <style>
@@ -14,6 +15,7 @@
     }
 </style>
 
+<MovingBackground />
 <Nav {segment} />
 <main>
     <slot />

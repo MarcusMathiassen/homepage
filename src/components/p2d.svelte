@@ -771,8 +771,8 @@ p.
         }
 
         function updateValues () {
-            canvasWidth = parent.offsetWidth - 1 * devicePixelRatio
-            canvasHeight = 500 - 1 * devicePixelRatio
+            canvasWidth = parent.offsetWidth
+            canvasHeight = 500
 
             var desiredCSSWidth = canvasWidth
             var desiredCSSHeight = canvasHeight
