@@ -45,9 +45,10 @@ exports.handler = async (event, context) => {
     })
         .then(res => res.json())
         .then(json => {
-            return {
+            const ret = {
                 statusCode: 200,
                 body: JSON.stringify(json.data.viewer.repositories.nodes),
             }
+            return ret
         })
 }

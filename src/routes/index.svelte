@@ -1,8 +1,23 @@
 <script>
     import P2D from '../components/p2d.svelte'
-    let repos = ""
-    fetch("/.netlify/functions/github").then(res => res.json()).then(json => {
-        repos = json
+    import { onMount } from 'svelte'
+
+    let repos = []
+
+    onMount(() => {
+        const apiCall = "/.netlify/functions/github"
+        const result = sessionStorage.getItem(apiCall)
+        if (result !== null) {
+            console.log("fetching github data...from sessionStorage")
+            const cache = JSON.parse(result)
+            repos = cache
+        } else {
+            console.log("fetching github data... github")
+            fetch(apiCall).then(res => res.json()).then(json => {
+                sessionStorage.setItem(apiCall, JSON.stringify(json))
+                repos = json
+            })
+        }
     })
 
 //     repos = [
