@@ -146,6 +146,10 @@ span
     @media only screen and (max-width: 600px)
         font-size: 0.75rem
 
+    opacity: 0.7
+    &:hover
+        opacity: 1.0
+
 .repo--name
     font-size: 1em
     padding: 0
@@ -200,7 +204,7 @@ span
             {/if}
             {#if repo.forkCount}
                 <span>
-                    <i class="fas fa-code-branch" style="color: purple !important"></i>
+                    <i class="fas fa-code-branch" style="color: #c94da0 !important"></i>
                     <span>{repo.forkCount}</span>
                 </span>
             {/if}
