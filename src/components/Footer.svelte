@@ -29,7 +29,7 @@
 
             const activeThemeStyle = document.documentElement.getAttribute('theme-style')
             const i = themeStyles.findIndex(t => t === activeThemeStyle)
-            const nextThemeStyle = themeStyles[(i + 1) % themes.length]
+            const nextThemeStyle = themeStyles[(i + 1) % themeStyles.length]
 
             document.documentElement.setAttribute('theme-style', nextThemeStyle)
 
