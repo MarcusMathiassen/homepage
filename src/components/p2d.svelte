@@ -62,7 +62,7 @@ p.
     import jq from './utils/query'
 
     import Particle from './utils/particle'
-    import { v2, mat4 } from './utils/math'
+    import { v2, v4, mat4 } from './utils/math'
     import { getTime, Rect, getMinAndMaxPosition, addButton } from './utils/utility'
     import Quadtree from './utils/quadtree'
 
@@ -602,6 +602,9 @@ p.
             // Draw center debug rects
             let bot = { x: center.x - d + s, y: center.y }
             let top = { x: center.x + d - s, y: center.y }
+
+            drawCircle(p1, color, size, 36)
+            drawCircle(p2, color, size, 36)
 
             // Rotate
             const min = v2.subs(bot, s)

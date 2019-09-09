@@ -1,45 +1,25 @@
 <script>
     import { onMount } from 'svelte'
 
+    let theme
+    let themeStyle
+
+    const themes = ['light', 'dark'] // 'trueDark'
+    const themeStyles = ['modern', 'retro']
+
     onMount(() => {
 
-
-        const themeEl = document.getElementById('themeToggler')
+        // Listen to the OS theme changes and make sure the text is up to date.
         window.matchMedia('(prefers-color-scheme: light)').addListener(() => {
-            themeEl.innerText = window.matchMedia('(prefers-color-scheme: light)').matches
+            theme = window.matchMedia('(prefers-color-scheme: light)').matches
             ? 'light'
             : 'dark'
         })
 
-        const themes = ['light', 'dark', 'trueDark']
-        themeEl.onclick = () => {
-
-            const activeTheme = document.documentElement.getAttribute('theme')
-            const i = themes.findIndex(t => t === activeTheme)
-            const nextTheme = themes[(i + 1) % themes.length]
-
-            document.documentElement.setAttribute('theme', nextTheme)
-
-            themeEl.innerText = nextTheme
-        }
-
-        const modernize = document.getElementById('themeStyleToggler')
-        const themeStyles = ['modern', 'retro']
-        modernize.onclick = () => {
-
-            const activeThemeStyle = document.documentElement.getAttribute('theme-style')
-            const i = themeStyles.findIndex(t => t === activeThemeStyle)
-            const nextThemeStyle = themeStyles[(i + 1) % themeStyles.length]
-
-            document.documentElement.setAttribute('theme-style', nextThemeStyle)
-
-            modernize.innerText = nextThemeStyle
-        }
-
-        // Prime them both
-        themeEl.innerText = document.documentElement.getAttribute('theme')
-        modernize.innerText = document.documentElement.getAttribute('theme-style')
+        theme = document.documentElement.getAttribute('theme')
+        themeStyle = document.documentElement.getAttribute('theme-style')
     })
+
 </script>
 
 <style lang="sass">
@@ -72,12 +52,32 @@ footer
         #[b #[a(href="https://pugjs.org/api/getting-started.html" target="_blank" rel="noopener") Pug]]
     .faint Font: #[b #[a(href="https://int10h.org/oldschool-pc-fonts/" target="_blank" rel="noopener") PxPlus IBM VGA8]]
     .faint Host: #[b #[a(href="https://www.netlify.com/" target="_blank" rel="noopener") Netlify]]
-    br
-    button.btn.small#themeStyleToggler
-    button.btn.small#themeToggler
-    .faint Contact: #[p mathiassenmarcus@gmail.com]
-
-    .icon-list
-        a(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener") #[i.fab.fa-github]
-        a(href="https://www.youtube.com/channel/UCZ7FbQ4Bvi3GkV0k5ENoXYQ" target="_blank" rel="noopener") #[i.fab.fa-youtube]
 </template>
+
+<!-- theme-style -->
+<button on:click = {() => {
+    const activeThemeStyle = document.documentElement.getAttribute('theme-style')
+    const i = themeStyles.findIndex(t => t === activeThemeStyle)
+    const nextThemeStyle = themeStyles[(i + 1) % themeStyles.length]
+    document.documentElement.setAttribute('theme-style', nextThemeStyle)
+    themeStyle = nextThemeStyle
+}}>{themeStyle}</button>
+
+<!-- theme -->
+<button on:click = {() => {
+    const activeTheme = document.documentElement.getAttribute('theme')
+    const i = themes.findIndex(t => t === activeTheme)
+    const nextTheme = themes[(i + 1) % themes.length]
+    document.documentElement.setAttribute('theme', nextTheme)
+    theme = nextTheme
+}}>{theme}</button>
+
+<br>
+<div class="faint">Contact: mathiassenmarcus@gmail.com</div>
+<div class="icon-list">
+    <a href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+    </a>
+    <a href="https://www.youtube.com/channel/UCZ7FbQ4Bvi3GkV0k5ENoXYQ" target="_blank" rel="noopener"> <i class="fab fa-youtube"></i>
+        </a>
+</div>
