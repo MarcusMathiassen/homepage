@@ -24,6 +24,7 @@ const updateGlobalColorVariables = () => {
             document.documentElement,
             '--text-color--highlight'
         ),
+        text: getStyleAsRGB(document.documentElement, '--text'),
         background: getStyleAsRGB(document.documentElement, '--background'),
         backgroundContent: getStyleAsRGB(
             document.documentElement,

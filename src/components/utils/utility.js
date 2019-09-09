@@ -26,6 +26,10 @@ export const getMinAndMaxPosition = objects => {
     }
 }
 
+export const randFloat = (min, max) => {
+    return Math.random() * (max - min) + min
+}
+
 export class Rect {
     constructor(min = new v2(0, 0), max = new v2(0, 0)) {
         this.min = min

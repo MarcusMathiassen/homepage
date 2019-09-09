@@ -14,18 +14,16 @@ canvas {
 <script>
 
     import { onMount } from 'svelte'
-    import jq from './utils/query'
 
-    import Particle from './utils/particle'
     import { v2, mat4 } from './utils/math'
-    import { getTime, Rect, getMinAndMaxPosition, addButton } from './utils/utility'
-    import Quadtree from './utils/quadtree'
+    import { randFloat } from './utils/utility'
 
-    let backColor = { r: 255, g: 255, b: 255 }
-    let frontColor = { r: 255, g: 0, b: 255 }
-    let boundsHighlightColor = { r: 0, g: 1, b: 0, a: 1 }
-    let highlightColor = { r: 1, g: 1, b: 0, a: 1 }
+    export let movingBackgroundOptions
 
+    let startTime = 0
+    let textColor
+    let backColor
+        
     let gl
     let vao
     let vbo = new Map()
@@ -42,14 +40,76 @@ canvas {
     let canvasWidth = 300
     let canvasHeight = 300
 
-    let numVerticesPerCircle = 36
+    let bindTo = 'moving-background'
+    let numVerticesPerCircle = movingBackgroundOptions.verticesPerParticle
+    let desiredPrimitiveCount = movingBackgroundOptions.particleCount
+
+    let lastPrimitiveCount = 0
     let primitiveCount = 0
+
     let vertices = []
     let positions = []
     let colors = []
     let sizes = []
 
+    let GPUBuffersNeedingUpdate = {
+        vertices: false,
+        positions: false,
+        colors: false,
+        sizes: false
+    }
+
     let velocities = []
+    const getTime = () => {
+        return (new Date().getTime() - startTime) / 1000
+    }
+    const updateGPUBuffers = async () => {
+
+        if (GPUBuffersNeedingUpdate.vertices) {
+            await updateVertices()
+            gl.bindBuffer(gl.ARRAY_BUFFER, vbo.get('vertices'))
+            if (lastPrimitiveCount != primitiveCount) 
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW)
+            else gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(vertices), 0, 0)
+            GPUBuffersNeedingUpdate.vertices = false
+        }
+
+        if (GPUBuffersNeedingUpdate.positions) {
+            await updatePositions()
+            gl.bindBuffer(gl.ARRAY_BUFFER, vbo.get('positions'))
+            if (lastPrimitiveCount != primitiveCount) 
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW)
+            else gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(positions), 0, 0)
+            GPUBuffersNeedingUpdate.positions = false
+        }
+
+        if (GPUBuffersNeedingUpdate.colors) {
+            await updateColors()
+            gl.bindBuffer(gl.ARRAY_BUFFER, vbo.get('colors'))
+            if (lastPrimitiveCount != primitiveCount) 
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.DYNAMIC_DRAW)
+            else gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(colors), 0, 0)
+            GPUBuffersNeedingUpdate.colors = false
+        }
+
+        if (GPUBuffersNeedingUpdate.sizes) {
+            await updateSizes()
+            gl.bindBuffer(gl.ARRAY_BUFFER, vbo.get('sizes'))
+            if (lastPrimitiveCount != primitiveCount) 
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(sizes), gl.DYNAMIC_DRAW)
+            else gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(sizes), 0, 0)
+            GPUBuffersNeedingUpdate.sizes = false
+        }
+    }
+
+    const normalize = rgba => {
+        return {
+            r: rgba.r / 255,
+            g: rgba.g / 255,
+            b: rgba.b / 255,
+            a: rgba.a || rgba.a / 255,
+        }
+    }
 
     function updateValues () {
         canvasWidth = window.innerWidth
@@ -67,11 +127,17 @@ canvas {
 
         canvasWidth *= devicePixelRatio
         canvasHeight *= devicePixelRatio
+
+        textColor = normalize(window.color.text)
+        textColor.a = 0.2
+
+        backColor = normalize(window.color.background)
+        backColor.a = 1.0
+
+        GPUBuffersNeedingUpdate.colors = true
     }
 
-    function draw() {
-        updateValues()
-
+    async function updatePositions() {
         for (let i = 0; i < primitiveCount * 2; i += 2) {
             let posx = positions[i]
             let posy = positions[i+1]
@@ -107,8 +173,28 @@ canvas {
             velocities[i] = velx
             velocities[i+1] = vely
         }
+    }
+    async function updateColors() {
+        for (let i = 0; i < primitiveCount*4; i += 4) {
+            colors[i]   = textColor.r
+            colors[i+1] = textColor.g
+            colors[i+2] = textColor.b
+            colors[i+3] = textColor.a
+        }
+    }
+    async function updateSizes() {
+        for (let i = 0; i < primitiveCount; ++i) {
+            sizes[i] = Math.sin(getTime() * 0.2) * 50
+        }
+    }
 
-        gl.clearColor(0,0,0, 1.0)
+    async function draw() {
+        updateValues()
+
+        GPUBuffersNeedingUpdate.positions = true
+        GPUBuffersNeedingUpdate.sizes = true
+
+        gl.clearColor(backColor.r,backColor.g,backColor.b, backColor.a)
         gl.clear(gl.COLOR_BUFFER_BIT)
 
         // Setup viewport, orthographic projection matrix
@@ -116,11 +202,6 @@ canvas {
 
         gl.useProgram(program)
         gl.bindVertexArray(vao)
-
-        let vbo_v = vbo.get('positions')
-        gl.bindBuffer(gl.ARRAY_BUFFER, vbo_v)
-        gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(positions), 0, 0)
-
         gl.uniform2f(gAttribLocationViewportSize, canvasWidth, canvasHeight)
 
         const type = gl.TRIANGLE_FAN
@@ -128,13 +209,17 @@ canvas {
         const count = numVerticesPerCircle
         const primitive_count = primitiveCount
 
+        await updateGPUBuffers()
         gl.drawArraysInstanced(type, first, count, primitive_count)
 
-        window.requestAnimationFrame(draw)
+        window.requestAnimationFrame(await draw)
+
+        lastPrimitiveCount = primitiveCount
     }
 
-    onMount(() => {
-        canvas = document.getElementById("moving-background")
+    onMount(async () => {
+        canvas = document.getElementById(bindTo)
+
         gl = canvas.getContext("webgl2")
 
         if (!gl) {
@@ -153,7 +238,7 @@ canvas {
         let fs = gl.createShader(gl.FRAGMENT_SHADER)
 
         let vs_src = `#version 300 es
-        precision mediump float;
+        precision highp float;
 
         in vec2     vertices;
         in vec2     position;
@@ -172,7 +257,7 @@ canvas {
         `
 
         let fs_src = `#version 300 es
-        precision mediump float;
+        precision highp float;
         in vec4 color0;
         out vec4 frag;
         void main() {
@@ -229,20 +314,18 @@ canvas {
             const cont = i * Math.PI * 2 / numVerticesPerCircle
             vertices.push(Math.cos(cont), Math.sin(cont))
         }
-        const randFloat = (min, max) => {
-            return Math.random() * (max - min) + min
-        }
 
         const spawnParticle = () => {
             positions.push(randFloat(0, canvasWidth), randFloat(0, canvasHeight))
             colors.push(randFloat(0,1),randFloat(0,1),randFloat(0,1),randFloat(0,1))
-            sizes.push(randFloat(5,10))
+            // colors.push(textColor.r,textColor.g,textColor.b,textColor.a)
+            sizes.push(randFloat(5,50))
             velocities.push(randFloat(-10, 10), randFloat(-10, 10))
             primitiveCount += 1
         }
 
         updateValues()
-        for (let i = 0; i < 1000; ++i)
+        for (let i = 0; i < desiredPrimitiveCount; ++i)
             spawnParticle()
 
         const createArrayBuffer = (loc, data, data_members, target, usage, divisor = 0) => {
@@ -289,7 +372,7 @@ canvas {
             1
         ))
 
-        draw()
+        await draw()
     })
 
 </script>

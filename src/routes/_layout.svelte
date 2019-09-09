@@ -2,7 +2,13 @@
     import Footer from '../components/Footer.svelte'
     import Nav from '../components/Nav.svelte'
     import MovingBackground from '../components/moving-background.svelte'
-export let segment
+    export let segment
+
+    export let movingBackgroundOptions = {
+        particleCount: 10,
+        verticesPerParticle: 12,
+    }
+
 </script>
 
 <style>
@@ -15,7 +21,7 @@ export let segment
     }
 </style>
 
-<MovingBackground />
+<MovingBackground {movingBackgroundOptions}/>
 <Nav {segment} />
 <main>
     <slot />
