@@ -256,12 +256,14 @@ a
     text-decoration: none
     opacity: 0.8
     &:hover
+        color: var(--text)
         opacity: 1.0
 
 hr
     border-color: rgba(var(--text-base), 0.1)
     border-width: 0.5px
-    margin: 20px auto
+    margin: 0 auto
+    margin-top: 20px
     width: 60%
 
 p
@@ -270,3 +272,8 @@ p
 span
     color: var(--text)
     font-family: var(--font)
+
+li, ul
+    margin: 5px
+    margin-top: 15px
+    list-style-type: none

@@ -9,7 +9,7 @@
 <style>
     main {
         position: relative;
-        max-width: 56em;
+        /*max-width: 56em;*/
         padding: 2em;
         margin: 0 auto;
         box-sizing: border-box;
@@ -18,7 +18,7 @@
 
 <!-- <MovingBackground movingBackgroundOptions = {
 {
-        particleCount: 1000,
+        particleCount: 100,
         verticesPerParticle: 3,
         particleSize: 2,
 }    

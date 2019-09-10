@@ -68,7 +68,6 @@ footer
     .faint Font: #[b #[a(href="https://int10h.org/oldschool-pc-fonts/" target="_blank" rel="noopener") PxPlus IBM VGA8]]
     .faint Host: #[b #[a(href="https://www.netlify.com/" target="_blank" rel="noopener") Netlify]]
 </template>
-
 <!-- theme-style -->
 <button on:click = {() => {
     const activeThemeStyle = document.documentElement.getAttribute('theme-style')
@@ -94,7 +93,7 @@ footer
 }}>{theme}</button>
 
 <br>
-<div class="faint">Contact: mathiassenmarcus@gmail.com</div>
+<a href="mailto:mathiassenmarcus@me.com">Contact Me</a>
 <div class="icon-list">
     <a href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener">
         <i class="fab fa-github"></i>

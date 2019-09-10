@@ -9,7 +9,9 @@ canvas {
 }
 </style>
 
-<canvas id="moving-background"></canvas>
+<canvas
+    bind:this={canvas}
+></canvas>
 
 <script>
 
@@ -240,7 +242,6 @@ canvas {
     }
 
     onMount(async () => {
-        canvas = document.getElementById(bindTo)
 
         gl = canvas.getContext("webgl2")
 

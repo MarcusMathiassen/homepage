@@ -4,8 +4,45 @@
 
     let repos = []
 
+    let languageColorChoicesIter = 0
+    let languageColors = new Map()
+    const languageColorChoices = [
+        "var(--apple_blue)",
+        "var(--apple_gray)",
+        "var(--apple_green)",
+        "var(--apple_indigo)",
+        "var(--apple_orange)",
+        "var(--apple_pink)",
+        "var(--apple_purple)",
+        "var(--apple_red)",
+        "var(--apple_teal)",
+        "var(--apple_yellow)",
+        "var(--apple_retro_green)",
+        "var(--apple_retro_yellow)",
+        "var(--apple_retro_orange)",
+        "var(--apple_retro_red)",
+        "var(--apple_retro_purple)"
+    ]
+
+    const starBias = 1.5
+    const forkBias = 2.0 // value forks more than stars
+
     onMount(async () => {
         repos = await cachedFetch('/.netlify/functions/github')
+        repos.sort((a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias))
+
+        repos.forEach(repo => {
+            const name = repo.primaryLanguage.name
+
+            let color 
+            if (languageColors.has(name)) {
+                color = languageColors.get(name)
+            } else color = languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
+            
+            console.log(name, color)
+            
+            languageColors.set(name, color)
+        })
     })
 
 </script>
@@ -22,15 +59,11 @@
     @media only screen and (max-width: 600px)
         margin: 0
         padding: 0
-li, ul
-    margin: 5px
-    margin-top: 10px
-    list-style-type: none
-
 
 a
     padding: 0
     margin: 0
+
 .repo
     display: flex
     opacity: 0.0
@@ -72,7 +105,7 @@ a
                 <div class="badge">
                     {#if repo.primaryLanguage}
                     <span class="badge--item">
-                        <span class="langauge" style="color: {repo.primaryLanguage.color}">
+                        <span class="langauge" style="color: {languageColors.get(repo.primaryLanguage.name)}">
                             {repo.primaryLanguage.name}
                         </span> 
                     </span> 

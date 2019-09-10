@@ -24,10 +24,9 @@
     @media only screen and (max-width: 600px)
         margin: 0
         padding: 0
-li, ul
-    margin: 5px
-    margin-top: 10px
-    list-style-type: none
+a
+    padding: 0
+    margin: 0
 
 .video
     display: flex
@@ -53,13 +52,6 @@ li, ul
 .badge--item
     margin: 2px
 
-.thumbnail
-    margin: 5px
-    vertical-align: middle
-    width: 50px
-    height: 50px
-    border-radius: var(--border-radius)
-
 @keyframes reveal
     from
         opacity: 0.0
@@ -68,10 +60,10 @@ li, ul
 </style>
 
 <ul class="videos">
-    <h2>Youtube Videos</h2>
+    <h2>Videos</h2>
     {#each videos as video, i}            
-        <a href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener">
-            <li class="video" style="animation-delay: {i*10}ms">
+        <li class="video" style="animation-delay: {i*10}ms">
+            <a href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener">
                 <span class="title">{video.title}
                 <div class="badge">
                     {#if parseInt(video.statistics.viewCount)}
@@ -95,7 +87,7 @@ li, ul
                 <!-- <img class="thumbnail" alt="thumbnail" src={video.thumbnails.default.url}/> -->
                 </div>
                 </span>
-            </li>
-        </a>
+            </a>
+        </li>
     {/each}
 </ul>
