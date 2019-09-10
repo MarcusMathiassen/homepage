@@ -16,7 +16,6 @@
             : 'dark'
         })
 
-
         // Restore the last used theme from the sessionStorage.
         // This will maintain the chosen theme when the user reloads the page.
         let lastThemeUsed = sessionStorage.getItem('theme')
@@ -39,9 +38,24 @@
 
 <style lang="sass">
     footer
+        margin: 0
+        padding: 0
         text-align: center
         background: none
         font-size: 0.75em
+
+    button
+        font-size: 1em
+
+    #darkModeToggle
+        position: absolute
+        top: 15px
+        left: 20px
+
+    #retroToggle
+        position: absolute
+        top: 15px
+        right: 20px        
 </style>
 
 <template lang="pug">
@@ -57,11 +71,12 @@ footer
         #[b #[a(href="https://sass-lang.com" target="_blank" rel="noopener") Sass]]
         &
         #[b #[a(href="https://pugjs.org/api/getting-started.html" target="_blank" rel="noopener") Pug]]
-    .faint Font: #[b #[a(href="https://int10h.org/oldschool-pc-fonts/" target="_blank" rel="noopener") PxPlus IBM VGA8]]
+    <!-- .faint Font: #[b #[a(href="https://int10h.org/oldschool-pc-fonts/" target="_blank" rel="noopener") PxPlus IBM VGA8]] -->
     .faint Host: #[b #[a(href="https://www.netlify.com/" target="_blank" rel="noopener") Netlify]]
 </template>
+
 <!-- theme-style -->
-<button on:click = {() => {
+<button id="retroToggle" on:click = {() => {
     const activeThemeStyle = document.documentElement.getAttribute('theme-style')
     const i = themeStyles.findIndex(t => t === activeThemeStyle)
     const nextThemeStyle = themeStyles[(i + 1) % themeStyles.length]
@@ -70,10 +85,9 @@ footer
     themeStyle = nextThemeStyle
     sessionStorage.setItem('theme-style', themeStyle)
 
-}}>{themeStyle}</button>
-
+}}><i class="fas fa-pepper-hot"></i></button>
 <!-- theme -->
-<button on:click = {() => {
+<button id="darkModeToggle" on:click = {() => {
     const activeTheme = document.documentElement.getAttribute('theme')
     const i = themes.findIndex(t => t === activeTheme)
     const nextTheme = themes[(i + 1) % themes.length]
@@ -81,5 +95,4 @@ footer
 
     theme = nextTheme
     sessionStorage.setItem('theme', theme)
-
-}}>{theme}</button>
+}}><i class="fas fa-{theme === 'dark' ? 'sun' : 'moon' }"></i></button>

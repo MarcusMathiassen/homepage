@@ -23,25 +23,23 @@
     li {
         display: block;
         float: left;
+        margin: 0;
+        padding: 0;
     }
 
     .selected {
         color: var(--text);
-        position: relative;
-        display: inline-block;
     }
 
     .selected::after {
         position: absolute;
-        content: '';
-        width: calc(100% - 1em);
         display: block;
     }
 
     a {
         color: rgba(var(--text-base), 0.5);
-        margin-top: 20px;
-        padding: 0em 2em;
+        margin-top: 10px;
+        padding: 0em 1em;
         display: block;
     }
 

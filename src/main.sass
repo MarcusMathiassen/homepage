@@ -1,5 +1,3 @@
-@import 'sierra-library/lib/index'
-
 @font-face
     font-family: 'pxplus_ibm_vga8regular'
     src: url('../static/pxplus_ibm_vga8-webfont.woff2') format('woff2'), url('../static/pxplus_ibm_vga8-webfont.woff') format('woff')
@@ -118,7 +116,7 @@ html
         --avatar: url("../static/avatar.png")
         --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
         .landing-page--hero
-            border-radius: 50px
+            border-radius: 50%
 
 html[theme="light"]
 
@@ -285,11 +283,12 @@ img
 
 a
     color: var(--text)
-    font-family: var(--font)
+    opacity: 0.8
     text-decoration: none
+    font-family: var(--font)
     &:hover
+        opacity: 1.0
         color: var(--text)
-        text-decoration: underline
 
 hr
     border-color: rgba(var(--text-base), 0.1)
@@ -307,5 +306,5 @@ span
 
 li, ul
     margin: 5px
-    margin-top: 15px
+    margin-top: 10px
     list-style-type: none

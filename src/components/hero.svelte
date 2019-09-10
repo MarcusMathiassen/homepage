@@ -1,4 +1,5 @@
 <style lang="sass">
+
 .landing-page--title
     font-size: 1.5em
     font-weight: 700
@@ -14,14 +15,14 @@
 .landing-page--hero
     margin: 0
     margin-bottom: 20px
-    -webkit-transform: translate3d(0,0,0)
+    transform: translate3d(0,0,0)
     background-image: var(--avatar)
     background-size: cover
     width: 300px
     height: 300px
 
 .contact-me
-    text-decoration: underline
+    font-weight: 600
 .icon-list
     display: flex
     justify-content: center

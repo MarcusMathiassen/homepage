@@ -46,7 +46,7 @@
     text-align: left
     display: inline-block
     h2
-        padding: 5px
+        margin: 5px
         text-align: left
         font-size: 1.50em
         font-weight: 700
@@ -71,12 +71,15 @@ a
     text-align: left
 
 .langauge
-    font-weight: 500
+    font-weight: 700
 
 .badge
+    display: inline-block
+    margin-left: 5px
     background: var(--secondary)
-    margin: 0
     padding: 5px
+    padding-top: 2px
+    padding-bottom: 2px
     border-radius: var(--border-radius)
     font-size: 0.75em
 
