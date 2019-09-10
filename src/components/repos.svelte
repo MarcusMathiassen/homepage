@@ -7,21 +7,16 @@
     let languageColorChoicesIter = 0
     let languageColors = new Map()
     const languageColorChoices = [
-        "var(--apple_blue)",
-        "var(--apple_gray)",
-        "var(--apple_green)",
-        "var(--apple_indigo)",
-        "var(--apple_orange)",
-        "var(--apple_pink)",
-        "var(--apple_purple)",
-        "var(--apple_red)",
-        "var(--apple_teal)",
-        "var(--apple_yellow)",
-        "var(--apple_retro_green)",
-        "var(--apple_retro_yellow)",
-        "var(--apple_retro_orange)",
-        "var(--apple_retro_red)",
-        "var(--apple_retro_purple)"
+        'var(--systemBlue)',
+        'var(--systemGray)',
+        'var(--systemGreen)',
+        'var(--systemIndigo)',
+        'var(--systemOrange)',
+        'var(--systemPink)',
+        'var(--systemPurple)',
+        'var(--systemRed)',
+        'var(--systemTeal)',
+        'var(--systemYellow)'
     ]
 
     const starBias = 1.5
@@ -38,8 +33,6 @@
             if (languageColors.has(name)) {
                 color = languageColors.get(name)
             } else color = languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
-            
-            console.log(name, color)
             
             languageColors.set(name, color)
         })
@@ -76,7 +69,11 @@ a
     font-size: 1em
     padding: 0
     margin: 0
+    margin-right: 5px
     text-align: left
+
+.langauge
+    font-weight: 500
 
 .badge
     background: var(--secondary)
@@ -92,7 +89,7 @@ a
     from
         opacity: 0.0
     to
-        opacity: 0.8
+        opacity: 1.0
 
 </style>
 

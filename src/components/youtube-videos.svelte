@@ -40,6 +40,7 @@ a
     font-size: 1em
     padding: 0
     margin: 0
+    margin-right: 5px
     text-align: left
 
 .badge
@@ -68,23 +69,22 @@ a
                 <div class="badge">
                     {#if parseInt(video.statistics.viewCount)}
                     <span class="badge--item">
-                        <i class="fas fa-eye" style="color: var(--c_carib_green)"></i>
-                        <span style="color: var(--c_carib_green)"> {video.statistics.viewCount} </span>
+                        <i class="fas fa-eye" style="color: var(--systemGray)"></i>
+                        <span style="color: var(--systemGray)"> {video.statistics.viewCount} </span>
                     </span>
                     {/if}
                     {#if parseInt(video.statistics.likeCount)}
                     <span class="badge--item">
-                        <i class="fas fa-heart" style="color: var(--apple_red)"></i>
-                        <span style="color: var(--apple_red)">{video.statistics.likeCount}</span>
+                        <i class="fas fa-heart" style="color: var(--systemRed)"></i>
+                        <span style="color: var(--systemRed)">{video.statistics.likeCount}</span>
                     </span>
                     {/if}
                     {#if parseInt(video.statistics.commentCount)}
                     <span class="badge--item">
-                        <i class="fas fa-comment" style="color: var(--apple_blue)"></i>
-                        <span style="color: var(--apple_blue)">{video.statistics.commentCount}</span>
+                        <i class="fas fa-comment" style="color: var(--systemBlue)"></i>
+                        <span style="color: var(--systemBlue)">{video.statistics.commentCount}</span>
                     </span>
                     {/if}
-                <!-- <img class="thumbnail" alt="thumbnail" src={video.thumbnails.default.url}/> -->
                 </div>
                 </span>
             </a>

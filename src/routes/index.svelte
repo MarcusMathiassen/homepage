@@ -20,6 +20,7 @@
 .landing-page--hero
     margin: 0
     margin-bottom: 20px
+    -webkit-transform: translate3d(0,0,0)
     background-image: var(--avatar)
     background-size: cover
     width: 300px
