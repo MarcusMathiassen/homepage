@@ -46,7 +46,6 @@
 
 <template lang="pug">
 footer
-    hr
     .faint.
         Built using
         #[b #[a(href="https://sapper.svelte.dev/" target="_blank" rel="noopener") Sapper]]

@@ -48,7 +48,8 @@
     h2
         padding: 5px
         text-align: left
-        font-weight: 500
+        font-size: 1.50em
+        font-weight: 700
     @media only screen and (max-width: 600px)
         margin: 0
         padding: 0
