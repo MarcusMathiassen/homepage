@@ -4,8 +4,9 @@
 
 <style>
     nav {
+        position: relative;
+        margin-top: 15px;
         font-weight: 600;
-        padding: 0 1em;
     }
 
     ul {
@@ -38,7 +39,7 @@
 
     a {
         color: rgba(var(--text-base), 0.5);
-        margin-top: 10px;
+        margin-top: 0px;
         padding: 0em 1em;
         display: block;
     }
@@ -62,4 +63,3 @@
         </li>
     </ul>
 </nav>
-<hr>

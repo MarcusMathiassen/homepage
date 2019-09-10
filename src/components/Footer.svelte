@@ -49,12 +49,12 @@
 
     #darkModeToggle
         position: absolute
-        top: 15px
+        top: 10px
         left: 20px
 
     #retroToggle
         position: absolute
-        top: 15px
+        top: 10px
         right: 20px        
 </style>
 

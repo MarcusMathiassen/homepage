@@ -16,13 +16,13 @@
     }
 </style>
 
-<MovingBackground movingBackgroundOptions = {
+<!-- <MovingBackground movingBackgroundOptions = {
 {
         particleCount: 100,
         verticesPerParticle: 3,
         particleSize: 2,
 }    
-}/>
+}/> -->
 <Nav {segment} />
 <main>
     <slot />
