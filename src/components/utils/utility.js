@@ -177,6 +177,20 @@ export const HSLtoRGBA = (h, s, l) => {
 
 let gStartTime = 0
 
+export const cachedFetch = async (root, storage = sessionStorage) => {
+    const result = storage.getItem(root)
+    if (result !== null) {
+        console.log(`getting ${root}... from storage`)
+        return JSON.parse(result)
+    } else {
+        console.log(`getting ${root}... from source`)
+        const res = await fetch(root)
+        const json = await res.json()
+        storage.setItem(root, JSON.stringify(json))
+        return json
+    }
+}
+
 export const getTime = () => {
     return (new Date().getTime() - gStartTime) / 1000
 }

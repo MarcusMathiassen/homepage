@@ -5,7 +5,7 @@ const pkg = require('./package.json')
 
 const sveltePreprocess = require('svelte-preprocess')
 
-require('dotenv').config()
+// require('dotenv').config()
 
 const mode = process.env.NODE_ENV
 const dev = mode === 'development'

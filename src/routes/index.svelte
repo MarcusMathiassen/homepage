@@ -13,6 +13,7 @@
     height: 300px
 
 .container
+    padding: 0
     display: flex
     flex-flow: row wrap
     justify-content: space-around
@@ -23,7 +24,7 @@
 </svelte:head>
 
 <div class="container">
-    <div class="container--hero">
+    <!-- <div class="container--hero">
         <div class="landing-page--hero"></div>
         <p class="landing-page--tit">
             Marcus Mathiassen
@@ -32,7 +33,7 @@
             I do compilers and languages.<br>
             Interested in systems design and UX.
         </p>
-    </div>
+    </div> -->
     <Repos/>
     <YoutubeVideos/>
 </div>

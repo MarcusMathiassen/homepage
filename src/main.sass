@@ -251,11 +251,12 @@ img
     color: rgba(var(--text-base), .5)
 
 a
+    color: var(--text)
+    font-family: var(--font)
     text-decoration: none
-    color: rgba(var(--text-base), .6)
-
+    opacity: 0.8
     &:hover
-        color: rgba(var(--text-base), 1)
+        opacity: 1.0
 
 hr
     border-color: rgba(var(--text-base), 0.1)
@@ -265,3 +266,7 @@ hr
 
 p
     background: none
+
+span
+    color: var(--text)
+    font-family: var(--font)

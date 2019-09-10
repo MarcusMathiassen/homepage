@@ -16,6 +16,21 @@
             : 'dark'
         })
 
+
+        // Restore the last used theme from the sessionStorage.
+        // This will maintain the chosen theme when the user reloads the page.
+        let lastThemeUsed = sessionStorage.getItem('theme')
+        if (lastThemeUsed) {
+            document.documentElement.setAttribute('theme', lastThemeUsed)
+            theme = lastThemeUsed
+        }
+
+        let lastThemeStyleUsed = sessionStorage.getItem('theme-style')
+        if (lastThemeStyleUsed) {
+            document.documentElement.setAttribute('theme-style', lastThemeStyleUsed)
+            themeStyle = lastThemeStyleUsed
+        }
+        
         theme = document.documentElement.getAttribute('theme')
         themeStyle = document.documentElement.getAttribute('theme-style')
     })
@@ -60,7 +75,10 @@ footer
     const i = themeStyles.findIndex(t => t === activeThemeStyle)
     const nextThemeStyle = themeStyles[(i + 1) % themeStyles.length]
     document.documentElement.setAttribute('theme-style', nextThemeStyle)
+    
     themeStyle = nextThemeStyle
+    sessionStorage.setItem('theme-style', themeStyle)
+
 }}>{themeStyle}</button>
 
 <!-- theme -->
@@ -69,7 +87,10 @@ footer
     const i = themes.findIndex(t => t === activeTheme)
     const nextTheme = themes[(i + 1) % themes.length]
     document.documentElement.setAttribute('theme', nextTheme)
+
     theme = nextTheme
+    sessionStorage.setItem('theme', theme)
+
 }}>{theme}</button>
 
 <br>
