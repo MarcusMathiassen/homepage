@@ -53,6 +53,7 @@
     @media only screen and (max-width: 600px)
         margin: 0
         padding: 0
+        font-size: 0.85em
 
 a
     padding: 0

@@ -15,8 +15,14 @@
     display: flex
     flex-flow: row wrap
     justify-content: center
+
+    @media only screen and (max-width: 800px)
+        margin: 0
+        padding: 0
+
 .container--item
     margin: 20px
+
 </style>
 
 <svelte:head>
