@@ -42,13 +42,6 @@
         text-align: center
         background: none
         font-size: 0.75em
-    .icon-list
-        display: flex
-        justify-content: center
-        a
-            font-size: 2em
-            margin: 5px
-
 </style>
 
 <template lang="pug">
@@ -91,13 +84,3 @@ footer
     sessionStorage.setItem('theme', theme)
 
 }}>{theme}</button>
-
-<br>
-<a href="mailto:mathiassenmarcus@me.com">Contact Me</a>
-<div class="icon-list">
-    <a href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener">
-        <i class="fab fa-github"></i>
-    </a>
-    <a href="https://www.youtube.com/channel/UCZ7FbQ4Bvi3GkV0k5ENoXYQ" target="_blank" rel="noopener"> <i class="fab fa-youtube"></i>
-        </a>
-</div>

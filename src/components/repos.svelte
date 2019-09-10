@@ -60,9 +60,6 @@ a
 .repo
     display: flex
     opacity: 0.0
-    @media only screen and (max-width: 600px)
-        font-size: 0.75em
-    
     animation: reveal 1s forwards
 
 .title

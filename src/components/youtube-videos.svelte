@@ -31,9 +31,6 @@ a
 .video
     display: flex
     opacity: 0.0
-    @media only screen and (max-width: 600px)
-        font-size: 0.75em
-    
     animation: reveal 1s forwards
 
 .title
@@ -69,20 +66,20 @@ a
                 <div class="badge">
                     {#if parseInt(video.statistics.viewCount)}
                     <span class="badge--item">
-                        <i class="fas fa-eye" style="color: var(--systemGray)"></i>
-                        <span style="color: var(--systemGray)"> {video.statistics.viewCount} </span>
+                        <i class="fas fa-eye" style="color: var(--systemGreen)"></i>
+                        <span style="color: var(--systemGreen)"> {video.statistics.viewCount} </span>
                     </span>
                     {/if}
                     {#if parseInt(video.statistics.likeCount)}
                     <span class="badge--item">
-                        <i class="fas fa-heart" style="color: var(--systemRed)"></i>
-                        <span style="color: var(--systemRed)">{video.statistics.likeCount}</span>
+                        <i class="fas fa-heart" style="color: var(--systemPink)"></i>
+                        <span style="color: var(--systemPink)">{video.statistics.likeCount}</span>
                     </span>
                     {/if}
                     {#if parseInt(video.statistics.commentCount)}
                     <span class="badge--item">
-                        <i class="fas fa-comment" style="color: var(--systemBlue)"></i>
-                        <span style="color: var(--systemBlue)">{video.statistics.commentCount}</span>
+                        <i class="fas fa-comment" style="color: var(--systemTeal)"></i>
+                        <span style="color: var(--systemTeal)">{video.statistics.commentCount}</span>
                     </span>
                     {/if}
                 </div>
