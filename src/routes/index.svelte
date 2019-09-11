@@ -1,14 +1,15 @@
-<script>
-    import { onMount } from 'svelte'
+<script lang="coffee">
+    
     import Hero from '../components/hero.svelte'
     import Repos from '../components/repos.svelte'
     import YoutubeVideos from '../components/youtube-videos.svelte'
-        
-    let components = []
-    onMount(async () => components = [Hero, Repos, YoutubeVideos])
+
+    components = [Hero, Repos, YoutubeVideos]
+
 </script>
 
 <style lang="sass">
+
 .container
     margin: 0
     padding: 0
@@ -26,13 +27,16 @@
 </style>
 
 <svelte:head>
+
     <title>Home</title>
+
 </svelte:head>
 
-<div class="container">
-    {#each components as component}
-        <div class="container--item">
-            <svelte:component this={component}/>
-        </div>
-    {/each}
-</div>
+<template lang="pug">
+    
+    .container
+        +each('components as component')
+            .container--item
+                svelte:component(this='{component}')
+
+</template>

@@ -38,7 +38,8 @@ module.exports = {
                             hydratable: true,
                             hotReload: false, // pending https://github.com/sveltejs/svelte/issues/2377
                             preprocess: sveltePreprocess({
-                                scss: true,
+                                coffee: true,
+                                sass: true,
                                 pug: true,
                             }),
                         },

@@ -1,15 +1,15 @@
-<script>
+<script lang="coffee">
     import { onMount } from 'svelte'
     import { cachedFetch } from './utils/utility'
 
-    let videos = []
+    videos = []
 
-    onMount(async () => {
-        videos = await cachedFetch('/.netlify/functions/youtube')
+    onMount () =>
+        videos = await cachedFetch '/.netlify/functions/youtube'
 
-        // Sort the videos based on view count
-        videos.sort((a, b) => parseInt(b.statistics.viewCount) - parseInt(a.statistics.viewCount))
-    })
+        # Sort the videos based on view count
+        videos.sort (a, b) => parseInt(b.statistics.viewCount) - parseInt(a.statistics.viewCount)
+
 </script>
 
 <style lang="sass">
@@ -62,34 +62,26 @@ a
         opacity: 1.0
 </style>
 
-<ul class="videos">
-    <h2>Videos</h2>
-    {#each videos as video, i}            
-        <li class="video" style="animation-delay: {i*10}ms">
-            <a href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener">
-                <span class="title">{video.title}
-                <div class="badge">
-                    {#if parseInt(video.statistics.viewCount)}
-                    <span class="badge--item">
-                        <i class="fas fa-eye" style="color: var(--systemGray)"></i>
-                        <span style="color: var(--systemGray)"> {video.statistics.viewCount} </span>
-                    </span>
-                    {/if}
-                    {#if parseInt(video.statistics.likeCount)}
-                    <span class="badge--item">
-                        <i class="fas fa-heart" style="color: var(--systemRed)"></i>
-                        <span style="color: var(--systemRed)">{video.statistics.likeCount}</span>
-                    </span>
-                    {/if}
-                    {#if parseInt(video.statistics.commentCount)}
-                    <span class="badge--item">
-                        <i class="fas fa-comment" style="color: var(--systemTeal)"></i>
-                        <span style="color: var(--systemTeal)">{video.statistics.commentCount}</span>
-                    </span>
-                    {/if}
-                </div>
-                </span>
-            </a>
-        </li>
-    {/each}
-</ul>
+
+<template lang="pug">
+
+ul.videos
+    h2 Videos
+    +each('videos as video, i')
+        li.video(style="animation-delay: {i*10}ms")
+            a(href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
+                span.title {video.title}
+                .badge
+                    +if('parseInt(video.statistics.viewCount)')
+                        span.badge--item
+                            i(class="fas fa-eye" style="color: var(--systemGray)")
+                            span(style="color: var(--systemGray)") {video.statistics.viewCount}
+                    +if('parseInt(video.statistics.likeCount)')
+                        span.badge--item
+                            i(class="fas fa-heart" style="color: var(--systemRed)")
+                            span(style="color: var(--systemRed)") {video.statistics.likeCount}
+                    +if('parseInt(video.statistics.commentCount)')
+                        span.badge--item
+                            i(class="fas fa-comment" style="color: var(--systemTeal)")
+                            span(style="color: var(--systemTeal)") {video.statistics.commentCount}
+</template>

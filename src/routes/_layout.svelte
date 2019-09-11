@@ -1,9 +1,9 @@
 <script>
-    import Footer from '../components/Footer.svelte'
     import Nav from '../components/Nav.svelte'
     import MovingBackground from '../components/moving-background.svelte'
     export let segment
 
+    $: segment = segment === undefined ? 'home' : segment
 </script>
 
 <style lang="sass">
@@ -24,8 +24,11 @@
         particleSize: 2,
 }    
 }/> -->
-<Nav {segment} />
-<main>
-    <slot />
-</main>
-<Footer />
+
+<template lang="pug">
+    
+    Nav('{segment}')
+    main
+        slot
+
+</template>

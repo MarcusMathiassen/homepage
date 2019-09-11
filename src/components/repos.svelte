@@ -1,12 +1,12 @@
-<script>
+<script lang="coffee">
     import { onMount } from 'svelte'
     import { cachedFetch } from './utils/utility'
 
-    let repos = []
+    repos = []
 
-    let languageColorChoicesIter = 0
-    let languageColors = new Map()
-    const languageColorChoices = [
+    languageColorChoicesIter = 0
+    languageColors = new Map()
+    languageColorChoices = [
         'var(--systemBlue)',
         'var(--systemGray)',
         'var(--systemGreen)',
@@ -19,24 +19,20 @@
         'var(--systemYellow)'
     ]
 
-    const starBias = 1.5
-    const forkBias = 2.0 // value forks more than stars
+    starBias = 1.5
+    forkBias = 2.0 # value forks more than stars
 
-    onMount(async () => {
-        repos = await cachedFetch('/.netlify/functions/github')
-        repos.sort((a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias))
+    onMount () =>
+        repos = await cachedFetch '/.netlify/functions/github'
+        repos.sort (a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias)
 
-        repos.forEach(repo => {
-            const name = repo.primaryLanguage.name
-
-            let color 
-            if (languageColors.has(name)) {
-                color = languageColors.get(name)
-            } else color = languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
-            
-            languageColors.set(name, color)
-        })
-    })
+        for repo in repos
+            name = repo.primaryLanguage.name
+            color = if languageColors.has name
+                languageColors.get name
+            else 
+                languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
+            languageColors.set name, color
 
 </script>
 
@@ -50,6 +46,7 @@
         text-align: left
         font-size: 1.50em
         font-weight: 700
+
     @media only screen and (max-width: 600px)
         margin: 0
         padding: 0
@@ -95,35 +92,23 @@ a
 
 </style>
 
-<ul class="repos">
-    <h2>Repositories</h2>
-    {#each repos as repo, i}
-        <li class="repo" style="animation-delay: {i*10}ms">
-            <a href="{repo.url}" target="_blank" rel="noopener">
-                <span class="title">{repo.name}
-                <div class="badge">
-                    {#if repo.primaryLanguage}
-                    <span class="badge--item">
-                        <span class="langauge" style="color: {languageColors.get(repo.primaryLanguage.name)}">
-                            {repo.primaryLanguage.name}
-                        </span> 
-                    </span> 
-                    {/if}
-                    {#if repo.stargazers.totalCount} 
-                    <span class="badge--item">
-                        <i class="fas fa-star" style="color: var(--apple_retro_yellow)"></i>
-                        <span style="color: var(--apple_retro_yellow)">{repo.stargazers.totalCount}</span>
-                    </span>
-                    {/if}
-                    {#if repo.forkCount} 
-                    <span class="badge--item">
-                        <i class="fas fa-code-branch" style="color: #c94da0"></i>
-                        <span style="color: #c94da0">{repo.forkCount}</span>
-                    </span>
-                    {/if}
-                </div>
-                </span>
-            </a>
-        </li>
-    {/each}
-</ul>
+<template lang="pug">
+
+ul.repos
+    h2 Repositories
+    +each('repos as repo, i')
+        li.repo(style="animation-delay: {i*10}ms")
+            a(href="{repo.url}" target="_blank" rel="noopener")
+                span.title {repo.name}
+                .badge
+                    +if('repo.primaryLanguage')
+                        span.badge--item.lanugage(style="color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}
+                    +if('repo.stargazers.totalCount')
+                        span.badge--item
+                            i(class="fas fa-star" style="color: var(--apple_retro_yellow)")
+                            span(style="color: var(--apple_retro_yellow)") {repo.stargazers.totalCount}
+                    +if('repo.forkCount')
+                        span.badge--item
+                            i(class="fas fa-code-branch" style="color: #c94da0")
+                            span(style="color: #c94da0") {repo.forkCount}
+</template>
