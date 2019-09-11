@@ -12,7 +12,7 @@ canvas
 
 <template lang="pug">
 
-canvas bind:this={canvas}
+canvas(bind:this='{canvas}')
 
 </template>
 
@@ -249,7 +249,7 @@ onMount(async () => {
     gl = canvas.getContext("webgl2")
 
     if (!gl)  {
-        console.error("no webgl2 context found. stopping.")
+        console.log("no webgl2 context found. stopping.")
         return 
     }
 

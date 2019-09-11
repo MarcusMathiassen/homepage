@@ -13,8 +13,7 @@
         opacity: 0.8
 
     .landing-page--hero
-        margin: 0
-        margin-bottom: 20px
+        margin: 20px
         transform: translate3d(0,0,0)
         background-image: var(--avatar)
         background-size: cover

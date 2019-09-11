@@ -8,11 +8,10 @@ $comment-border-width: 1em
 $comment-border-color--advice: #02C39A
 $comment-border-color--info: #5C9EAD
 $comment-border-color--warning: #F79D65
-$backgroundColor: #F8F0DA
-$textColor: #3E4E50
 
 html
-    --theme-style: 'retro'
+    width: 100%
+    height: 100%
 
     --chrome—color-light0: #FFFFFF
     --chrome—color-light1: #F4F5F7
@@ -21,80 +20,50 @@ html
     --chrome—color-dark1: #2D3033
     --chrome—color-dark2: #323639
 
-    --text--color-base--light: 22, 21, 30
-    --background--color-base--light: 246, 239, 228
+    --theme-style: 'retro'
+    
+    --text--color-base--light:            22, 21, 30
+    --background--color-base--light:      255,255,255
 
-    --text--color-base--dark: 246, 239, 228
-    --background--color-base--dark: 22, 21, 30
-
-    --primary: var(--chrome-color-dark0)
+    --text--color-base--dark:             254, 248, 239
+    --background--color-base--dark:       22, 21, 30
+    
+    --primary:   var(--chrome—color-dark0)
     --secondary: var(--chrome—color-dark1)
-    --third: var(--chrome—color-dark2)
-
-    --apple_retro_green: #61bb46
-    --apple_retro_yellow: #fdb827
-    --apple_retro_orange: #f5821f
-    --apple_retro_red: #e03a3e
-    --apple_retro_purple: #963d97
-    --apple_blue: rgb(64, 156, 255)
-    --apple_gray: rgb(152, 152, 157)
-    --apple_green: rgb(48, 219, 91)
-    --apple_indigo: rgb(125, 122, 255)
-    --apple_orange: rgb(255, 179, 64)
-    --apple_pink: rgb(255, 100, 130)
-    --apple_purple: rgb(218, 143, 255)
-    --apple_red: rgb(255, 105, 97)
-    --apple_teal: rgb(112, 215, 255)
-    --apple_yellow: rgb(255, 212, 38)
-    --c_blue: #247BA0
-    --c_white: #FAF1D8
-    --c_pink: #DD7373
-    --c_black: #3E4E50
-    --c_warm_black: #02394A
-    --c_black_olive: #393D3F
-    --c_orange: #F79D65
-    --c_turq: #69D1C5
-    --c_almond: #EED7C5
-    --c_cadedblue: #5C9EAD
-    --c_carib_green: #02C39A
-
-
-    --systemBlueLight: rgb(0,122,255)
-    --systemBlueDark: rgb(10,132,255)
-    --systemGrayLight: rgb(142,142,147)
-    --systemGrayDark: rgb(152,152,157)
-    --systemGreenLight: rgb(52,199,89)
-    --systemGreenDark: rgb(48,209,88)
+    --third:     var(--chrome—color-dark2)
+    
+    --systemBlueLight:   rgb(0,122,255)
+    --systemGrayLight:   rgb(142,142,147)
+    --systemGreenLight:  rgb(52,199,89)
     --systemIndigoLight: rgb(88,86,214)
-    --systemIndigoDark: rgb(94,92,230)
     --systemOrangeLight: rgb(255,149,0)
-    --systemOrangeDark: rgb(255,159,10)
-    --systemPinkLight: rgb(255,45,85)
-    --systemPinkDark: rgb(255,55,95)
+    --systemPinkLight:   rgb(255,45,85)
     --systemPurpleLight: rgb(175,82,222)
-    --systemPurpleDark: rgb(191,90,242)
-    --systemRedLight: rgb(255,59,48)
-    --systemRedDark: rgb(255,69,58)
-    --systemTealLight: rgb(90,200,250)
-    --systemTealDark: rgb(100,210,255)
+    --systemRedLight:    rgb(255,59,48)
+    --systemTealLight:   rgb(90,200,250)
     --systemYellowLight: rgb(255,204,0)
-    --systemYellowDark: rgb(255,214,10)
 
-    --storage: var(--c_cadedblue)
-    --literal: var(--c_carib_green)
-    --comment: var(--c_orange)
-    --keyword: rgb(255, 100, 130)
-    --compile_time_resolved: var(--apple_indigo)
+    --systemBlueDark:    rgb(10,132,255)
+    --systemGrayDark:    rgb(152,152,157)
+    --systemGreenDark:   rgb(48,209,88)
+    --systemIndigoDark:  rgb(94,92,230)
+    --systemOrangeDark:  rgb(255,159,10)
+    --systemPinkDark:    rgb(255,55,95)
+    --systemPurpleDark:  rgb(191,90,242)
+    --systemRedDark:     rgb(255,69,58)
+    --systemTealDark:    rgb(100,210,255)
+    --systemYellowDark:  rgb(255,214,10)
 
-    --text-base: blue
-    --text: rgba(var(--text-base), 1)
+    --text-base: 0,0,0
+    --text: rgba(var(--text-base),1)
 
-    --background-base: red
-    // --background: rgba(var(--background-base), 1)
-    --background: var(--primary)
+    --background-base: 0,0,0
+    --background: rgba(var(--background-base), 1)
 
     --font: 'pxplus_ibm_vga8regular'
     --avatar: url("../static/avatar_pixelated.jpg")
+
+    font-size: calc(1vw + 1vh)
 
     --border-radius: 50px
 
@@ -114,94 +83,61 @@ html
 
 html[theme="light"]
 
-    --primary: var(--chrome—color-light0)
+    --primary:   var(--chrome—color-light0)
     --secondary: var(--chrome—color-light1)
-    --third: var(--chrome—color-light2)
+    --third:     var(--chrome—color-light2)
 
-    --systemBlue: var(--systemBlueLight)
-    --systemGray: var(--systemGrayLight)
-    --systemGreen: var(--systemGreenLight)
+    --systemBlue:   var(--systemBlueLight)
+    --systemGray:   var(--systemGrayLight)
+    --systemGreen:  var(--systemGreenLight)
     --systemIndigo: var(--systemIndigoLight)
     --systemOrange: var(--systemOrangeLight)
-    --systemPink: var(--systemPinkLight)
+    --systemPink:   var(--systemPinkLight)
     --systemPurple: var(--systemPurpleLight)
-    --systemRed: var(--systemRedLight)
-    --systemTeal: var(--systemTealLight)
+    --systemRed:    var(--systemRedLight)
+    --systemTeal:   var(--systemTealLight)
     --systemYellow: var(--systemYellowLight)
 
-    --text-color--normal: var(--text)
-    --text-color--light: var(--c_black)
-    --text-color--richer: var(--c_black)
-    --text-color--highlight: var(--keyword)
-    --text-color--comment: var(--comment)
-    --background--content: rgb(255, 255, 255)
     --text-base: var(--text--color-base--light)
     --background-base: var(--background--color-base--light)
+
     --background-color--selection: yellow
 
     &[theme-style='modern']
         --text-base: 0,0,0
         --background-base: 255,255,255
-        --background--content: white
+        --primary:   #FFF
+        --secondary: #EEE
+        --third:     #DDD
 
 html[theme='dark']
 
-    --primary: var(--chrome—color-dark0)
+    --primary:   var(--chrome—color-dark0)
     --secondary: var(--chrome—color-dark1)
-    --third: var(--chrome—color-dark2)
+    --third:     var(--chrome—color-dark2)
 
-    --systemBlue: var(--systemBlueDark)
-    --systemGray: var(--systemGrayDark)
-    --systemGreen: var(--systemGreenDark)
+    --systemBlue:   var(--systemBlueDark)
+    --systemGray:   var(--systemGrayDark)
+    --systemGreen:  var(--systemGreenDark)
     --systemIndigo: var(--systemIndigoDark)
     --systemOrange: var(--systemOrangeDark)
-    --systemPink: var(--systemPinkDark)
+    --systemPink:   var(--systemPinkDark)
     --systemPurple: var(--systemPurpleDark)
-    --systemRed: var(--systemRedDark)
-    --systemTeal: var(--systemTealDark)
+    --systemRed:    var(--systemRedDark)
+    --systemTeal:   var(--systemTealDark)
     --systemYellow: var(--systemYellowDark)
 
-    --text-color--normal: var(--c_white)
-    --text-color--light: var(--c_white)
-    --text-color--richer: var(--c_white)
-    --text-color--highlight: var(--apple_pink)
-    --text-color--comment: var(--comment)
-    --background--content: rgb(30, 30, 30)
-    --text-base: var(--text--color-base--dark)
+    --text-base:       var(--text--color-base--dark)
     --background-base: var(--background--color-base--dark)
+
     --background-color--selection: var(--apple_pink)
 
     &[theme-style='modern']
         --text-base: 255,255,255
         --background-base: 0,0,0
-        --background--content: black
-        --text-color--normal: var(--text)
-        --text-color--light: var(--text)
-        --text-color--richer: var(--text)
-
-html[theme='trueDark']
-
-    --primary: #000
-    --secondary: #222
-    --third: #444
-
-    --text-color--normal: var(--c_white)
-    --text-color--light: var(--c_white)
-    --text-color--richer: var(--c_white)
-    --text-color--highlight: var(--apple_pink)
-    --text-color--comment: var(--comment)
-    --background--content: rgb(30, 30, 30)
-    --text-base: var(--text--color-base--dark)
-    --background-base: var(--background--color-base--dark)
-    --background-color--selection: var(--apple_pink)
-
-    &[theme-style='modern']
-        --text-base: 255,255,255
-        --background-base: 0,0,0
-        --background--content: black
-        --text-color--normal: var(--text)
-        --text-color--light: var(--text)
-        --text-color--richer: var(--text)
+        --primary:   #000
+        --secondary: #111
+        --third:     #222
 
 body, p, b, button
     // font-smooth: never
@@ -225,52 +161,9 @@ button
     &:focus
         outline: 0
 
-#p2d
-    cursor: none
-
-.comment
-    border-radius: 5px
-    position: relative
-    padding: 10px
-    margin: 10px
-    font-size: 0.75em
-    border: 1px solid
-    border-left: $comment-border-width solid
-    &.advice
-        p
-            color: mix($textColor, $comment-border-color--advice)
-        border-color: $comment-border-color--advice
-    &.warning
-        p
-            color: mix($textColor, $comment-border-color--warning)
-        border-color: $comment-border-color--warning
-    &.info
-        p
-            color: mix($textColor, $comment-border-color--info)
-        border-color: $comment-border-color--info
-
-.emphasis
-    font-weight: 100
-    font-size: 2em
-
-button
-    padding: 5px
-    margin: 5px
-
 img
     max-width: 200px
     border-radius: 50px
-
-@mixin syntax($name, $color, $fontStyle: "normal")
-    .#{$name}
-        display: inline-block
-        padding: 1px
-        color: $color
-        background: rgba($color, 0.1)
-        font-style: unquote($fontStyle)
-
-@include syntax("entity", #F79D65, "italic")
-@include syntax("keyword", #ff6482)
 
 .faint
     color: rgba(var(--text-base), .5)
@@ -303,4 +196,5 @@ ul
 li
     margin: 5px
     margin-top: 10px
+    margin-bottom: 10px
     list-style-type: none

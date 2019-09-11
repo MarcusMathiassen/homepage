@@ -47,14 +47,15 @@ a
     display: inline-block
     margin-left: 5px
     background: var(--secondary)
-    padding: 5px
+    padding: 10px
     padding-top: 2px
     padding-bottom: 2px
     border-radius: var(--border-radius)
     font-size: 0.75em
 
 .badge--item
-    margin: 2px
+    margin-left: 5px
+    margin-right: 5px
 
 @keyframes reveal
     from
@@ -63,7 +64,7 @@ a
         opacity: 1.0
 
 span
-    margin-left: 2px
+    margin-left: 3px
 
 </style>
 
@@ -79,8 +80,8 @@ span
                     .badge
                         +if('parseInt(video.statistics.viewCount)')
                             span.badge--item
-                                i(class="fas fa-eye" style="color: var(--systemGray)")
-                                span(style="color: var(--systemGray)") {video.statistics.viewCount}
+                                i(class="fas fa-eye" style="color: var(--systemIndigo)")
+                                span(style="color: var(--systemIndigo)") {video.statistics.viewCount}
                         +if('parseInt(video.statistics.likeCount)')
                             span.badge--item
                                 i(class="fas fa-heart" style="color: var(--systemRed)")

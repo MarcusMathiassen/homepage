@@ -790,14 +790,13 @@ p.
             canvasWidth *= devicePixelRatio
             canvasHeight *= devicePixelRatio
 
-            frontColor = normalize(window.color.textNormal)
+            frontColor = normalize(window.color.text)
             frontColor.a = 1
 
             backColor = normalize(window.color.background)
             backColor.a = 1
 
-            boundsHighlightColor = normalize(window.color.textHighlight)
-            boundsHighlightColor.a = 1
+            boundsHighlightColor = {r: 0, g: 1, b:0, a: 1}
         }
 
         function erase() {
