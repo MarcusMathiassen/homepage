@@ -15,52 +15,56 @@
 
 <style lang="sass">
 
-    .videos
+.videos
+    text-align: left
+    display: inline-block
+    h2
+        margin: 5px
         text-align: left
-        display: inline-block
-        h2
-            margin: 5px
-            text-align: left
-            font-size: 1.50em
-            font-weight: 700
-        @media only screen and (max-width: 600px)
-            margin: 0
-            padding: 0
-            font-size: 0.85em
-    a
-        padding: 0
+        font-size: 1.50em
+        font-weight: 700
+    @media only screen and (max-width: 600px)
         margin: 0
+        padding: 0
+        font-size: 0.85em
+a
+    padding: 0
+    margin: 0
 
-    .video
-        display: flex
+.video
+    display: flex
+    opacity: 0.0
+    animation: reveal 1s forwards
+
+.title
+    font-size: 1em
+    padding: 0
+    margin: 0
+    margin-right: 5px
+    text-align: left
+
+.badge
+    display: inline-block
+    margin-left: 5px
+    background: var(--secondary)
+    padding: 5px
+    padding-top: 2px
+    padding-bottom: 2px
+    border-radius: var(--border-radius)
+    font-size: 0.75em
+
+.badge--item
+    margin: 2px
+
+@keyframes reveal
+    from
         opacity: 0.0
-        animation: reveal 1s forwards
+    to
+        opacity: 1.0
 
-    .title
-        font-size: 1em
-        padding: 0
-        margin: 0
-        margin-right: 5px
-        text-align: left
+span
+    margin-left: 2px
 
-    .badge
-        display: inline-block
-        margin-left: 5px
-        background: var(--secondary)
-        padding: 5px
-        padding-top: 2px
-        padding-bottom: 2px
-        border-radius: var(--border-radius)
-        font-size: 0.75em
-
-    .badge--item
-        margin: 2px
-
-    @keyframes reveal
-        from
-            opacity: 0.0
-        to
-            opacity: 1.0
 </style>
 
 

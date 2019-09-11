@@ -1,38 +1,39 @@
 <script lang="coffee">
-    import { onMount } from 'svelte'
-    import { cachedFetch } from './utils/utility'
 
-    repos = []
+import { onMount } from 'svelte'
+import { cachedFetch } from './utils/utility'
 
-    languageColorChoicesIter = 0
-    languageColors = new Map()
-    languageColorChoices = [
-        'var(--systemBlue)',
-        'var(--systemGray)',
-        'var(--systemGreen)',
-        'var(--systemIndigo)',
-        'var(--systemOrange)',
-        'var(--systemPink)',
-        'var(--systemPurple)',
-        'var(--systemRed)',
-        'var(--systemTeal)',
-        'var(--systemYellow)'
-    ]
+repos = []
 
-    starBias = 1.5
-    forkBias = 2.0 # value forks more than stars
+languageColorChoicesIter = 0
+languageColors = new Map()
+languageColorChoices = [
+    'var(--systemBlue)',
+    'var(--systemGray)',
+    'var(--systemGreen)',
+    'var(--systemIndigo)',
+    'var(--systemOrange)',
+    'var(--systemPink)',
+    'var(--systemPurple)',
+    'var(--systemRed)',
+    'var(--systemTeal)',
+    'var(--systemYellow)'
+]
 
-    onMount () =>
-        repos = await cachedFetch '/.netlify/functions/github'
-        repos.sort (a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias)
+starBias = 1.5
+forkBias = 2.0 # value forks more than stars
 
-        for repo in repos
-            name = repo.primaryLanguage.name
-            color = if languageColors.has name
-                languageColors.get name
-            else 
-                languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
-            languageColors.set name, color
+onMount () =>
+    repos = await cachedFetch '/.netlify/functions/github'
+    repos.sort (a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias)
+
+    for repo in repos
+        name = repo.primaryLanguage.name
+        color = if languageColors.has name
+                    languageColors.get name
+                else 
+                    languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
+        languageColors.set name, color
 
 </script>
 
@@ -90,6 +91,9 @@ a
     to
         opacity: 1.0
 
+span
+    margin-left: 2px
+
 </style>
 
 <template lang="pug">
@@ -105,8 +109,8 @@ ul.repos
                         span.badge--item.lanugage(style="color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}
                     +if('repo.stargazers.totalCount')
                         span.badge--item
-                            i(class="fas fa-star" style="color: var(--apple_retro_yellow)")
-                            span(style="color: var(--apple_retro_yellow)") {repo.stargazers.totalCount}
+                            i(class="fas fa-star" style="color: var(--systemYellow)")
+                            span(style="color: var(--systemYellow)") {repo.stargazers.totalCount}
                     +if('repo.forkCount')
                         span.badge--item
                             i(class="fas fa-code-branch" style="color: #c94da0")

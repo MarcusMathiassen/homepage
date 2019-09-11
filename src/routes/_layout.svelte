@@ -25,8 +25,8 @@
         verticesPerParticle: 3,
         particleSize: 2,
 }    
-}/> -->
-
+}/>
+ -->
 <template lang="pug">
     
     Nav('{segment}')
