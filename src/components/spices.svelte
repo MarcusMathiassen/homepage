@@ -51,7 +51,10 @@
 </script>
 
 <style lang="sass">
-
+    
+    button
+        font-size: 20px
+    
     #darkModeToggle
         position: absolute
         top: 15px

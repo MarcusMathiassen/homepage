@@ -26,7 +26,7 @@
     @media only screen and (max-width: 600px)
         margin: 0
         padding: 0
-        font-size: 0.85em
+        font-size: 1.5em
 a
     padding: 0
     margin: 0
@@ -47,7 +47,7 @@ a
     display: inline-block
     margin-left: 5px
     background: var(--secondary)
-    padding: 10px
+    padding: 5px
     padding-top: 2px
     padding-bottom: 2px
     border-radius: var(--border-radius)

@@ -15,14 +15,20 @@
     padding: 0
     display: flex
     flex-flow: row wrap
-    justify-content: center
+    justify-content: space-around
 
-    @media only screen and (max-width: 800px)
+    @media only screen and (max-width: 600px)
         margin: 0
         padding: 0
+        justify-content: left
+        &:first-child
+            justify-content: center
 
 .container--item
-    margin: 20px
+    margin: 0px
+
+    @media only screen and (max-width: 600px)
+        margin: 20px
 
 </style>
 
