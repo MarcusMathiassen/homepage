@@ -1,7 +1,9 @@
 <script lang="coffee">
+
     import { onMount } from 'svelte'
-    segment = ''
+    segment = undefined
     export { segment }
+
 
     theme = ''
     themeStyle = ''
@@ -12,9 +14,8 @@
     onMount () =>
 
         # Listen to the OS theme changes and make sure the text is up to date.
-        window.matchMedia('(prefers-color-scheme: light)').addListener(() =>
+        window.matchMedia('(prefers-color-scheme: light)').addListener () =>
             theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
-        )
 
         # Restore the last used theme from the sessionStorage.
         # This will maintain the chosen theme when the user reloads the page.
@@ -53,6 +54,7 @@
 </script>
 
 <style lang="sass">
+
     nav
         position: relative
         margin-top: 15px
@@ -95,16 +97,18 @@
         position: absolute
         top: 10px
         right: 20px        
+
 </style>
 
 <template lang="pug">
+    
     nav: ul: +each("['home', 'about', 'blog'] as page")
-                li
-                    a(class = "{segment === page ? 'selected' : ''}" href = "{page === 'home' ? '.' : page}") {page}
+                li: a(class = "{segment === page ? 'selected' : ''}" href = "{page === 'home' ? '.' : page}") {page}
 
     button#retroToggle(on:click = '{toggleThemeStyle}')
         i.fas.fa-pepper-hot
 
     button#darkModeToggle(on:click = '{toggleTheme}')
         i(class="fas fa-{theme === 'dark' ? 'sun' : 'moon' }")
+
 </template>

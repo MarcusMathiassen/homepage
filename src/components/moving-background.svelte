@@ -1,17 +1,20 @@
-<style>
-canvas {
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index: -999;
-}
+<style lang="sass">
+
+    canvas
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        z-index: -999
+
 </style>
 
-<canvas
-    bind:this={canvas}
-></canvas>
+<template lang="pug">
+
+    canvas bind:this={canvas}
+
+</template>
 
 <script>
 

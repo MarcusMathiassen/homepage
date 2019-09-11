@@ -16,96 +16,93 @@ __webpack_require__.r(__webpack_exports__);
 const file = "src/routes/about.svelte";
 
 function create_fragment(ctx) {
-	var t0, p, t1, div, t2, a0, t3, t4, a1, t5, t6, a2, t7, t8, a3, t9, t10, a4, t11, t12, br, t13, a5, t14;
+	var p, t0, div, t1, a0, t2, t3, a1, t4, t5, a2, t6, t7, a3, t8, t9, a4, t10, t11, br, t12, a5, t13;
 
 	const block = {
 		c: function create() {
-			t0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			p = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("p");
-			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Hi, i am Marcus, and this page will some day be filled out.");
+			t0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Hi, i am Marcus, and this page will some day be filled out.");
 			div = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
-			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Built using\n");
+			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Built using\n");
 			a0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("a");
-			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Sapper");
-			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\n&\n");
+			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Sapper");
+			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\n&\n");
 			a1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("a");
-			t5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Svelte");
-			t6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\n&\n");
+			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Svelte");
+			t5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\n&\n");
 			a2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("a");
-			t7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("CoffeeScript");
-			t8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\n&\n");
+			t6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("CoffeeScript");
+			t7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\n&\n");
 			a3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("a");
-			t9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Sass");
-			t10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\n&\n");
+			t8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Sass");
+			t9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\n&\n");
 			a4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("a");
-			t11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Pug");
-			t12 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			t10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Pug");
+			t11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			br = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("br");
-			t13 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\nRetro font:\n");
+			t12 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\nRetro font:\n");
 			a5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("a");
-			t14 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("PxPlus IBM VGA8");
+			t13 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("PxPlus IBM VGA8");
 			this.h()
 		},
 
 		l: function claim(nodes) {
-			t0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_space"])(nodes);
-
 			p = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(nodes, "P", {}, false);
 			var p_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(p);
 
-			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(p_nodes, "Hi, i am Marcus, and this page will some day be filled out.");
+			t0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(p_nodes, "Hi, i am Marcus, and this page will some day be filled out.");
 			p_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
 
 			div = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(nodes, "DIV", { class: true }, false);
 			var div_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(div);
 
-			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "Built using\n");
+			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "Built using\n");
 
 			a0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(div_nodes, "A", { href: true, target: true, rel: true }, false);
 			var a0_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(a0);
 
-			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a0_nodes, "Sapper");
+			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a0_nodes, "Sapper");
 			a0_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
-			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\n&\n");
+			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\n&\n");
 
 			a1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(div_nodes, "A", { href: true, target: true, rel: true }, false);
 			var a1_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(a1);
 
-			t5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a1_nodes, "Svelte");
+			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a1_nodes, "Svelte");
 			a1_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
-			t6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\n&\n");
+			t5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\n&\n");
 
 			a2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(div_nodes, "A", { href: true, target: true, rel: true }, false);
 			var a2_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(a2);
 
-			t7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a2_nodes, "CoffeeScript");
+			t6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a2_nodes, "CoffeeScript");
 			a2_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
-			t8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\n&\n");
+			t7 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\n&\n");
 
 			a3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(div_nodes, "A", { href: true, target: true, rel: true }, false);
 			var a3_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(a3);
 
-			t9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a3_nodes, "Sass");
+			t8 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a3_nodes, "Sass");
 			a3_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
-			t10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\n&\n");
+			t9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\n&\n");
 
 			a4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(div_nodes, "A", { href: true, target: true, rel: true }, false);
 			var a4_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(a4);
 
-			t11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a4_nodes, "Pug");
+			t10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a4_nodes, "Pug");
 			a4_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
-			t12 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_space"])(div_nodes);
+			t11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_space"])(div_nodes);
 
 			br = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(div_nodes, "BR", {}, false);
 			var br_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(br);
 
 			br_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
-			t13 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\nRetro font:\n");
+			t12 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\nRetro font:\n");
 
 			a5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(div_nodes, "A", { href: true, target: true, rel: true }, false);
 			var a5_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(a5);
 
-			t14 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a5_nodes, "PxPlus IBM VGA8");
+			t13 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a5_nodes, "PxPlus IBM VGA8");
 			a5_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
 			div_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
 			this.h();
@@ -113,61 +110,60 @@ function create_fragment(ctx) {
 
 		h: function hydrate() {
 			document.title = "About";
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(p, file, 4, 0, 55);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(p, file, 0, 47, 47);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a0, "href", "https://sapper.svelte.dev/");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a0, "target", "_blank");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a0, "rel", "noopener");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a0, file, 5, 0, 152);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a0, file, 1, 0, 144);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a1, "href", "https://svelte.dev/");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a1, "target", "_blank");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a1, "rel", "noopener");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a1, file, 7, 0, 233);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a1, file, 3, 0, 225);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a2, "href", "https://coffeescript.org/");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a2, "target", "_blank");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a2, "rel", "noopener");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a2, file, 9, 0, 307);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a2, file, 5, 0, 299);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a3, "href", "https://sass-lang.com");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a3, "target", "_blank");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a3, "rel", "noopener");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a3, file, 11, 0, 393);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a3, file, 7, 0, 385);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a4, "href", "https://pugjs.org/api/getting-started.html");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a4, "target", "_blank");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a4, "rel", "noopener");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a4, file, 13, 0, 467);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(br, file, 14, 0, 559);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a4, file, 9, 0, 459);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(br, file, 10, 0, 551);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a5, "href", "https://int10h.org/oldschool-pc-fonts/");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a5, "target", "_blank");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a5, "rel", "noopener");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a5, file, 16, 0, 576);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a5, file, 12, 0, 568);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(div, "class", "faint");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 4, 66, 121);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 0, 113, 113);
 		},
 
 		m: function mount(target, anchor) {
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert_dev"])(target, t0, anchor);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert_dev"])(target, p, anchor);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(p, t1);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(p, t0);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert_dev"])(target, div, anchor);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t2);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t1);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, a0);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a0, t3);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t4);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a0, t2);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t3);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, a1);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a1, t5);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t6);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a1, t4);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t5);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, a2);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a2, t7);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t8);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a2, t6);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t7);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, a3);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a3, t9);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t10);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a3, t8);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t9);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, a4);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a4, t11);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t12);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a4, t10);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t11);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, br);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t13);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t12);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, a5);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a5, t14);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a5, t13);
 		},
 
 		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
@@ -176,7 +172,6 @@ function create_fragment(ctx) {
 
 		d: function destroy(detaching) {
 			if (detaching) {
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"])(t0);
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"])(p);
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"])(div);
 			}
@@ -199,4 +194,4 @@ class About extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponen
 /***/ })
 
 }]);
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIyMjcwZDhhNmUyMjcyYmQyZTc5OC9hYm91dC5hYm91dC5qcyIsInNvdXJjZXNDb250ZW50IjpbXSwic291cmNlUm9vdCI6IiJ9
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIyY2Y3OTg2Y2YzYzU5ZDk1NzRiMC9hYm91dC5hYm91dC5qcyIsInNvdXJjZXNDb250ZW50IjpbXSwic291cmNlUm9vdCI6IiJ9

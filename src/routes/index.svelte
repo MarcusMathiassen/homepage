@@ -26,13 +26,11 @@
 
 </style>
 
-<svelte:head>
-
-    <title>Home</title>
-
-</svelte:head>
 
 <template lang="pug">
+    
+    svelte:head
+        title Home
     
     .container
         +each('components as component')

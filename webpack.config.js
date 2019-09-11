@@ -5,8 +5,6 @@ const pkg = require('./package.json')
 
 const sveltePreprocess = require('svelte-preprocess')
 
-// require('dotenv').config()
-
 const mode = process.env.NODE_ENV
 const dev = mode === 'development'
 
@@ -75,6 +73,14 @@ module.exports = {
                     test: /\.sass$/,
                     use: ['style-loader', 'css-loader', 'sass-loader'],
                 },
+                {
+                    test: /\.coffee$/,
+                    use: [ 'coffee-loader' ]
+                },
+                {
+                    test: /\.pug$/,
+                    loaders: [ 'pug-loader' ]
+                }
             ],
         },
         mode,
@@ -120,6 +126,10 @@ module.exports = {
                     test: /\.sass$/,
                     use: ['style-loader', 'css-loader', 'sass-loader'],
                 },
+                {
+                    test: /\.coffee$/,
+                    use: [ 'coffee-loader' ]
+                }
             ],
         },
         mode: process.env.NODE_ENV,

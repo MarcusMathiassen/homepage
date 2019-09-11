@@ -2,8 +2,11 @@
     import P2D from '../components/p2d.svelte'
 </script>
 
-<svelte:head>
-    <title>Blog</title>
-</svelte:head>
+<template lang="pug">
+    
+    svelte:head
+        title Blog
+    P2D
 
-<P2D />
+</template>
+
