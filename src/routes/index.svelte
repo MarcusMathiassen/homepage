@@ -1,11 +1,8 @@
 <script lang="coffee">
-    
     import Hero from '../components/hero.svelte'
     import Repos from '../components/repos.svelte'
     import YoutubeVideos from '../components/youtube-videos.svelte'
-
     components = [Hero, Repos, YoutubeVideos]
-
 </script>
 
 <style lang="sass">
@@ -32,15 +29,14 @@
 
 </style>
 
-
 <template lang="pug">
-    
+
     svelte:head
         title Home
-    
-    .container
+
+    ul.container
         +each('components as component')
-            .container--item
+            li.container--item
                 svelte:component(this='{component}')
 
 </template>

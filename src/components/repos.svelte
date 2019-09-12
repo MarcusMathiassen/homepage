@@ -9,15 +9,15 @@ languageColorChoicesIter = 0
 languageColors = new Map()
 languageColorChoices = [
     'var(--systemBlue)',
-    'var(--systemGray)',
     'var(--systemGreen)',
     'var(--systemIndigo)',
-    'var(--systemOrange)',
-    'var(--systemPink)',
+    'var(--systemTeal)',
     'var(--systemPurple)',
     'var(--systemRed)',
-    'var(--systemTeal)',
-    'var(--systemYellow)'
+    'var(--systemYellow)',
+    'var(--systemPink)',
+    'var(--systemOrange)'
+    'var(--systemGray)',
 ]
 
 starBias = 1.5
@@ -69,9 +69,6 @@ a
     margin-right: 5px
     text-align: left
 
-.langauge
-    font-weight: 700
-
 .badge
     display: inline-block
     margin-left: 5px
@@ -107,11 +104,11 @@ ul.repos
                 span.title {repo.name}
                 .badge
                     +if('repo.primaryLanguage')
-                        span.badge--item.lanugage(style="color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}
+                        span.badge--item.lanugage(style="font-weight: 700; color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}
                     +if('repo.stargazers.totalCount')
                         span.badge--item
-                            i(class="fas fa-star" style="color: var(--systemYellow)")
-                            span(style="color: var(--systemYellow)") {repo.stargazers.totalCount}
+                            i(class="fas fa-star" style="color: var(--systemOrange)")
+                            span(style="color: var(--systemOrange)") {repo.stargazers.totalCount}
                     +if('repo.forkCount')
                         span.badge--item
                             i(class="fas fa-code-branch" style="color: #c94da0")
