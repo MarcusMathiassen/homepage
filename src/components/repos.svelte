@@ -31,7 +31,7 @@ onMount () =>
         name = repo.primaryLanguage.name
         color = if languageColors.has name
                     languageColors.get name
-                else 
+                else
                     languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
         languageColors.set name, color
 

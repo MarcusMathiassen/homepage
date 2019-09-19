@@ -1,5 +1,5 @@
 <script lang="coffee">
-    
+
     import { onMount } from 'svelte'
 
     theme = ''
@@ -9,7 +9,7 @@
     themeStyles = ['modern', 'retro']
 
     onMount () =>
-        
+
         window.matchMedia('(prefers-color-scheme: light)').addListener () =>
             theme = if window.matchMedia('(prefers-color-scheme: light)').matches then 'light' else 'dark'
 
@@ -25,7 +25,7 @@
         if lastThemeStyleUsed
             document.documentElement.setAttribute('theme-style', lastThemeStyleUsed)
             themeStyle = lastThemeStyleUsed
-        
+
         theme = document.documentElement.getAttribute('theme')
         themeStyle = document.documentElement.getAttribute('theme-style')
 
@@ -34,7 +34,7 @@
         i = themeStyles.findIndex((t) => t == activeThemeStyle)
         nextThemeStyle = themeStyles[(i + 1) % themeStyles.length]
         document.documentElement.setAttribute('theme-style', nextThemeStyle)
-        
+
         themeStyle = nextThemeStyle
         sessionStorage.setItem('theme-style', themeStyle)
 
@@ -51,10 +51,11 @@
 </script>
 
 <style lang="sass">
-    
+
     button
+        background: none
         font-size: 20px
-    
+
     #darkModeToggle
         position: absolute
         top: 15px
@@ -63,7 +64,7 @@
     #retroToggle
         position: absolute
         top: 15px
-        right: 20px        
+        right: 20px
 
 </style>
 

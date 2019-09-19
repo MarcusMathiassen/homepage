@@ -13,6 +13,8 @@
         "test": "run-p --race dev cy:run"
     },
     "dependencies": {
+        "codeflask": "^1.4.1",
+        "codemirror": "^5.48.4",
         "color": "^3.1.2",
         "compression": "^1.7.1",
         "netlify-cli": "^2.15.0",

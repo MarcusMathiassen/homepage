@@ -13,7 +13,7 @@
         font-size: 2.8em
         font-weight: 700
         margin: 0 0 0.5em 0
-    p 
+    p
         margin: 1em auto
 
     @media (min-width: 480px)
@@ -22,7 +22,7 @@
 </style>
 
 <template lang="pug">
-    
+
     svelte:head
         title {status}
 

@@ -2,6 +2,7 @@
     import Hero from '../components/hero.svelte'
     import Repos from '../components/repos.svelte'
     import YoutubeVideos from '../components/youtube-videos.svelte'
+    import ShaderToy from '../components/shadertoy.svelte'
     components = [Hero, Repos, YoutubeVideos]
 </script>
 

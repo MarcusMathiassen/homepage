@@ -3,7 +3,7 @@
     .landing-page--title
         font-size: 1.5em
         font-weight: 700
-        padding: 0
+        padding: 0 
         margin: 0
 
     .landing-page--subtitle
@@ -12,11 +12,8 @@
         font-size: 1em
         opacity: 0.8
 
-    .landing-page--hero
+    .landing--page--hero
         margin: 20px
-        transform: translate3d(0,0,0)
-        background-image: var(--avatar)
-        background-size: cover
         width: 300px
         height: 300px
 
@@ -32,7 +29,7 @@
 
 <template lang="pug">
 
-    .landing-page--hero
+    img.landing--page--hero(src="avatar.png" alt="picture of me" width="300" height="300")
     .landing-page--title Marcus Mathiassen
     .landing-page--subtitle.
         I do compilers and languages.#[br]

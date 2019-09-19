@@ -8,7 +8,10 @@ const sveltePreprocess = require('svelte-preprocess')
 const mode = process.env.NODE_ENV
 const dev = mode === 'development'
 
-const alias = { svelte: path.resolve('node_modules', 'svelte') }
+const alias = {
+    svelte: path.resolve('node_modules', 'svelte'),
+    static: path.resolve(__dirname, '/static'),
+}
 const extensions = ['.mjs', '.js', '.json', '.svelte', '.html']
 const mainFields = ['svelte', 'module', 'browser', 'main']
 
@@ -75,12 +78,12 @@ module.exports = {
                 },
                 {
                     test: /\.coffee$/,
-                    use: [ 'coffee-loader' ]
+                    use: ['coffee-loader'],
                 },
                 {
                     test: /\.pug$/,
-                    loaders: [ 'pug-loader' ]
-                }
+                    loaders: ['pug-loader'],
+                },
             ],
         },
         mode,
@@ -128,8 +131,8 @@ module.exports = {
                 },
                 {
                     test: /\.coffee$/,
-                    use: [ 'coffee-loader' ]
-                }
+                    use: ['coffee-loader'],
+                },
             ],
         },
         mode: process.env.NODE_ENV,
