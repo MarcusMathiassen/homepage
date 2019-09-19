@@ -3,7 +3,7 @@
     import Repos from '../components/repos.svelte'
     import YoutubeVideos from '../components/youtube-videos.svelte'
     import ShaderToy from '../components/shadertoy.svelte'
-    components = [Hero, Repos, YoutubeVideos]
+    components = [ShaderToy, Hero, Repos, YoutubeVideos]
 </script>
 
 <style lang="sass">

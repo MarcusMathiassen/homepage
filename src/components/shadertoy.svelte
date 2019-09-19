@@ -1,12 +1,5 @@
 <style lang="sass">
 
-textarea
-    font-family: var(--font)
-    margin: 20px
-    outline: none
-    width: 300px
-    height: 300px
-
 #editorToggle
     background: none
     position: absolute
@@ -21,6 +14,11 @@ canvas
     height: 100%
     z-index: -999
 </style>
+
+<svelte:head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css" />
+</svelte:head>
 
 <template lang="pug">
 
@@ -135,36 +133,36 @@ function compileShaders(fs) {
 }
 
 onMount(async () => {
-    const ed = document.getElementById('editor')
-    ed.addEventListener('keydown', e => {
-        var keyCode = e.keyCode || e.which;
+    // const ed = document.getElementById('editor')
+    // ed.addEventListener('keydown', e => {
+    //     var keyCode = e.keyCode || e.which;
 
-        switch (keyCode) {
-            case 9: {
-                e.preventDefault();
-                const s = ed.selectionStart
-                ed.value = ed.value.substring(0,ed.selectionStart) + "\t" + ed.value.substring(ed.selectionEnd)
-                ed.selectionEnd = s+1
-                break
-            }
-            case 56: { // ()
-                e.preventDefault();
-                const s = ed.selectionStart
-                ed.value = ed.value.substring(0,ed.selectionStart) + "()" + ed.value.substring(ed.selectionEnd)
-                ed.selectionEnd = s+1
-                break
-            }
-            case 219: { // {}
-                e.preventDefault();
-                const s = ed.selectionStart
-                ed.value = ed.value.substring(0,ed.selectionStart) + "{}" + ed.value.substring(ed.selectionEnd)
-                ed.selectionEnd = s+1
-                break
-            }
-            default:
-                break;
-        }
-    })
+    //     switch (keyCode) {
+    //         case 9: {
+    //             e.preventDefault();
+    //             const s = ed.selectionStart
+    //             ed.value = ed.value.substring(0,ed.selectionStart) + "    " + ed.value.substring(ed.selectionEnd)
+    //             ed.selectionEnd = s+1
+    //             break
+    //         }
+    //         case 56: { // ()
+    //             e.preventDefault();
+    //             const s = ed.selectionStart
+    //             ed.value = ed.value.substring(0,ed.selectionStart) + "()" + ed.value.substring(ed.selectionEnd)
+    //             ed.selectionEnd = s+1
+    //             break
+    //         }
+    //         case 219: { // {}
+    //             e.preventDefault();
+    //             const s = ed.selectionStart
+    //             ed.value = ed.value.substring(0,ed.selectionStart) + "{}" + ed.value.substring(ed.selectionEnd)
+    //             ed.selectionEnd = s+1
+    //             break
+    //         }
+    //         default:
+    //             break;
+    //     }
+    // })
 
     gl = canvas.getContext("webgl2")
 
@@ -199,6 +197,18 @@ void main() {
 }`
     }
     compileShaders(code)
+
+    var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+		autoRefresh: true,
+		firstLineNumber: 1,
+		lineNumbers: true,
+		smartIndent: true,
+		lineWrapping: true,
+		indentWithTabs: true,
+		refresh: true,
+		mode: 'glsl'
+	})
+    editor.setValue(code)
 
     startTime = getTime()
 
@@ -255,7 +265,6 @@ async function draw() {
     gl.drawArrays(gl.TRIANGLES, 0, 6)
     window.requestAnimationFrame(await draw)
 }
-
 </script>
 
 <button id="editorToggle" on:click={()=> showEditor = !showEditor}>
