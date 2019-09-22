@@ -1,11 +1,3 @@
-<style lang="sass">
-    footer
-        font-size: 1em
-        position: relative
-        margin-top: 15px
-        font-weight: 600
-</style>
-
 <template lang="pug">
 
     .faint.

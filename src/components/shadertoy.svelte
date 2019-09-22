@@ -8,6 +8,8 @@
 <button id="editorToggle" on:click={()=> showEditor = !showEditor}>
     <i class="fas fa-umbrella-beach"></i>
 </button>
+
+
 <textarea id="editor" on:input={() => {
     recompileShaders(code);
     sessionStorage.setItem('ShaderToy', code);
@@ -15,12 +17,18 @@
 
 <style lang="sass">
 
-textarea
+#codeArea
+    z-index: 999
+    .codearea
+        background: rgba(var(--background-base), 0.8)
+        &::before, .codeflask__lines
+            background: rgba(var(--background-base), 0.8)
+#editor
     margin: 40px
     padding: 20px
-    position: absolute
+    position: relative
     color: var(--text)
-    background: var(--background)
+    background: rgba(var(--background-base), 0.8)
     outline: none
     z-index: 999
 
@@ -43,7 +51,11 @@ canvas
 
 import { onMount } from 'svelte'
 import { getTime } from './utils/utility'
+import CodeFlask from 'codeflask'
+import * as Prism from "prismjs";
+import "prismjs/components/prism-glsl";
 
+let flask
 let code
 
 let showEditor = false
@@ -60,11 +72,10 @@ let canvas
 let canvasWidth = 300
 let canvasHeight = 300
 
-let iResolutionAttribLoc = 0
-let iTimeAttribLoc = 1
-let iTimeDeltaAttribLoc = 2
-let iMouseAttribLoc = 3
+let uniforms = new Map();
 
+let iForeground
+let iBackground
 let iResolution
 let iTime
 let iTimeDelta
@@ -79,6 +90,8 @@ let mouse = {
 
 const shaderPreamble = `#version 300 es
 precision mediump float;
+uniform vec3      iForeground;           // foreground color
+uniform vec3      iBackground;           // background color
 uniform vec3      iResolution;           // viewport resolution (in pixels)
 uniform float     iTime;                 // shader playback time (in seconds)
 uniform float     iTimeDelta;            // render time (in seconds)
@@ -137,10 +150,12 @@ function compileShaders(fs_code) {
     gl.linkProgram(program)
     gl.validateProgram(program)
 
-    iResolutionAttribLoc = gl.getUniformLocation(program, 'iResolution')
-    iTimeAttribLoc = gl.getUniformLocation(program, 'iTime')
-    iTimeDeltaAttribLoc = gl.getUniformLocation(program, 'iTimeDelta')
-    iMouseAttribLoc = gl.getUniformLocation(program, 'iMouse')
+    uniforms.set('iForeground', gl.getUniformLocation(program, 'iForeground'))
+    uniforms.set('iBackground', gl.getUniformLocation(program, 'iBackground'))
+    uniforms.set('iResolution', gl.getUniformLocation(program, 'iResolution'))
+    uniforms.set('iTime',       gl.getUniformLocation(program, 'iTime'))
+    uniforms.set('iTimeDelta',  gl.getUniformLocation(program, 'iTimeDelta'))
+    uniforms.set('iMouse',      gl.getUniformLocation(program, 'iMouse'))
 }
 
 function recompileShaders(fs_code) {
@@ -164,13 +179,27 @@ function recompileShaders(fs_code) {
     gl.linkProgram(program)
     gl.validateProgram(program)
 
-    iResolutionAttribLoc = gl.getUniformLocation(program, 'iResolution')
-    iTimeAttribLoc = gl.getUniformLocation(program, 'iTime')
-    iTimeDeltaAttribLoc = gl.getUniformLocation(program, 'iTimeDelta')
-    iMouseAttribLoc = gl.getUniformLocation(program, 'iMouse')
+    uniforms.set('iForeground', gl.getUniformLocation(program, 'iForeground'))
+    uniforms.set('iBackground', gl.getUniformLocation(program, 'iBackground'))
+    uniforms.set('iResolution', gl.getUniformLocation(program, 'iResolution'))
+    uniforms.set('iTime',       gl.getUniformLocation(program, 'iTime'))
+    uniforms.set('iTimeDelta',  gl.getUniformLocation(program, 'iTimeDelta'))
+    uniforms.set('iMouse',      gl.getUniformLocation(program, 'iMouse'))
 }
 
 onMount(async () => {
+    // flask = new CodeFlask('#codeArea', {
+    //     lineNumbers: true,
+    //     language: 'clike'
+    // });
+
+    // flask.addLanguage("glsl", Prism.languages.glsl);
+
+    // flask.onUpdate(c => {
+    //     recompileShaders(c);
+    //     sessionStorage.setItem('ShaderToy', c);
+    // })
+
     gl = canvas.getContext("webgl2")
 
     if (!gl)  {
@@ -187,23 +216,27 @@ onMount(async () => {
 
     code = sessionStorage.getItem('ShaderToy')
     if (!code) {
-        code = `
-#define S(a,t) smoothstep(a, a+0.001, t)
+        code = `float heart(vec2 uv, vec2 p, float r) {
+    return smoothstep(r, r-0.001, length(uv-p));
+}
 void main() {
-    vec2 uv = (gl_FragCoord.xy-iResolution.xy*0.5) / iResolution.y;
-    
-  vec3 col = vec3(0);
-  uv.x *= 0.65;
-  uv.x /=  max(abs(sin(iTime*5.0))*1.0,0.9);
-  uv.y -= sqrt(abs(uv.x))*0.4;         
-  uv.y += sin(iTime*1.0)*0.02;      
-   float d = length(uv);
-   col += S(.23, d);
-   vec3 red = vec3(1,0,0);
-   col += red;
-   fragColor = vec4(col, 1);
-}`
+    vec2 uv = (gl_FragCoord.xy-iResolution.xy*.5) / iResolution.y;
+    vec3 col = vec3(0);
+    float r = 0.1;
+    uv.x *= 0.7;
+    float beats = iTime*3.0;
+    float size =  0.9;
+    uv.x /= max(abs(sin(beats)), size);
+    uv.y /= max(abs(sin(beats)), size);
+    uv.y -= sqrt(abs(sin(uv.x*r)));
+    vec2 pos = vec2(0);
+    float c = heart(uv, pos, r);
+    col = c * vec3(1,.3,.3);
+    fragColor = vec4(col, col.x);
+}
+`
     }
+    // flask.updateCode(code);
     compileShaders(code)
 
     startTime = getTime()
@@ -212,6 +245,15 @@ void main() {
 
     await draw()
 })
+
+const normalize = rgba => {
+    return {
+        r: rgba.r / 255,
+        g: rgba.g / 255,
+        b: rgba.b / 255,
+        a: rgba.a || rgba.a / 255,
+    }
+}
 
 function updateValues () {
     canvasWidth = window.innerWidth
@@ -229,6 +271,9 @@ function updateValues () {
 
     canvasWidth *= devicePixelRatio
     canvasHeight *= devicePixelRatio
+
+    iForeground = normalize(window.color.text)
+    iBackground = normalize(window.color.background)
 }
 
 function handleResize(e) {
@@ -244,6 +289,8 @@ function handleMouse(e) {
 let lastTime = 0
 async function draw() {
 
+    updateValues()
+
     iResolution = {x: canvasWidth, y: canvasHeight}
     iTimeDelta = getTime() - lastTime
     iTime = getTime() - startTime
@@ -251,33 +298,14 @@ async function draw() {
 
     lastTime = iTimeDelta
 
-    gl.uniform3f(iResolutionAttribLoc, iResolution.x, iResolution.y, 0)
-    gl.uniform1f(iTimeAttribLoc, iTime)
-    gl.uniform1f(iTimeDeltaAttribLoc, iTimeDelta)
-    gl.uniform4f(iMouseAttribLoc, iMouse.x, iMouse.y, iMouse.z, iMouse.w)
+    gl.uniform3f(uniforms.get('iForeground'), iForeground.r, iForeground.g, iForeground.b)
+    gl.uniform3f(uniforms.get('iBackground'), iBackground.r, iBackground.g, iBackground.b)
+    gl.uniform3f(uniforms.get('iResolution'), iResolution.x, iResolution.y, 0)
+    gl.uniform1f(uniforms.get('iTime'), iTime)
+    gl.uniform1f(uniforms.get('iTimeDelta'), iTimeDelta)
+    gl.uniform4f(uniforms.get('iMouse'), iMouse.x, iMouse.y, iMouse.z, iMouse.w)
 
     gl.drawArrays(gl.TRIANGLES, 0, 6)
     window.requestAnimationFrame(await draw)
 }
 </script>
-
-
-
-
-
-
-
-void main() {
-    vec2 uv = (gl_FragCoord.xy-iResolution.xy*0.5) / iResolution.y;
-    
-    vec3 col = vec3(0);
-
-    float d = length(uv);
-    col = smoothstep(.3, .28, d);
-
-    fragColor = vec4(col, 1);
-}
-
-
-
-
