@@ -1,4 +1,28 @@
+<canvas bind:this={canvas}></canvas>
+<svelte:window
+    on:resize={handleResize}
+    on:mousemove={handleMouse}
+    on:mousedown={() => {mouse.z = 1; mouse.w = 1; }}
+    on:mouseup={() => {mouse.z = 0; mouse.w = 0; }}
+    />
+<button id="editorToggle" on:click={()=> showEditor = !showEditor}>
+    <i class="fas fa-umbrella-beach"></i>
+</button>
+<textarea id="editor" on:input={() => {
+    recompileShaders(code);
+    sessionStorage.setItem('ShaderToy', code);
+}} bind:value={code} style="border: 1px solid {shaderError ? 'systemRed' : 'systemGreen'}; display: {showEditor ? 'block' : 'none'}"></textarea>
+
 <style lang="sass">
+
+textarea
+    margin: 40px
+    padding: 20px
+    position: absolute
+    color: var(--text)
+    background: var(--background)
+    outline: none
+    z-index: 999
 
 #editorToggle
     background: none
@@ -15,43 +39,37 @@ canvas
     z-index: -999
 </style>
 
-<svelte:head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css" />
-</svelte:head>
-
-<template lang="pug">
-
-canvas(bind:this='{canvas}')
-
-</template>
-
 <script>
-let code
+
 import { onMount } from 'svelte'
-import { v2, mat4 } from './utils/math'
-import { randFloat, getTime } from './utils/utility'
+import { getTime } from './utils/utility'
+
+let code
 
 let showEditor = false
 let shaderError = false
 
 let startTime = 0
 let gl
-let vao
-let vbo = new Map()
+
 let program
+let vs
+let fs
 
 let canvas
 let canvasWidth = 300
 let canvasHeight = 300
 
-let bindTo = 'moving-background'
+let iResolutionAttribLoc = 0
+let iTimeAttribLoc = 1
+let iTimeDeltaAttribLoc = 2
+let iMouseAttribLoc = 3
 
-let uniforms = new Map()
 let iResolution
 let iTime
 let iTimeDelta
 let iMouse
+
 let mouse = {
     x: 0,
     y: 0,
@@ -59,43 +77,39 @@ let mouse = {
     w: 0
 }
 
+const shaderPreamble = `#version 300 es
+precision mediump float;
+uniform vec3      iResolution;           // viewport resolution (in pixels)
+uniform float     iTime;                 // shader playback time (in seconds)
+uniform float     iTimeDelta;            // render time (in seconds)
+uniform vec4      iMouse;                // mouse pixel coords. xy: current (if MLB down), zw: click
+out vec4      fragColor;
+`
 
-function compileShaders(fs) {
+const vs_src = `#version 300 es
+precision mediump float;
+
+const vec2 vertices[6] = vec2[6](
+         vec2(1.0,  1.0),
+        vec2(-1.0,  1.0),
+        vec2(-1.0, -1.0),
+        vec2(-1.0, -1.0),
+         vec2(1.0, -1.0),
+         vec2(1.0,  1.0)
+);
+void main() {
+    gl_Position = vec4(vertices[gl_VertexID], 0.0, 1.0);
+}
+`
+function compileShaders(fs_code) {
+    
     program = gl.createProgram()
-    let vs = gl.createShader(gl.VERTEX_SHADER)
-    let fs_shader = gl.createShader(gl.FRAGMENT_SHADER)
 
-    let uniforms = new Map()
-
-    let shaderPreamble = `#version 300 es
-    precision mediump float;
-    uniform vec3      iResolution;           // viewport resolution (in pixels)
-    uniform float     iTime;                 // shader playback time (in seconds)
-    uniform float     iTimeDelta;            // render time (in seconds)
-    uniform vec4      iMouse;                // mouse pixel coords. xy: current (if MLB down), zw: click
-    out vec4      fragColor;
-    `
-
-    let vs_src = `#version 300 es
-    precision mediump float;
-
-    const vec2 vertices[6] = vec2[6](
-             vec2(1.0,  1.0),
-            vec2(-1.0,  1.0),
-            vec2(-1.0, -1.0),
-            vec2(-1.0, -1.0),
-             vec2(1.0, -1.0),
-             vec2(1.0,  1.0)
-    );
-    void main() {
-        gl_Position = vec4(vertices[gl_VertexID], 0.0, 1.0);
-    }
-    `
-
-    let fs_src = shaderPreamble + fs
+    vs = gl.createShader(gl.VERTEX_SHADER)
+    fs = gl.createShader(gl.FRAGMENT_SHADER)
 
     gl.shaderSource(vs, vs_src)
-    gl.shaderSource(fs_shader, fs_src)
+    gl.shaderSource(fs, shaderPreamble + fs_code)
 
     gl.compileShader(vs)
     if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
@@ -107,63 +121,56 @@ function compileShaders(fs) {
     }
 
     shaderError = false
-    gl.compileShader(fs_shader)
-    if (!gl.getShaderParameter(fs_shader, gl.COMPILE_STATUS)) {
+    gl.compileShader(fs)
+    if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
         shaderError = true
         console.error(
             'ERROR compiling fragment shader!',
-            gl.getShaderInfoLog(fs_shader)
+            gl.getShaderInfoLog(fs)
         )
         return
     }
 
     gl.attachShader(program, vs)
-    gl.attachShader(program, fs_shader)
+    gl.attachShader(program, fs)
 
     gl.linkProgram(program)
     gl.validateProgram(program)
 
-    uniforms.set('iResolution', gl.getUniformLocation(program, 'iResolution'))
-    uniforms.set('iTime', gl.getUniformLocation(program, 'iTime'))
-    uniforms.set('iTimeDelta', gl.getUniformLocation(program, 'iTimeDelta'))
-    uniforms.set('iMouse', gl.getUniformLocation(program, 'iMouse'))
+    iResolutionAttribLoc = gl.getUniformLocation(program, 'iResolution')
+    iTimeAttribLoc = gl.getUniformLocation(program, 'iTime')
+    iTimeDeltaAttribLoc = gl.getUniformLocation(program, 'iTimeDelta')
+    iMouseAttribLoc = gl.getUniformLocation(program, 'iMouse')
+}
 
-    gl.deleteShader(vs)
-    gl.deleteShader(fs_shader)
+function recompileShaders(fs_code) {
+    
+    gl.detachShader(program, fs)
+    
+    gl.shaderSource(fs, shaderPreamble + fs_code)
+    shaderError = false
+    gl.compileShader(fs)
+    if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
+        shaderError = true
+        console.error(
+            'ERROR compiling fragment shader!',
+            gl.getShaderInfoLog(fs)
+        )
+        return
+    }
+
+    gl.attachShader(program, fs)
+
+    gl.linkProgram(program)
+    gl.validateProgram(program)
+
+    iResolutionAttribLoc = gl.getUniformLocation(program, 'iResolution')
+    iTimeAttribLoc = gl.getUniformLocation(program, 'iTime')
+    iTimeDeltaAttribLoc = gl.getUniformLocation(program, 'iTimeDelta')
+    iMouseAttribLoc = gl.getUniformLocation(program, 'iMouse')
 }
 
 onMount(async () => {
-    // const ed = document.getElementById('editor')
-    // ed.addEventListener('keydown', e => {
-    //     var keyCode = e.keyCode || e.which;
-
-    //     switch (keyCode) {
-    //         case 9: {
-    //             e.preventDefault();
-    //             const s = ed.selectionStart
-    //             ed.value = ed.value.substring(0,ed.selectionStart) + "    " + ed.value.substring(ed.selectionEnd)
-    //             ed.selectionEnd = s+1
-    //             break
-    //         }
-    //         case 56: { // ()
-    //             e.preventDefault();
-    //             const s = ed.selectionStart
-    //             ed.value = ed.value.substring(0,ed.selectionStart) + "()" + ed.value.substring(ed.selectionEnd)
-    //             ed.selectionEnd = s+1
-    //             break
-    //         }
-    //         case 219: { // {}
-    //             e.preventDefault();
-    //             const s = ed.selectionStart
-    //             ed.value = ed.value.substring(0,ed.selectionStart) + "{}" + ed.value.substring(ed.selectionEnd)
-    //             ed.selectionEnd = s+1
-    //             break
-    //         }
-    //         default:
-    //             break;
-    //     }
-    // })
-
     gl = canvas.getContext("webgl2")
 
     if (!gl)  {
@@ -175,42 +182,33 @@ onMount(async () => {
     gl.blendEquation(gl.FUNC_ADD)
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
+    updateValues()
+    gl.viewport(0, 0, canvasWidth, canvasHeight)
 
     code = sessionStorage.getItem('ShaderToy')
     if (!code) {
         code = `
+#define S(a,t) smoothstep(a, a+0.001, t)
 void main() {
-
-    vec2 uv = gl_FragCoord.xy;
-
-    // Circle
-    vec2 center = iResolution.xy * 0.5;
-    center.x += 100.0 * sin(iTime);
-    float radius = iResolution.y / 24.0;
-    vec3 color = vec3(0.38, 0.16, 0.89);
-
-    float d = length(center - uv) - radius;
-    float t = clamp(d, 0.0, 1.0);
-
-    vec4 circle = vec4(color, 1.0 - t);
-    fragColor = circle;
+    vec2 uv = (gl_FragCoord.xy-iResolution.xy*0.5) / iResolution.y;
+    
+  vec3 col = vec3(0);
+  uv.x *= 0.65;
+  uv.x /=  max(abs(sin(iTime*5.0))*1.0,0.9);
+  uv.y -= sqrt(abs(uv.x))*0.4;         
+  uv.y += sin(iTime*1.0)*0.02;      
+   float d = length(uv);
+   col += S(.23, d);
+   vec3 red = vec3(1,0,0);
+   col += red;
+   fragColor = vec4(col, 1);
 }`
     }
     compileShaders(code)
 
-    var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
-		autoRefresh: true,
-		firstLineNumber: 1,
-		lineNumbers: true,
-		smartIndent: true,
-		lineWrapping: true,
-		indentWithTabs: true,
-		refresh: true,
-		mode: 'glsl'
-	})
-    editor.setValue(code)
-
     startTime = getTime()
+
+    gl.useProgram(program)
 
     await draw()
 })
@@ -233,48 +231,53 @@ function updateValues () {
     canvasHeight *= devicePixelRatio
 }
 
-
+function handleResize(e) {
+    updateValues()
+    gl.viewport(0, 0, canvasWidth, canvasHeight)
+}
 function handleMouse(e) {
     const dpi = window.devicePixelRatio || 1
     mouse.x = e.clientX * dpi
     mouse.y = (window.innerHeight - e.clientY) * dpi
 }
+
 let lastTime = 0
 async function draw() {
 
-    updateValues()
-
-    iResolution = new v2(canvasWidth, canvasHeight)
+    iResolution = {x: canvasWidth, y: canvasHeight}
     iTimeDelta = getTime() - lastTime
     iTime = getTime() - startTime
     iMouse = mouse
 
     lastTime = iTimeDelta
 
-    gl.clearColor(0,0,0, 0.0)
-    gl.clear(gl.COLOR_BUFFER_BIT)
-    gl.viewport(0, 0, canvasWidth, canvasHeight)
-
-    gl.useProgram(program)
-
-    gl.uniform3f(gl.getUniformLocation(program, 'iResolution'), iResolution.x, iResolution.y, 0)           // viewport resolution (in pixels)
-    gl.uniform1f(gl.getUniformLocation(program, 'iTime'), iTime)                 // shader playback time (in seconds)
-    gl.uniform1f(gl.getUniformLocation(program, 'iTimeDelta'), iTimeDelta)            // render time (in seconds)
-    gl.uniform4f(gl.getUniformLocation(program, 'iMouse'), iMouse.x, iMouse.y, iMouse.z, iMouse.w)                // mouse pixel coords. xy: current (if MLB down), zw: click
+    gl.uniform3f(iResolutionAttribLoc, iResolution.x, iResolution.y, 0)
+    gl.uniform1f(iTimeAttribLoc, iTime)
+    gl.uniform1f(iTimeDeltaAttribLoc, iTimeDelta)
+    gl.uniform4f(iMouseAttribLoc, iMouse.x, iMouse.y, iMouse.z, iMouse.w)
 
     gl.drawArrays(gl.TRIANGLES, 0, 6)
     window.requestAnimationFrame(await draw)
 }
 </script>
 
-<button id="editorToggle" on:click={()=> showEditor = !showEditor}>
-<i class="fas fa-umbrella-beach"></i></button>
-<textarea id="editor" on:input={() => {
-    compileShaders(code);
-    sessionStorage.setItem('ShaderToy', code);
-}} bind:value={code} style="display: {showEditor ? 'block' : 'none'}"></textarea>
-<svelte:window
-    on:mousemove={handleMouse}
-    on:mousedown={() => {mouse.z = 1; mouse.w = 1; }}
-    on:mouseup={() => {mouse.z = 0; mouse.w = 0; }}
-    />
+
+
+
+
+
+
+void main() {
+    vec2 uv = (gl_FragCoord.xy-iResolution.xy*0.5) / iResolution.y;
+    
+    vec3 col = vec3(0);
+
+    float d = length(uv);
+    col = smoothstep(.3, .28, d);
+
+    fragColor = vec4(col, 1);
+}
+
+
+
+

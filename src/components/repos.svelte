@@ -29,11 +29,11 @@ onMount () =>
 
     for repo in repos
         name = repo.primaryLanguage.name
-        color = if languageColors.has name
-                    languageColors.get name
+        color = if languageColors.has(name)
+                    languageColors.get(name)
                 else
                     languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
-        languageColors.set name, color
+        languageColors.set(name, color)
 
 </script>
 
@@ -52,7 +52,6 @@ onMount () =>
         margin: 0
         padding: 0
         font-size: 1.5em
-
 a
     padding: 0
     margin: 0

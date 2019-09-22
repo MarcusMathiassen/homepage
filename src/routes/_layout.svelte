@@ -3,6 +3,7 @@
     import Nav from '../components/Nav.svelte'
     import Spices from '../components/spices.svelte'
     import MovingBackground from '../components/moving-background.svelte'
+    import ShaderToy from '../components/shadertoy.svelte'
     import { getTime, randFloat } from '../components/utils/utility'
     import { v2 } from '../components/utils/math'
     import { onMount } from 'svelte'
@@ -93,19 +94,17 @@
 
 <style lang="sass">
     main
+        margin: 20px
         width: 100%
         height: 100%
         position: relative
         padding: 0
-        margin: 0
         box-sizing: border-box
-        @media only screen and (max-width: 600px)
-            margin: 0
-            padding: 0
 </style>
 
 <template lang="pug">
-    main
-        slot
+    ShaderToy
+    Nav(segment='{segment}')
+    main: slot
     Spices
 </template>

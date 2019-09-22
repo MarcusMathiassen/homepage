@@ -13,11 +13,8 @@
         "test": "run-p --race dev cy:run"
     },
     "dependencies": {
-        "codeflask": "^1.4.1",
-        "codemirror": "^5.48.4",
         "color": "^3.1.2",
         "compression": "^1.7.1",
-        "netlify-cli": "^2.15.0",
         "node-fetch": "^2.6.0",
         "polka": "next",
         "sirv": "^0.4.0"
@@ -27,7 +24,7 @@
         "coffee-loader": "^0.9.0",
         "coffeescript": "^2.4.1",
         "css-loader": "^3.2.0",
-        "eslint": "^6.3.0",
+        "eslint": "^6.4.0",
         "file-loader": "^4.2.0",
         "mini-css-extract-plugin": "^0.8.0",
         "netlify-lambda": "^1.6.3",
@@ -40,11 +37,11 @@
         "sass": "^1.23.0-module.beta.1",
         "sass-loader": "^8.0.0",
         "style-loader": "^1.0.0",
-        "svelte": "^3.12.0",
+        "svelte": "^3.12.1",
         "svelte-loader": "^2.9.0",
-        "svelte-preprocess": "^3.1.0",
-        "terser-webpack-plugin": "^2.0.1",
+        "svelte-preprocess": "^3.1.1",
+        "terser-webpack-plugin": "^2.1.0",
         "url-loader": "^2.1.0",
-        "webpack": "^4.7.0"
+        "webpack": "^4.40.2"
     }
 }

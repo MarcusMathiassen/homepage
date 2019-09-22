@@ -1,9 +1,13 @@
+<style lang="sass">
+    footer
+        font-size: 1em
+        position: relative
+        margin-top: 15px
+        font-weight: 600
+</style>
+
 <template lang="pug">
 
-    svelte:head
-        title About
-
-    p This page will some day be filled out.
     .faint.
         Built using
         #[a(href="https://sapper.svelte.dev/" target="_blank" rel="noopener") Sapper]
