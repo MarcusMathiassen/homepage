@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 const file = "src/routes/about.svelte";
 
 function create_fragment(ctx) {
-	var p, t0, div, t1, a0, t2, t3, a1, t4, t5, a2, t6, t7, a3, t8, t9, a4, t10, t11, br, t12, a5, t13;
+	var p, t0, div, t1, a0, t2, t3, a1, t4, t5, a2, t6, t7, a3, t8, t9, a4, t10;
 
 	const block = {
 		c: function create() {
@@ -38,11 +38,6 @@ function create_fragment(ctx) {
 			t9 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\n&\n");
 			a4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("a");
 			t10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Pug");
-			t11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			br = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("br");
-			t12 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("\nRetro font:\n");
-			a5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("a");
-			t13 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("PxPlus IBM VGA8");
 			this.h()
 		},
 
@@ -91,19 +86,6 @@ function create_fragment(ctx) {
 
 			t10 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a4_nodes, "Pug");
 			a4_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
-			t11 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_space"])(div_nodes);
-
-			br = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(div_nodes, "BR", {}, false);
-			var br_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(br);
-
-			br_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
-			t12 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(div_nodes, "\nRetro font:\n");
-
-			a5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_element"])(div_nodes, "A", { href: true, target: true, rel: true }, false);
-			var a5_nodes = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["children"])(a5);
-
-			t13 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["claim_text"])(a5_nodes, "PxPlus IBM VGA8");
-			a5_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
 			div_nodes.forEach(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach_dev"]);
 			this.h();
 		},
@@ -131,11 +113,6 @@ function create_fragment(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a4, "target", "_blank");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a4, "rel", "noopener");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a4, file, 9, 0, 438);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(br, file, 10, 0, 530);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a5, "href", "https://int10h.org/oldschool-pc-fonts/");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a5, "target", "_blank");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(a5, "rel", "noopener");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(a5, file, 12, 0, 547);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr_dev"])(div, "class", "faint");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_location"])(div, file, 0, 92, 92);
 		},
@@ -159,11 +136,6 @@ function create_fragment(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t9);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, a4);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a4, t10);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t11);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, br);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, t12);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(div, a5);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append_dev"])(a5, t13);
 		},
 
 		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
@@ -194,4 +166,4 @@ class About extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponen
 /***/ })
 
 }]);
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJkMWNiYjlmOTU3OGI4NjM1NWRhMS9hYm91dC5hYm91dC5qcyIsInNvdXJjZXNDb250ZW50IjpbXSwic291cmNlUm9vdCI6IiJ9
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJjZTA5MzZhYmJlNjI2MDg5NmU3MS9hYm91dC5hYm91dC5qcyIsInNvdXJjZXNDb250ZW50IjpbXSwic291cmNlUm9vdCI6IiJ9
