@@ -9,7 +9,7 @@
         position: relative
         margin-top: 15px
         font-weight: 600
-    ul 
+    ul
         margin: 0
         padding: 0
 
@@ -17,12 +17,12 @@
         content: ''
         display: block
         clear: both
-    li 
+    li
         display: block
         float: left
         margin: 0
         padding: 0
-    .selected 
+    .selected
         color: var(--text)
     .selected::after
         position: absolute
@@ -38,7 +38,7 @@
 </style>
 
 <template lang="pug">
-    
-    nav: ul: +each("['home', 'about', 'blog'] as page")
+
+    nav: ul: +each("['home', 'about'] as page")
                 li: a(class = "{segment === page ? 'selected' : ''}" href = "{page === 'home' ? '.' : page}") {page}
 </template>

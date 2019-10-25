@@ -103,8 +103,8 @@
 </style>
 
 <template lang="pug">
-    ShaderToy
+    <!-- ShaderToy -->
     Nav(segment='{segment}')
     main: slot
-    Spices
+    <!-- Spices -->
 </template>
