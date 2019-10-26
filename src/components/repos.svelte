@@ -71,7 +71,8 @@ a
 .badge
     display: inline-block
     margin-left: 5px
-    background: var(--secondary)
+
+    background: var(--primary)
     padding: 10px
     padding-top: 2px
     padding-bottom: 2px

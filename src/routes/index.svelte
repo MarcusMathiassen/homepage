@@ -14,9 +14,9 @@
     padding: 0
     display: flex
     flex-flow: row wrap
-    justify-content: space-around
+    justify-content: center
 
-    @media only screen and (max-width: 600px)
+    @media only screen and (max-width: 980px)
         margin: 0
         padding: 0
         justify-content: left
@@ -25,9 +25,11 @@
 
 .container--item
     margin: 0px
+    padding: 5px
 
-    @media only screen and (max-width: 600px)
+    @media only screen and (max-width: 980px)
         margin: 20px
+        padding: 0
 
 </style>
 
@@ -36,9 +38,9 @@
     svelte:head
         title Home
 
-    ul.container
+    .container
         +each('components as component')
-            li.container--item
+            .container--item
                 svelte:component(this='{component}')
 
 </template>

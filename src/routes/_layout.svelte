@@ -94,17 +94,18 @@
 
 <style lang="sass">
     main
-        margin: 20px
+        margin: 0px
         width: 100%
         height: 100%
         position: relative
         padding: 0
-        box-sizing: border-box
+        padding-top: 20px
+
 </style>
 
 <template lang="pug">
     <!-- ShaderToy -->
-    Nav(segment='{segment}')
+    <!-- Nav(segment='{segment}') -->
     main: slot
     <!-- Spices -->
 </template>

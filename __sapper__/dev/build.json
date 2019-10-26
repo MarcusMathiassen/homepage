@@ -2,10 +2,10 @@
   "bundler": "webpack",
   "shimport": null,
   "assets": {
-    "about": "ce0936abbe6260896e71/about.about.js",
-    "blog": "ce0936abbe6260896e71/blog.blog.js",
-    "index": "ce0936abbe6260896e71/index.index.js",
-    "main": "ce0936abbe6260896e71/main.js"
+    "about": "cd8eb94e73f1614f0f8c/about.about.js",
+    "blog": "cd8eb94e73f1614f0f8c/blog.blog.js",
+    "index": "cd8eb94e73f1614f0f8c/index.index.js",
+    "main": "cd8eb94e73f1614f0f8c/main.js"
   },
   "css": {
     "chunks": {
