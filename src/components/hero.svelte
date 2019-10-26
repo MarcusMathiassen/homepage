@@ -32,7 +32,7 @@
     img.landing--page--hero(src="avatar.png" alt="picture of me" width="300" height="300")
     .landing-page--title Marcus Mathiassen
     .landing-page--subtitle.
-        I do compilers and languages.#[br]
+        I do compilers and graphics.#[br]
         Interested in systems design and UX.
     br
     a.contact-me(href="mailto:mathiassenmarcus@me.com") Contact Me
