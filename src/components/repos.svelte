@@ -72,7 +72,7 @@ a
     display: inline-block
     margin-left: 5px
 
-    background: var(--primary)
+    background: var(--secondary)
     padding: 10px
     padding-top: 2px
     padding-bottom: 2px

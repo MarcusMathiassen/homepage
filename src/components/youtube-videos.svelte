@@ -46,7 +46,7 @@ a
 .badge
     display: inline-block
     margin-left: 5px
-    background: var(--primary)
+    background: var(--secondary)
     padding: 5px
     padding-top: 2px
     padding-bottom: 2px

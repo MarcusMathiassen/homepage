@@ -1,5 +1,4 @@
 <template lang="pug">
-
     .faint.
         Built using
         #[a(href="https://sapper.svelte.dev/" target="_blank" rel="noopener") Sapper]
@@ -12,7 +11,6 @@
         &
         #[a(href="https://pugjs.org/api/getting-started.html" target="_blank" rel="noopener") Pug]
         #[br]
-        Retro font:
-        #[a(href="https://int10h.org/oldschool-pc-fonts/" target="_blank" rel="noopener") PxPlus IBM VGA8]
-
+        & hosted by
+        #[a(href="https://www.netlify.com" target="_blank" rel="noopener") Netlify]
 </template>

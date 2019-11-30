@@ -1,6 +1,7 @@
 <script>
 
     import Nav from '../components/Nav.svelte'
+    import Footer from '../components/Footer.svelte'
     import Spices from '../components/spices.svelte'
     import MovingBackground from '../components/moving-background.svelte'
     import ShaderToy from '../components/shadertoy.svelte'
@@ -108,4 +109,5 @@
     <!-- Nav(segment='{segment}') -->
     main: slot
     <!-- Spices -->
+    Footer
 </template>

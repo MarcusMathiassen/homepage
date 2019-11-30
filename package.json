@@ -16,6 +16,7 @@
         "codeflask": "^1.4.1",
         "color": "^3.1.2",
         "compression": "^1.7.1",
+        "netlify-cli": "^2.21.0",
         "node-fetch": "^2.6.0",
         "polka": "next",
         "sirv": "^0.4.0"
