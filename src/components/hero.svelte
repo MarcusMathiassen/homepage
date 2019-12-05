@@ -9,13 +9,13 @@
     .landing-page--subtitle
         margin: 0
         padding: 0
-        font-size: 1em
+        font-size: 0.8em
         opacity: 0.8
 
     .landing--page--hero
-        margin: 20px
         width: 300px
         height: 300px
+        padding: 15px
 
     .contact-me
         font-weight: 600

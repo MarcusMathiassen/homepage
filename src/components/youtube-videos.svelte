@@ -16,14 +16,16 @@
 <style lang="sass">
 
 .videos
+    margin: 0
+    padding: 0
     text-align: left
     display: inline-block
     h2
         margin: 5px
         text-align: left
-        font-size: 1.50em
+        font-size: 1.5em
         font-weight: 700
-    @media only screen and (max-width: 600px)
+    @media only screen and (max-width: 800px)
         margin: 0
         padding: 0
         font-size: 1.5em

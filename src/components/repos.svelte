@@ -1,54 +1,60 @@
 <script lang="coffee">
 
-import { onMount } from 'svelte'
-import { cachedFetch } from './utils/utility'
+    import { onMount } from 'svelte'
+    import { cachedFetch } from './utils/utility'
 
-repos = []
+    repos = []
 
-languageColorChoicesIter = 0
-languageColors = new Map()
-languageColorChoices = [
-    'var(--systemBlue)',
-    'var(--systemGreen)',
-    'var(--systemIndigo)',
-    'var(--systemTeal)',
-    'var(--systemPurple)',
-    'var(--systemRed)',
-    'var(--systemYellow)',
-    'var(--systemPink)',
-    'var(--systemOrange)'
-    'var(--systemGray)',
-]
+    languageColorChoicesIter = 0
+    languageColors = new Map()
+    languageColorChoices = [
+        'var(--systemBlue)',
+        'var(--systemGreen)',
+        'var(--systemIndigo)',
+        'var(--systemTeal)',
+        'var(--systemPurple)',
+        'var(--systemRed)',
+        'var(--systemYellow)',
+        'var(--systemPink)',
+        'var(--systemOrange)'
+        'var(--systemGray)',
+    ]
 
-starBias = 1.5
-forkBias = 2.0 # value forks more than stars
+    starBias = 1.5
+    forkBias = 2.0 # slight bias towards forks
 
-onMount () =>
-    repos = await cachedFetch '/.netlify/functions/github'
-    repos.sort (a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias)
+    onMount () =>
+        # Get repositories from github
+        repos = await cachedFetch '/.netlify/functions/github'
 
-    for repo in repos
-        name = repo.primaryLanguage.name
-        color = if languageColors.has(name)
-                    languageColors.get(name)
-                else
-                    languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
-        languageColors.set(name, color)
+        # Sort repositories based on star and fork count, with a bias towards forks.
+        repos.sort (a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias)
+
+        # Setup the (name, color) pair for the programming languages and the color used for them on Github.
+        for repo in repos
+            name = repo.primaryLanguage.name
+            color = if languageColors.has(name)
+                        languageColors.get(name)
+                    else
+                        languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
+            languageColors.set(name, color)
 
 </script>
 
 <style lang="sass">
 
 .repos
+    margin: 0
+    padding: 0
     text-align: left
     display: inline-block
     h2
         margin: 5px
         text-align: left
-        font-size: 1.50em
+        font-size: 1.5em
         font-weight: 700
 
-    @media only screen and (max-width: 600px)
+    @media only screen and (max-width: 800px)
         margin: 0
         padding: 0
         font-size: 1.5em
