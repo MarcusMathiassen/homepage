@@ -1,7 +1,7 @@
 <script lang="coffee">
 
     import { onMount } from 'svelte'
-    import { cachedFetch } from './utils/utility'
+    import { cachedFetch, rawNumToSuffixed } from './utils/utility'
 
     videos = []
 
@@ -85,13 +85,13 @@ span
                         +if('parseInt(video.statistics.viewCount)')
                             span.badge--item
                                 i(class="fontello icon-eye" style="color: var(--systemIndigo)")
-                                span(style="color: var(--systemIndigo)") {video.statistics.viewCount}
+                                span(style="color: var(--systemIndigo)") {rawNumToSuffixed(parseInt(video.statistics.viewCount))}
                         +if('parseInt(video.statistics.likeCount)')
                             span.badge--item
                                 i(class="fontello icon-heart" style="color: var(--systemRed)")
-                                span(style="color: var(--systemRed)") {video.statistics.likeCount}
+                                span(style="color: var(--systemRed)") {rawNumToSuffixed(parseInt(video.statistics.likeCount))}
                         +if('parseInt(video.statistics.commentCount)')
                             span.badge--item
                                 i(class="fontello icon-comment" style="color: var(--systemTeal)")
-                                span(style="color: var(--systemTeal)") {video.statistics.commentCount}
+                                span(style="color: var(--systemTeal)") {rawNumToSuffixed(parseInt(video.statistics.commentCount))}
 </template>

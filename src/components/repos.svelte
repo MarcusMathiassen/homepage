@@ -1,7 +1,7 @@
 <script lang="coffee">
 
     import { onMount } from 'svelte'
-    import { cachedFetch } from './utils/utility'
+    import { cachedFetch, rawNumToSuffixed } from './utils/utility'
 
     repos = []
 
@@ -116,10 +116,9 @@ span
                         +if('repo.stargazers.totalCount')
                             span.badge--item
                                 i(class="fontello icon-star" style="color: var(--systemOrange)")
-                                span(style="color: var(--systemOrange)") {repo.stargazers.totalCount}
+                                span(style="color: var(--systemOrange)") {rawNumToSuffixed(parseInt(repo.stargazers.totalCount))}
                         +if('repo.forkCount')
                             span.badge--item
-                                <!-- i(class="fas fa-code-branch" style="color: var(--systemPurple)") -->
                                 i(class="fontello icon-fork" style="color: var(--systemPurple)")
-                                span(style="color: var(--systemPurple)") {repo.forkCount}
+                                span(style="color: var(--systemPurple)") {rawNumToSuffixed(parseInt(repo.forkCount))}
 </template>

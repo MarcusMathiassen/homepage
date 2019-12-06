@@ -1,6 +1,12 @@
 import { v2 } from './math'
 import jq from './query'
 
+export const rawNumToSuffixed = num => {
+    if (num >= 1000000) return (parseInt(num/1000000)).toString()+"m"
+    if (num >= 1000) return (parseInt(num/1000)).toString()+"k"
+    return num.toString()
+}
+
 /**
  * Returns the minimum and maximum position found.
  * @param {Object[]} objects - An array of objects with a 'pos' property.

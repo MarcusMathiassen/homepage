@@ -8,8 +8,8 @@
 <style lang="sass">
 
 .container
-    margin: 20px
-    padding: 0
+    margin: 0px
+    padding: 20px
     display: flex
     flex-flow: row wrap
     justify-content: center

@@ -1,7 +1,5 @@
 <script>
-    import Footer from '../components/Footer.svelte'
     import { onMount } from 'svelte'
-
     export let segment
     $: segment = segment === undefined ? 'home' : segment
 </script>
@@ -21,5 +19,5 @@
     <!-- Nav(segment='{segment}') -->
     main: slot
     <!-- Spices -->
-    Footer
+    <!-- Footer -->
 </template>

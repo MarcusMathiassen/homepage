@@ -7,7 +7,7 @@
             font-size: 1.5em
 
     .landing-page--title
-        font-size: 1.5em
+        font-size: 1.75em
         font-weight: 700
         padding: 0 
         margin: 0
@@ -21,7 +21,8 @@
         padding: 15px
 
     .contact-me
-        font-weight: 600
+        font-weight: 700
+
     .icon-list
         display: flex
         justify-content: center

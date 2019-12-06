@@ -18,8 +18,6 @@
 <style lang="sass">
 
 .footer
-    font-size: 0.75em
-    margin: 0
-    padding: 0
+    font-size: 1em
 
 </style>
