@@ -84,6 +84,7 @@ a
     padding-bottom: 2px
     border-radius: var(--border-radius)
     font-size: 0.75em
+    font-weight: 400
 
 .badge--item
     margin-left: 5px
@@ -102,21 +103,23 @@ span
 
 <template lang="pug">
 
-ul.repos
+.repos
     h2 Repositories
-    +each('repos as repo, i')
-        li.repo(style="animation-delay: {i*10}ms")
-            a(href="{repo.url}" target="_blank" rel="noopener")
-                span.title {repo.name}
-                .badge
-                    +if('repo.primaryLanguage')
-                        span.badge--item.lanugage(style="font-weight: 700; color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}
-                    +if('repo.stargazers.totalCount')
-                        span.badge--item
-                            i(class="fas fa-star" style="color: var(--systemOrange)")
-                            span(style="color: var(--systemOrange)") {repo.stargazers.totalCount}
-                    +if('repo.forkCount')
-                        span.badge--item
-                            i(class="fas fa-code-branch" style="color: #c94da0")
-                            span(style="color: #c94da0") {repo.forkCount}
+    ul
+        +each('repos as repo, i')
+            li.repo(style="animation-delay: {i*10}ms")
+                a(href="{repo.url}" target="_blank" rel="noopener")
+                    span.title {repo.name}
+                    .badge
+                        +if('repo.primaryLanguage')
+                            span.badge--item.lanugage(style="font-weight: 700; color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}
+                        +if('repo.stargazers.totalCount')
+                            span.badge--item
+                                i(class="fontello icon-star" style="color: var(--systemOrange)")
+                                span(style="color: var(--systemOrange)") {repo.stargazers.totalCount}
+                        +if('repo.forkCount')
+                            span.badge--item
+                                <!-- i(class="fas fa-code-branch" style="color: var(--systemPurple)") -->
+                                i(class="fontello icon-fork" style="color: var(--systemPurple)")
+                                span(style="color: var(--systemPurple)") {repo.forkCount}
 </template>

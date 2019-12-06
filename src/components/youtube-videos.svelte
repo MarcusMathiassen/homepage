@@ -54,6 +54,7 @@ a
     padding-bottom: 2px
     border-radius: var(--border-radius)
     font-size: 0.75em
+    font-weight: 400
 
 .badge--item
     margin-left: 5px
@@ -73,8 +74,9 @@ span
 
 <template lang="pug">
 
-    ul.videos
-        h2 Videos
+.videos
+    h2 Videos
+    ul
         +each('videos as video, i')
             li.video(style="animation-delay: {i*10}ms")
                 a(href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
@@ -82,14 +84,14 @@ span
                     .badge
                         +if('parseInt(video.statistics.viewCount)')
                             span.badge--item
-                                i(class="fas fa-eye" style="color: var(--systemIndigo)")
+                                i(class="fontello icon-eye" style="color: var(--systemIndigo)")
                                 span(style="color: var(--systemIndigo)") {video.statistics.viewCount}
                         +if('parseInt(video.statistics.likeCount)')
                             span.badge--item
-                                i(class="fas fa-heart" style="color: var(--systemRed)")
+                                i(class="fontello icon-heart" style="color: var(--systemRed)")
                                 span(style="color: var(--systemRed)") {video.statistics.likeCount}
                         +if('parseInt(video.statistics.commentCount)')
                             span.badge--item
-                                i(class="fas fa-comment" style="color: var(--systemTeal)")
+                                i(class="fontello icon-comment" style="color: var(--systemTeal)")
                                 span(style="color: var(--systemTeal)") {video.statistics.commentCount}
 </template>

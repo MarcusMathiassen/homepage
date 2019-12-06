@@ -1,5 +1,11 @@
 <style lang="sass">
 
+    .landing-page
+        @media only screen and (max-width: 800px)
+            margin: 0
+            padding: 0
+            font-size: 1.5em
+
     .landing-page--title
         font-size: 1.5em
         font-weight: 700
@@ -9,12 +15,9 @@
     .landing-page--subtitle
         margin: 0
         padding: 0
-        font-size: 0.8em
         opacity: 0.8
 
     .landing--page--hero
-        width: 300px
-        height: 300px
         padding: 15px
 
     .contact-me
@@ -28,8 +31,8 @@
 </style>
 
 <template lang="pug">
-
-    img.landing--page--hero(src="avatar.png" alt="picture of me" width="300" height="300")
+.landing-page
+    img.landing--page--hero(src="avatar.jpg" alt="picture of me")
     .landing-page--title Marcus Mathiassen
     .landing-page--subtitle.
         I do compilers and graphics.#[br]
@@ -37,7 +40,7 @@
     br
     a.contact-me(href="mailto:mathiassenmarcus@me.com") Contact Me
     .icon-list
-        a(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener") #[i.fab.fa-github]
-        a(href="https://www.youtube.com/channel/UCZ7FbQ4Bvi3GkV0k5ENoXYQ" target="_blank" rel="noopener") #[i.fab.fa-youtube]
+        a(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github") #[i.fontello.icon-github-circled]
+        a(href="https://www.youtube.com/channel/UCZ7FbQ4Bvi3GkV0k5ENoXYQ" target="_blank" rel="noopener" aria-label="Checkout my YouTube") #[i.fontello.icon-youtube-play]
 
 </template>

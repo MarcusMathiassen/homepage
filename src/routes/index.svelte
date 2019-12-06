@@ -2,7 +2,6 @@
     import Hero from '../components/hero.svelte'
     import Repos from '../components/repos.svelte'
     import YoutubeVideos from '../components/youtube-videos.svelte'
-    import Footer from '../components/Footer.svelte'
     components = [Hero, Repos, YoutubeVideos]
 </script>
 
@@ -14,7 +13,6 @@
     display: flex
     flex-flow: row wrap
     justify-content: center
-
     @media only screen and (max-width: 980px)
         margin: 0
         padding: 0
@@ -25,7 +23,6 @@
 .container--item
     margin: 5px
     padding: 5px
-
     @media only screen and (max-width: 980px)
         margin: 20px
         padding: 0

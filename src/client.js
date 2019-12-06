@@ -1,4 +1,5 @@
 import './main.sass'
+import './fontello-embedded.css'
 import * as sapper from '@sapper/app'
 
 import Color from 'color'
