@@ -1,49 +1,20 @@
 {
-    "name": "homepage",
-    "description": "homepage",
-    "version": "0.0.1",
     "scripts": {
-        "dev": "sapper dev",
-        "build": "sapper build",
-        "export": "sapper export",
-        "deploy": "sapper export && cp -a ./__sapper__/export/. ./docs/ && echo 'www.mathiassen.dev' > ./docs/CNAME",
-        "start": "node __sapper__/build",
-        "cy:run": "cypress run",
-        "cy:open": "cypress open",
-        "test": "run-p --race dev cy:run"
-    },
-    "dependencies": {
-        "codeflask": "^1.4.1",
-        "color": "^3.1.2",
-        "compression": "^1.7.1",
-        "netlify-cli": "^2.21.0",
-        "node-fetch": "^2.6.0",
-        "polka": "^1.0.0-next.9",
-        "sirv": "^0.4.0"
+        "dev": "parcel src/index.pug -d docs",
+        "build": "parcel build --no-source-maps src/index.pug -d docs",
+        "deploy": "npm run build && echo www.mathiassen.dev > docs/CNAME"
     },
     "devDependencies": {
-        "bundle-loader": "^0.5.6",
-        "coffee-loader": "^0.9.0",
         "coffeescript": "^2.4.1",
-        "css-loader": "^3.2.1",
-        "eslint": "^6.7.2",
-        "file-loader": "^4.3.0",
-        "mini-css-extract-plugin": "^0.8.0",
-        "netlify-lambda": "^1.6.3",
         "node-sass": "^4.13.0",
-        "npm-run-all": "^4.1.5",
-        "optimize-css-assets-webpack-plugin": "^5.0.3",
+        "parcel-bundler": "^1.12.4",
+        "parcel-plugin-svelte": "^4.0.5",
         "pug": "^2.0.4",
-        "pug-loader": "^2.4.0",
-        "sapper": "^0.27.9",
         "sass": "^1.23.7",
-        "sass-loader": "^8.0.0",
-        "style-loader": "^1.0.1",
-        "svelte": "^3.16.0",
-        "svelte-loader": "^2.9.0",
-        "svelte-preprocess": "^3.2.6",
-        "terser-webpack-plugin": "^2.2.1",
-        "url-loader": "^2.3.0",
-        "webpack": "^4.41.2"
+        "svelte": "^3.16.3",
+        "svelte-preprocess": "^3.2.6"
+    },
+    "dependencies": {
+        "node-fetch": "^2.6.0"
     }
 }

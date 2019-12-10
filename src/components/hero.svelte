@@ -1,5 +1,8 @@
-<style lang="sass">
+<script>
+    import avatar from "../assets/avatar.jpg"
+</script>
 
+<style lang="sass">
     .landing-page
         @media only screen and (max-width: 800px)
             margin: 0
@@ -7,7 +10,7 @@
             font-size: 1.5em
 
     .landing-page--title
-        font-size: 1.75em
+        font-size: 1.5em
         font-weight: 700
         padding: 0 
         margin: 0
@@ -18,6 +21,8 @@
         opacity: 0.8
 
     .landing--page--hero
+        min-width: 230px
+        min-height: 341px
         padding: 15px
 
     .contact-me
@@ -33,7 +38,7 @@
 
 <template lang="pug">
 .landing-page
-    img.landing--page--hero(src="avatar.jpg" alt="picture of me")
+    img.landing--page--hero(src='{avatar}' alt="picture of me")
     .landing-page--title Marcus Mathiassen
     .landing-page--subtitle.
         I do compilers and graphics.#[br]
