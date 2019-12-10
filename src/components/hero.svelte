@@ -18,7 +18,7 @@
     .landing-page--subtitle
         margin: 0
         padding: 0
-        opacity: 0.8
+        opacity: 0.75
 
     .landing--page--hero
         min-width: 230px

@@ -15,11 +15,11 @@ html
     min-height: 100%
     height: 100%
     --chrome—color-light0: #ffffff
-    --chrome—color-light1: #F4F5F7
-    --chrome—color-light2: #E7EAED
-    --chrome—color-dark0: #000000
-    --chrome—color-dark1: #17171c
-    --chrome—color-dark2: #2e2e38
+    --chrome—color-light1: #fafafa
+    --chrome—color-light2: #f8f8f8
+    --chrome—color-dark0: #121212
+    --chrome—color-dark1: #171727
+    --chrome—color-dark2: #1f1f2f
 
     --theme-style: 'retro'
 
@@ -59,7 +59,7 @@ html
 
     --font: ''
 
-    font-size: calc(1vw + 1vh)
+    font-size: 1em
 
     --border-radius: 50px
 
@@ -97,8 +97,8 @@ html[theme="light"]
         --background-base:  var(--background--color-base--light)
 
     &[theme-style='modern']
-        --text-base: 39,39,39
-        --background-base: 255,255,255
+        --text-base: 50,50,60
+        --background-base: var(--primary)
 
 html[theme='dark']
 
@@ -115,7 +115,7 @@ html[theme='dark']
     --systemPurple: var(--systemPurpleDark)
     --systemRed:    var(--systemRedDark)
     --systemTeal:   var(--systemTealDark)
-    --systemYellow: var(--systemYellowDark)
+    --systemYellow: var(--systemY ellowDark)
 
     --background-color--selection: red
 
@@ -125,7 +125,7 @@ html[theme='dark']
 
     &[theme-style='modern']
         --text-base: 245,245,245
-        --background-base: 0,0,0
+        --background: var(--primary)
 
 body, p, b, button
     // font-smooth: never
@@ -225,7 +225,7 @@ a
     display: inline-block
     margin-left: 5px
 
-    background: var(--secondary)
+    background: var(--third)
     padding: 10px
     padding-top: 2px
     padding-bottom: 2px

@@ -8,24 +8,17 @@
 <style lang="sass">
 
 .container
-    margin: 0px
-    padding: 20px
     display: flex
     flex-flow: row wrap
     justify-content: center
-    @media only screen and (max-width: 980px)
-        margin: 0
-        padding: 0
-        justify-content: left
-        &:first-child
-            justify-content: center
+    margin: 0
+    padding: 0
 
 .container--item
-    margin: 5px
-    padding: 5px
-    @media only screen and (max-width: 980px)
-        margin: 20px
-        padding: 0
+    border-radius: 10px
+    margin: 10px
+    padding: 20px
+    height: 100%
 
 </style>
 
