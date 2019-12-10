@@ -47,6 +47,6 @@
     a.contact-me(href="mailto:mathiassenmarcus@me.com") Contact Me
     .icon-list
         a(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github") #[i.fontello.icon-github-circled]
-        a(href="https://www.youtube.com/channel/UCZ7FbQ4Bvi3GkV0k5ENoXYQ" target="_blank" rel="noopener" aria-label="Checkout my YouTube") #[i.fontello.icon-youtube-play]
+        a(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube") #[i.fontello.icon-youtube-play]
 
 </template>

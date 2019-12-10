@@ -44,7 +44,8 @@
 <template lang="pug">
 
 .list
-    h2 Repositories
+    a(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
+        h2 Repositories
     ul
         +each('repos as repo, i')
             li.list--item(style="animation-delay: {i*10}ms")

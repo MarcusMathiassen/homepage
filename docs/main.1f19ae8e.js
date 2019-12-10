@@ -2203,8 +2203,8 @@ function create_fragment(ctx) {
       (0, _internal.attr_dev)(a1, "class", "svelte-1nfs0nf");
       (0, _internal.add_location)(a1, file, 40, 143, 1042);
       (0, _internal.attr_dev)(i1, "class", "fontello icon-youtube-play");
-      (0, _internal.add_location)(i1, file, 40, 431, 1330);
-      (0, _internal.attr_dev)(a2, "href", "https://www.youtube.com/channel/UCZ7FbQ4Bvi3GkV0k5ENoXYQ");
+      (0, _internal.add_location)(i1, file, 40, 427, 1326);
+      (0, _internal.attr_dev)(a2, "href", "https://www.youtube.com/user/MathiassenMarcus/videos");
       (0, _internal.attr_dev)(a2, "target", "_blank");
       (0, _internal.attr_dev)(a2, "rel", "noopener");
       (0, _internal.attr_dev)(a2, "aria-label", "Checkout my YouTube");
@@ -2872,7 +2872,7 @@ function get_each_context(ctx, list, i) {
   child_ctx[6] = list[i];
   child_ctx[8] = i;
   return child_ctx;
-} // (43:244) {#if repo.primaryLanguage}
+} // (43:357) {#if repo.primaryLanguage}
 
 
 function create_if_block_2(ctx) {
@@ -2892,7 +2892,7 @@ function create_if_block_2(ctx) {
       ctx[0].get(
       /*repo*/
       ctx[6].primaryLanguage.name));
-      (0, _internal.add_location)(span, file, 42, 270, 1722);
+      (0, _internal.add_location)(span, file, 42, 383, 1835);
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, span, anchor);
@@ -2923,11 +2923,11 @@ function create_if_block_2(ctx) {
     block,
     id: create_if_block_2.name,
     type: "if",
-    source: "(43:244) {#if repo.primaryLanguage}",
+    source: "(43:357) {#if repo.primaryLanguage}",
     ctx
   });
   return block;
-} // (43:425) {#if repo.stargazers.totalCount}
+} // (43:538) {#if repo.stargazers.totalCount}
 
 
 function create_if_block_1(ctx) {
@@ -2946,11 +2946,11 @@ function create_if_block_1(ctx) {
       t = (0, _internal.text)(t_value);
       (0, _internal.attr_dev)(i, "class", "fontello icon-star");
       (0, _internal.set_style)(i, "color", "var(--systemOrange)");
-      (0, _internal.add_location)(i, file, 42, 483, 1935);
+      (0, _internal.add_location)(i, file, 42, 596, 2048);
       (0, _internal.set_style)(span0, "color", "var(--systemOrange)");
-      (0, _internal.add_location)(span0, file, 42, 552, 2004);
+      (0, _internal.add_location)(span0, file, 42, 665, 2117);
       (0, _internal.attr_dev)(span1, "class", "badge--item");
-      (0, _internal.add_location)(span1, file, 42, 457, 1909);
+      (0, _internal.add_location)(span1, file, 42, 570, 2022);
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, span1, anchor);
@@ -2973,11 +2973,11 @@ function create_if_block_1(ctx) {
     block,
     id: create_if_block_1.name,
     type: "if",
-    source: "(43:425) {#if repo.stargazers.totalCount}",
+    source: "(43:538) {#if repo.stargazers.totalCount}",
     ctx
   });
   return block;
-} // (43:640) {#if repo.forkCount}
+} // (43:753) {#if repo.forkCount}
 
 
 function create_if_block(ctx) {
@@ -2996,11 +2996,11 @@ function create_if_block(ctx) {
       t = (0, _internal.text)(t_value);
       (0, _internal.attr_dev)(i, "class", "fontello icon-fork");
       (0, _internal.set_style)(i, "color", "var(--systemPurple)");
-      (0, _internal.add_location)(i, file, 42, 686, 2138);
+      (0, _internal.add_location)(i, file, 42, 799, 2251);
       (0, _internal.set_style)(span0, "color", "var(--systemPurple)");
-      (0, _internal.add_location)(span0, file, 42, 755, 2207);
+      (0, _internal.add_location)(span0, file, 42, 868, 2320);
       (0, _internal.attr_dev)(span1, "class", "badge--item");
-      (0, _internal.add_location)(span1, file, 42, 660, 2112);
+      (0, _internal.add_location)(span1, file, 42, 773, 2225);
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, span1, anchor);
@@ -3023,11 +3023,11 @@ function create_if_block(ctx) {
     block,
     id: create_if_block.name,
     type: "if",
-    source: "(43:640) {#if repo.forkCount}",
+    source: "(43:753) {#if repo.forkCount}",
     ctx
   });
   return block;
-} // (43:43) {#each repos as repo, i}
+} // (43:156) {#each repos as repo, i}
 
 
 function create_each_block(ctx) {
@@ -3064,20 +3064,20 @@ function create_each_block(ctx) {
       if_block1_anchor = (0, _internal.empty)();
       if (if_block2) if_block2.c();
       (0, _internal.attr_dev)(span, "class", "list--item-title");
-      (0, _internal.add_location)(span, file, 42, 176, 1628);
+      (0, _internal.add_location)(span, file, 42, 289, 1741);
       (0, _internal.attr_dev)(div, "class", "badge");
-      (0, _internal.add_location)(div, file, 42, 225, 1677);
+      (0, _internal.add_location)(div, file, 42, 338, 1790);
       (0, _internal.attr_dev)(a, "href", a_href_value =
       /*repo*/
       ctx[6].url);
       (0, _internal.attr_dev)(a, "target", "_blank");
       (0, _internal.attr_dev)(a, "rel", "noopener");
-      (0, _internal.add_location)(a, file, 42, 124, 1576);
+      (0, _internal.add_location)(a, file, 42, 237, 1689);
       (0, _internal.attr_dev)(li, "class", "list--item");
       (0, _internal.set_style)(li, "animation-delay",
       /*i*/
       ctx[8] * 10 + "ms");
-      (0, _internal.add_location)(li, file, 42, 67, 1519);
+      (0, _internal.add_location)(li, file, 42, 180, 1632);
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, li, anchor);
@@ -3162,7 +3162,7 @@ function create_each_block(ctx) {
     block,
     id: create_each_block.name,
     type: "each",
-    source: "(43:43) {#each repos as repo, i}",
+    source: "(43:156) {#each repos as repo, i}",
     ctx
   });
   return block;
@@ -3170,6 +3170,7 @@ function create_each_block(ctx) {
 
 function create_fragment(ctx) {
   let div;
+  let a;
   let h2;
   let ul;
   let each_value =
@@ -3184,6 +3185,7 @@ function create_fragment(ctx) {
   const block = {
     c: function create() {
       div = (0, _internal.element)("div");
+      a = (0, _internal.element)("a");
       h2 = (0, _internal.element)("h2");
       h2.textContent = "Repositories";
       ul = (0, _internal.element)("ul");
@@ -3192,8 +3194,13 @@ function create_fragment(ctx) {
         each_blocks[i].c();
       }
 
-      (0, _internal.add_location)(h2, file, 42, 18, 1470);
-      (0, _internal.add_location)(ul, file, 42, 39, 1491);
+      (0, _internal.add_location)(h2, file, 42, 127, 1579);
+      (0, _internal.attr_dev)(a, "href", "https://github.com/MarcusMathiassen");
+      (0, _internal.attr_dev)(a, "target", "_blank");
+      (0, _internal.attr_dev)(a, "rel", "noopener");
+      (0, _internal.attr_dev)(a, "aria-label", "Checkout my Github");
+      (0, _internal.add_location)(a, file, 42, 18, 1470);
+      (0, _internal.add_location)(ul, file, 42, 152, 1604);
       (0, _internal.attr_dev)(div, "class", "list");
       (0, _internal.add_location)(div, file, 42, 0, 1452);
     },
@@ -3202,7 +3209,8 @@ function create_fragment(ctx) {
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, div, anchor);
-      (0, _internal.append_dev)(div, h2);
+      (0, _internal.append_dev)(div, a);
+      (0, _internal.append_dev)(a, h2);
       (0, _internal.append_dev)(div, ul);
 
       for (let i = 0; i < each_blocks.length; i += 1) {
@@ -3334,7 +3342,7 @@ function get_each_context(ctx, list, i) {
   child_ctx[1] = list[i];
   child_ctx[3] = i;
   return child_ctx;
-} // (22:274) {#if parseInt(video.statistics.viewCount)}
+} // (22:405) {#if parseInt(video.statistics.viewCount)}
 
 
 function create_if_block_2(ctx) {
@@ -3353,11 +3361,11 @@ function create_if_block_2(ctx) {
       t = (0, _internal.text)(t_value);
       (0, _internal.attr_dev)(i, "class", "fontello icon-eye");
       (0, _internal.set_style)(i, "color", "var(--systemIndigo)");
-      (0, _internal.add_location)(i, file, 21, 342, 726);
+      (0, _internal.add_location)(i, file, 21, 473, 857);
       (0, _internal.set_style)(span0, "color", "var(--systemIndigo)");
-      (0, _internal.add_location)(span0, file, 21, 410, 794);
+      (0, _internal.add_location)(span0, file, 21, 541, 925);
       (0, _internal.attr_dev)(span1, "class", "badge--item");
-      (0, _internal.add_location)(span1, file, 21, 316, 700);
+      (0, _internal.add_location)(span1, file, 21, 447, 831);
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, span1, anchor);
@@ -3380,11 +3388,11 @@ function create_if_block_2(ctx) {
     block,
     id: create_if_block_2.name,
     type: "if",
-    source: "(22:274) {#if parseInt(video.statistics.viewCount)}",
+    source: "(22:405) {#if parseInt(video.statistics.viewCount)}",
     ctx
   });
   return block;
-} // (22:498) {#if parseInt(video.statistics.likeCount)}
+} // (22:629) {#if parseInt(video.statistics.likeCount)}
 
 
 function create_if_block_1(ctx) {
@@ -3403,11 +3411,11 @@ function create_if_block_1(ctx) {
       t = (0, _internal.text)(t_value);
       (0, _internal.attr_dev)(i, "class", "fontello icon-heart");
       (0, _internal.set_style)(i, "color", "var(--systemRed)");
-      (0, _internal.add_location)(i, file, 21, 566, 950);
+      (0, _internal.add_location)(i, file, 21, 697, 1081);
       (0, _internal.set_style)(span0, "color", "var(--systemRed)");
-      (0, _internal.add_location)(span0, file, 21, 633, 1017);
+      (0, _internal.add_location)(span0, file, 21, 764, 1148);
       (0, _internal.attr_dev)(span1, "class", "badge--item");
-      (0, _internal.add_location)(span1, file, 21, 540, 924);
+      (0, _internal.add_location)(span1, file, 21, 671, 1055);
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, span1, anchor);
@@ -3430,11 +3438,11 @@ function create_if_block_1(ctx) {
     block,
     id: create_if_block_1.name,
     type: "if",
-    source: "(22:498) {#if parseInt(video.statistics.likeCount)}",
+    source: "(22:629) {#if parseInt(video.statistics.likeCount)}",
     ctx
   });
   return block;
-} // (22:718) {#if parseInt(video.statistics.commentCount)}
+} // (22:849) {#if parseInt(video.statistics.commentCount)}
 
 
 function create_if_block(ctx) {
@@ -3453,11 +3461,11 @@ function create_if_block(ctx) {
       t = (0, _internal.text)(t_value);
       (0, _internal.attr_dev)(i, "class", "fontello icon-comment");
       (0, _internal.set_style)(i, "color", "var(--systemTeal)");
-      (0, _internal.add_location)(i, file, 21, 789, 1173);
+      (0, _internal.add_location)(i, file, 21, 920, 1304);
       (0, _internal.set_style)(span0, "color", "var(--systemTeal)");
-      (0, _internal.add_location)(span0, file, 21, 859, 1243);
+      (0, _internal.add_location)(span0, file, 21, 990, 1374);
       (0, _internal.attr_dev)(span1, "class", "badge--item");
-      (0, _internal.add_location)(span1, file, 21, 763, 1147);
+      (0, _internal.add_location)(span1, file, 21, 894, 1278);
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, span1, anchor);
@@ -3480,11 +3488,11 @@ function create_if_block(ctx) {
     block,
     id: create_if_block.name,
     type: "if",
-    source: "(22:718) {#if parseInt(video.statistics.commentCount)}",
+    source: "(22:849) {#if parseInt(video.statistics.commentCount)}",
     ctx
   });
   return block;
-} // (22:37) {#each videos as video, i}
+} // (22:168) {#each videos as video, i}
 
 
 function create_each_block(ctx) {
@@ -3524,20 +3532,20 @@ function create_each_block(ctx) {
       if_block1_anchor = (0, _internal.empty)();
       if (if_block2) if_block2.c();
       (0, _internal.attr_dev)(span, "class", "list--item-title");
-      (0, _internal.add_location)(span, file, 21, 204, 588);
+      (0, _internal.add_location)(span, file, 21, 335, 719);
       (0, _internal.attr_dev)(div, "class", "badge");
-      (0, _internal.add_location)(div, file, 21, 255, 639);
+      (0, _internal.add_location)(div, file, 21, 386, 770);
       (0, _internal.attr_dev)(a, "href", a_href_value = "https://www.youtube.com/watch?v=" +
       /*video*/
       ctx[1].id);
       (0, _internal.attr_dev)(a, "target", "_blank");
       (0, _internal.attr_dev)(a, "rel", "noopener");
-      (0, _internal.add_location)(a, file, 21, 120, 504);
+      (0, _internal.add_location)(a, file, 21, 251, 635);
       (0, _internal.attr_dev)(li, "class", "list--item");
       (0, _internal.set_style)(li, "animation-delay",
       /*i*/
       ctx[3] * 10 + "ms");
-      (0, _internal.add_location)(li, file, 21, 63, 447);
+      (0, _internal.add_location)(li, file, 21, 194, 578);
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, li, anchor);
@@ -3633,7 +3641,7 @@ function create_each_block(ctx) {
     block,
     id: create_each_block.name,
     type: "each",
-    source: "(22:37) {#each videos as video, i}",
+    source: "(22:168) {#each videos as video, i}",
     ctx
   });
   return block;
@@ -3641,6 +3649,7 @@ function create_each_block(ctx) {
 
 function create_fragment(ctx) {
   let div;
+  let a;
   let h2;
   let ul;
   let each_value =
@@ -3655,6 +3664,7 @@ function create_fragment(ctx) {
   const block = {
     c: function create() {
       div = (0, _internal.element)("div");
+      a = (0, _internal.element)("a");
       h2 = (0, _internal.element)("h2");
       h2.textContent = "Videos";
       ul = (0, _internal.element)("ul");
@@ -3663,8 +3673,13 @@ function create_fragment(ctx) {
         each_blocks[i].c();
       }
 
-      (0, _internal.add_location)(h2, file, 21, 18, 402);
-      (0, _internal.add_location)(ul, file, 21, 33, 417);
+      (0, _internal.add_location)(h2, file, 21, 145, 529);
+      (0, _internal.attr_dev)(a, "href", "https://www.youtube.com/user/MathiassenMarcus/videos");
+      (0, _internal.attr_dev)(a, "target", "_blank");
+      (0, _internal.attr_dev)(a, "rel", "noopener");
+      (0, _internal.attr_dev)(a, "aria-label", "Checkout my YouTube");
+      (0, _internal.add_location)(a, file, 21, 18, 402);
+      (0, _internal.add_location)(ul, file, 21, 164, 548);
       (0, _internal.attr_dev)(div, "class", "list");
       (0, _internal.add_location)(div, file, 21, 0, 384);
     },
@@ -3673,7 +3688,8 @@ function create_fragment(ctx) {
     },
     m: function mount(target, anchor) {
       (0, _internal.insert_dev)(target, div, anchor);
-      (0, _internal.append_dev)(div, h2);
+      (0, _internal.append_dev)(div, a);
+      (0, _internal.append_dev)(a, h2);
       (0, _internal.append_dev)(div, ul);
 
       for (let i = 0; i < each_blocks.length; i += 1) {
@@ -4066,7 +4082,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57495" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62262" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

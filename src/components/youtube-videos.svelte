@@ -16,7 +16,8 @@
 <template lang="pug">
 
 .list
-    h2 Videos
+    a(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
+        h2 Videos
     ul
         +each('videos as video, i')
             li.list--item(style="animation-delay: {i*10}ms")
