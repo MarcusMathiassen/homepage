@@ -101,7 +101,8 @@ body, p, b, button {
   font-size: 1em;
   font-family: var(--font);
   color: var(--text);
-  background: var(--background); }
+  background: var(--background);
+  margin: 0; }
 
 ::selection {
   color: var(--text-color--selection);
