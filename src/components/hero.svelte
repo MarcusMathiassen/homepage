@@ -10,7 +10,7 @@
 .container
     .columns.is-centered.is-vcentered
         .column.is-narrow
-            figure.image(style="width: 50%; margin: 0 auto;")
+            figure.image(style="padding: 20px; width: 50%; margin: 0 auto;")
                 img(style="border-radius: 30px;" src='{avatar}' alt="picture of me")
 
             .container(style="text-align: center;")

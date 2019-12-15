@@ -3273,7 +3273,7 @@ html {
   --systemBlueDark:    #51a8ff;
   --systemGrayDark:    rgb(152,152,157);
   --systemGreenDark:   rgb(48,209,88);
-  --systemIndigoDark:  #faffff;
+  --systemIndigoDark:  #9998ff;
   --systemOrangeDark:  rgb(255,159,10);
   --systemPinkDark:    rgb(255,55,95);
   --systemPurpleDark:  #fd6fce;
@@ -3336,7 +3336,7 @@ html[theme='dark'] {
     --text-base:       var(--text--color-base--dark);
     --background-base: var(--background--color-base--dark); }
   html[theme='dark'][theme-style='modern'] {
-    --text-base: 245,245,245;
+    --text-base: 200,200,200;
     --background: var(--primary); }
 
 html {
