@@ -1,27 +1,22 @@
-// @font-face
-//     font-family: 'pxplus_ibm_vga8regular'
-//     src: url('../static/pxplus_ibm_vga8-webfont.woff2') format('woff2'), url('../static/pxplus_ibm_vga8-webfont.woff') format('woff')
-//     font-weight: normal
-//     font-style: normal
-
-$comment-border-width: 1em
-$comment-border-color--advice: #02C39A
-$comment-border-color--info: #5C9EAD
-$comment-border-color--warning: #F79D65
-
+@import "~bulma/bulma"
+// @import "~bulma/sass/utilities/_all.sass"
+// @import "~bulma/sass/grid/columns.sass"
+// @import "~bulma/sass/elements/icon.sass"
+// @import "~bulma/sass/elements/image.sass"
+// @import "~bulma/sass/elements/box.sass"
+// @import "~bulma/sass/elements/title.sass"
+// @import "~bulma/sass/elements/container.sass"
+// @import "~bulma/sass/layout/section.sass"
+// @import "~bulma/sass/elements/button.sass"
 html
-    margin: 0px
-    padding: 0px
-    min-height: 100%
-    height: 100%
-    --chrome—color-light0: #ffffff
-    --chrome—color-light1: #fafafa
-    --chrome—color-light2: #f8f8f8
-    --chrome—color-dark0: #121212
-    --chrome—color-dark1: #171727
-    --chrome—color-dark2: #1f1f2f
+    --chrome—color-light0: hsl(0, 0%, 100%)
+    --chrome—color-light1: hsl(0, 0%, 97%)
+    --chrome—color-light2: hsl(0, 0%, 97%)
+    --chrome—color-dark0: hsl(0, 0%, 0%)
+    --chrome—color-dark1: hsl(0, 0%, 2%)
+    --chrome—color-dark2: hsl(0, 0%, 7%)
 
-    --theme-style: 'retro'
+    --theme-style: 'modern'
 
     --text--color-base--light:            22, 21, 30
     --background--color-base--light:      255,255,255
@@ -29,21 +24,21 @@ html
     --text--color-base--dark:             254, 248, 239
     --background--color-base--dark:       22, 21, 30
 
-    --systemBlueLight:   #0051a9
+    --systemBlueLight:   #2f67a5
     --systemGrayLight:   rgb(142,142,147)
     --systemGreenLight:  #008221
     --systemIndigoLight: rgb(88,86,214)
     --systemOrangeLight: rgb(255,149,0)
     --systemPinkLight:   rgb(255,45,85)
     --systemPurpleLight: rgb(175,82,222)
-    --systemRedLight:    #e00d01
-    --systemTealLight:   #0075ab
+    --systemRedLight:    #f72c20
+    --systemTealLight:   rgb(1, 157, 228)
     --systemYellowLight: rgb(255,204,0)
 
     --systemBlueDark:    #51a8ff
     --systemGrayDark:    rgb(152,152,157)
     --systemGreenDark:   rgb(48,209,88)
-    --systemIndigoDark:  #9a99ff
+    --systemIndigoDark:  #faffff
     --systemOrangeDark:  rgb(255,159,10)
     --systemPinkDark:    rgb(255,55,95)
     --systemPurpleDark:  #fd6fce
@@ -58,8 +53,6 @@ html
     --background: rgba(var(--background-base), 1)
 
     --font: ''
-
-    font-size: 1em
 
     --border-radius: 50px
 
@@ -97,7 +90,7 @@ html[theme="light"]
         --background-base:  var(--background--color-base--light)
 
     &[theme-style='modern']
-        --text-base: 50,50,60
+        --text-base: 54, 54, 54
         --background-base: var(--primary)
 
 html[theme='dark']
@@ -115,7 +108,7 @@ html[theme='dark']
     --systemPurple: var(--systemPurpleDark)
     --systemRed:    var(--systemRedDark)
     --systemTeal:   var(--systemTealDark)
-    --systemYellow: var(--systemY ellowDark)
+    --systemYellow: var(--systemYellowDark)
 
     --background-color--selection: red
 
@@ -127,35 +120,18 @@ html[theme='dark']
         --text-base: 245,245,245
         --background: var(--primary)
 
-body, p, b, button
-    // font-smooth: never
-    // -webkit-font-smoothing : none
-    text-align: center
+html
+    margin: 0
+    padding: 0
     line-height: 1.5
-    font-size: 1em
+    font-size: 1.25em
     font-family: var(--font)
     color: var(--text)
     background: var(--background)
-    margin: 0
 
 ::selection
     color: var(--text-color--selection)
     background-color: var(--background-color--selection)
-
-button
-    border: none
-    color: rgba(var(--text-base), .6)
-    &:hover
-        color: rgba(var(--text-base), 1)
-    &:focus
-        outline: 0
-
-img
-    max-width: 200px
-    border-radius: 50px
-
-.faint
-    color: rgba(var(--text-base), .5)
 
 a
     color: var(--text)
@@ -163,83 +139,85 @@ a
     text-decoration: none
     font-family: var(--font)
     &:hover
-        opacity: 1.0
         color: var(--text)
-
-hr
-    border-color: rgba(var(--text-base), 0.1)
-    border-width: 0.5px
-    margin: 0 auto
-    margin-top: 20px
-    width: 60%
-
-p
-    background: none
-
-span
-    color: var(--text)
-    font-family: var(--font)
+        text-decoration: none
+        opacity: 1.0
 
 ul
-    padding-inline-start: 0px
+    padding-inline-start: 10px
+
 li
-    margin: 5px
+    list-style-type: none
     margin-top: 10px
     margin-bottom: 10px
-    list-style-type: none
-
-.bold
-    font-weight: 500
-
-.list
-    margin: 0
-    padding: 0
-    text-align: left
-    display: inline-block
-    h2
-        margin: 5px
-        text-align: left
-        font-size: 1.5em
-        font-weight: 700
-
-    @media only screen and (max-width: 800px)
-        margin: 0
-        padding: 0
-        font-size: 1.5em
-a
-    padding: 0
-    margin: 0
-
-.list--item
-    display: flex
-    opacity: 0.0
-    animation: reveal 1s forwards
-
-.list--item-title
-    font-size: 1em
-    padding: 0
-    margin: 0
-    margin-right: 5px
-    text-align: left
 
 .badge
     display: inline-block
-    margin-left: 5px
-
+    margin-left: 10px
     background: var(--third)
-    padding: 10px
-    padding-top: 2px
-    padding-bottom: 2px
+    padding: 5px
+    padding-top: 1px
+    padding-bottom: 1px
     border-radius: var(--border-radius)
     font-size: 0.75em
-    font-weight: 400
 
 .badge--item
     margin-left: 5px
     margin-right: 5px
 
-@keyframes reveal
-    from
-        opacity: 0.0
-    to
-        opacity: 1.0
+.box
+    border-radius: 30px
+
+$box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02) !default
+$box-padding: 1.25rem !default
+
+$box-link-hover-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0 0 1px $link !default
+$box-link-active-shadow: inset 0 1px 2px rgba($scheme-invert, 0.2), 0 0 0 1px $link !default
+
+.button
+    &:hover,&:focus, &:active
+        outline: 0
+
+html[theme="light"]
+    background: var(--secondary)
+    .button
+        color: var(--text)
+        background: var(--primary)
+        border: none
+        box-shadow: $box-shadow
+
+
+html[theme="dark"]
+    .title
+        color: var(--text)
+    .subtitle
+        color: var(--text)
+        opacity: 0.8
+    .badge
+        border: 1px solid rgba(var(--text-base), 0.1)
+    .box
+        background: var(--secondary)
+        border: 1px solid rgba(var(--text-base), 0.1)
+    .button
+        color: var(--text)
+        background: var(--third)
+        border-color: rgba(var(--text-base), 0.1)
+
+.section
+    padding-top: 20px
+
+.has-secondary
+    background: var(--secondary)
+
+.is-fullwidth
+    width: 100%
+
+.box-inset
+    border-radius: 30px
+    box-shadow: inset 0 0 10px rgba(10, 10, 10, 0.1)
+    padding: 20px
+
+.is-semibold
+    font-weight: 500
+.is-bold
+    font-weight: 700

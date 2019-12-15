@@ -38,22 +38,20 @@
                     else
                         languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
             languageColors.set(name, color)
-
 </script>
 
 <template lang="pug">
-
-.list
-    a(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
-        h2 Repositories
+.box
+    a.has-addons(style="font-size: 1.5em; font-weight: 700" href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
+        icon.fontello.icon-github-circled
+        span Repositories
     ul
         +each('repos as repo, i')
-            li.list--item(style="animation-delay: {i*10}ms")
-                a(href="{repo.url}" target="_blank" rel="noopener")
-                    span.list--item-title {repo.name}
-                    .badge
+            li
+                a(href="{repo.url}" target="_blank" rel="noopener") {repo.name}
+                    span.badge
                         +if('repo.primaryLanguage')
-                            span.badge--item.lanugage(style="font-weight: 700; color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}
+                            span.badge--item(style="font-weight: 700; color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}
                         +if('repo.stargazers.totalCount')
                             span.badge--item
                                 i(class="fontello icon-star" style="color: var(--systemOrange)")

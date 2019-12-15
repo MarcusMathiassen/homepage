@@ -1,5 +1,4 @@
 <script lang="coffee">
-
     import { onMount } from 'svelte'
     import { cachedFetch } from './utils/utility'
 
@@ -14,16 +13,15 @@
 </script>
 
 <template lang="pug">
-
-.list
-    a(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
-        h2 Videos
+.box
+    a.has-addons(style="font-size: 1.5em; font-weight: 700" href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
+        icon.fontello.icon-youtube-play
+        span Videos
     ul
         +each('videos as video, i')
-            li.list--item(style="animation-delay: {i*10}ms")
-                a(href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
-                    span.list--item-title {video.title}
-                    .badge
+            li
+                a(href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener") {video.title}
+                    span.badge
                         +if('parseInt(video.statistics.viewCount)')
                             span.badge--item
                                 i(class="fontello icon-eye" style="color: var(--systemIndigo)")

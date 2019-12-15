@@ -8,13 +8,14 @@
         "deploy": "npm run build && echo www.mathiassen.dev > docs/CNAME"
     },
     "devDependencies": {
+        "bulma": "^0.8.0",
         "coffeescript": "^2.4.1",
         "node-sass": "^4.13.0",
         "parcel-bundler": "^1.12.4",
         "parcel-plugin-svelte": "^4.0.5",
         "pug": "^2.0.4",
         "sass": "^1.23.7",
-        "svelte": "^3.16.3",
+        "svelte": "^3.16.4",
         "svelte-preprocess": "^3.2.6"
     },
     "dependencies": {

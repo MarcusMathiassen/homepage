@@ -18,11 +18,6 @@ document.documentElement.setAttribute(
         : 'dark'
 )
 
-const app = new App({
-    target: document.body,
-    props: {
-        name: 'Marcus',
-    },
-})
+const app = new App({ target: document.body })
 
 export default app
