@@ -2110,26 +2110,25 @@ function create_fragment(ctx) {
       (0, _internal.set_style)(img, "border-radius", "30px");
       if (img.src !== (img_src_value = _avatar.default)) (0, _internal.attr_dev)(img, "src", img_src_value);
       (0, _internal.attr_dev)(img, "alt", "picture of me");
-      (0, _internal.add_location)(img, file, 7, 172, 311);
+      (0, _internal.add_location)(img, file, 7, 157, 296);
       (0, _internal.attr_dev)(figure, "class", "image");
-      (0, _internal.set_style)(figure, "padding", "20px");
       (0, _internal.set_style)(figure, "width", "50%");
       (0, _internal.set_style)(figure, "margin", "0 auto");
       (0, _internal.add_location)(figure, file, 7, 99, 238);
       (0, _internal.attr_dev)(h1, "class", "title");
-      (0, _internal.add_location)(h1, file, 7, 301, 440);
-      (0, _internal.add_location)(br, file, 7, 389, 528);
+      (0, _internal.add_location)(h1, file, 7, 286, 425);
+      (0, _internal.add_location)(br, file, 7, 374, 513);
       (0, _internal.attr_dev)(p, "class", "subtitle");
-      (0, _internal.add_location)(p, file, 7, 341, 480);
+      (0, _internal.add_location)(p, file, 7, 326, 465);
       (0, _internal.attr_dev)(icon, "class", "fontello icon-mail-alt");
-      (0, _internal.add_location)(icon, file, 9, 100, 670);
-      (0, _internal.add_location)(span, file, 9, 144, 714);
+      (0, _internal.add_location)(icon, file, 9, 100, 655);
+      (0, _internal.add_location)(span, file, 9, 144, 699);
       (0, _internal.attr_dev)(a, "class", "has-addons button is-medium is-rounded is-bold");
       (0, _internal.attr_dev)(a, "href", "mailto:mathiassenmarcus@me.com");
-      (0, _internal.add_location)(a, file, 9, 4, 574);
+      (0, _internal.add_location)(a, file, 9, 4, 559);
       (0, _internal.attr_dev)(div0, "class", "container");
       (0, _internal.set_style)(div0, "text-align", "center");
-      (0, _internal.add_location)(div0, file, 7, 250, 389);
+      (0, _internal.add_location)(div0, file, 7, 235, 374);
       (0, _internal.attr_dev)(div1, "class", "column is-narrow");
       (0, _internal.add_location)(div1, file, 7, 69, 208);
       (0, _internal.attr_dev)(div2, "class", "columns is-centered is-vcentered");
@@ -4018,7 +4017,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65327" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52458" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
