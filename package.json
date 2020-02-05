@@ -22,7 +22,6 @@
         "svelte-preprocess": "^3.2.6"
     },
     "dependencies": {
-        "color": "^3.1.2",
         "netlify-cli": "^2.30.0",
         "node-fetch": "^2.6.0"
     }

@@ -137,7 +137,14 @@ canvas
         canvasHeight *= devicePixelRatio
         // textColor = normalize(window.color.text)
         // textColor.a = 0.2
-        backColor = normalize(window.color.background)
+        // backColor = normalize(window.color.background)
+        
+        // @hardcoded
+        if (document.documentElement.getAttribute('theme') === 'light') {
+            backColor = normalize({r:254,g:254,b:254})
+        } else {
+            backColor = normalize({r:22, g:21, b:30})
+        }
         // GPUBuffersNeedingUpdate.colors = true
     }
 
