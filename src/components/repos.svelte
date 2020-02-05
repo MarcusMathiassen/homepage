@@ -41,14 +41,14 @@
 </script>
 
 <template lang="pug">
-.box
     a.has-addons(style="font-size: 1.5em; font-weight: 700" href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
         icon.fontello.icon-github-circled
         span Repositories
     ul
         +each('repos as repo, i')
             li
-                a(href="{repo.url}" target="_blank" rel="noopener") {repo.name}
+                a(href="{repo.url}" target="_blank" rel="noopener") 
+                    span.list-item--name {repo.name}
                     span.badge
                         +if('repo.primaryLanguage')
                             span.badge--item(style="font-weight: 700; color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}

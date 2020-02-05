@@ -181,7 +181,6 @@ export const HSLtoRGBA = (h, s, l) => {
     return { r: r, g: g, b: b, a: 1 }
 }
 
-let gStartTime = 0
 
 export const cachedFetch = async (root, storage = sessionStorage) => {
     const result = storage.getItem(root)
@@ -198,7 +197,7 @@ export const cachedFetch = async (root, storage = sessionStorage) => {
 }
 
 export const getTime = () => {
-    return (new Date().getTime() - gStartTime) / 1000
+    return new Date().getTime()
 }
 
 export const getExt = str => {

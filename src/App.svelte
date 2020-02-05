@@ -1,4 +1,5 @@
 <script lang="coffee">
+    import Spices from './components/spices.svelte'
     import Hero from './components/hero.svelte'
     import Repos from './components/repos.svelte'
     import Videos from './components/youtube-videos.svelte'
@@ -8,15 +9,14 @@
 <template lang="pug">
     svelte:head
         title Marcus Mathiassen - Homepage
-
     section.section
         .container
             .columns.is-centered
                 .column.is-half 
                     Hero
-            .columns
+            .columns.is-centered
                 +each('components as component')
-                    .column.is-half
+                    .column.is-half.is-narrow
                         svelte:component(this='{component}')
 
 </template>

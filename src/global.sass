@@ -3,129 +3,131 @@
 @import "~bulma/sass/base/_all"
 @import "~bulma/sass/grid/columns"
 @import "~bulma/sass/elements/icon"
-@import "~bulma/sass/elements/image"
-@import "~bulma/sass/elements/box"
-@import "~bulma/sass/elements/title"
+// @import "~bulma/sass/elements/image"
+// @import "~bulma/sass/elements/box"
+// @import "~bulma/sass/elements/title"
 @import "~bulma/sass/elements/container"
 @import "~bulma/sass/layout/section"
-@import "~bulma/sass/elements/button"
+// @import "~bulma/sass/elements/button"
+
+@font-face
+    font-family: 'pxplus_ibm_vga8regular'
+    src: url('../src/assets/pxplus_ibm_vga8-webfont.woff') format('woff')
+    font-weight: normal
+    font-style: normal
+
+
+$background--light: #FEF8EF
+$background--dark: #16152E
+
 html
-    --chrome—color-light0: hsl(0, 0%, 100%)
-    --chrome—color-light1: hsl(0, 0%, 97%)
-    --chrome—color-light2: hsl(0, 0%, 97%)
-    --chrome—color-dark0: hsl(0, 0%, 0%)
-    --chrome—color-dark1: hsl(0, 0%, 2%)
-    --chrome—color-dark2: hsl(0, 0%, 7%)
+    --link-color--light: rgb(33, 100, 217)
+    --link-color--dark: rgb(44, 140, 228)
+    --link-color: 0
+
+    --primary--light: hsl(0, 0%, 100%)
+    --secondary--light: hsl(0, 0%, 98%)
+    --third--light: hsl(0, 0%, 97%)
+
+    --primary--dark: hsl(0, 0%, 0%)
+    --secondary--dark: hsl(0, 0%, 5%)
+    --third--dark: hsl(0, 0%, 10%)
 
     --theme-style: 'modern'
 
-    --text--color-base--light:            22, 21, 30
-    --background--color-base--light:      255,255,255
+    --text--color-base--light:            #FF152E
+    --background--color-base--light:      254,254,254
 
     --text--color-base--dark:             254, 248, 239
     --background--color-base--dark:       22, 21, 30
 
-    --systemBlueLight:   #2f67a5
-    --systemGrayLight:   rgb(142,142,147)
-    --systemGreenLight:  #008221
-    --systemIndigoLight: rgb(88,86,214)
-    --systemOrangeLight: rgb(255,149,0)
-    --systemPinkLight:   rgb(255,45,85)
-    --systemPurpleLight: rgb(175,82,222)
-    --systemRedLight:    #f72c20
-    --systemTealLight:   rgb(1, 157, 228)
-    --systemYellowLight: rgb(255,204,0)
+    --systemBlue--light:   #2f67a5
+    --systemGray--light:   rgb(142,142,147)
+    --systemGreen--light:  #008221
+    --systemIndigo--light: rgb(88,86,214)
+    --systemOrange--light: rgb(255,149,0)
+    --systemPink--light:   rgb(255,45,85)
+    --systemPurple--light: rgb(175,82,222)
+    --systemRed--light:    #f72c20
+    --systemTeal--light:   rgb(1, 157, 228)
+    --systemYellow--light: rgb(255,204,0)
 
-    --systemBlueDark:    #51a8ff
-    --systemGrayDark:    rgb(152,152,157)
-    --systemGreenDark:   rgb(48,209,88)
-    --systemIndigoDark:  #9998ff
-    --systemOrangeDark:  rgb(255,159,10)
-    --systemPinkDark:    rgb(255,55,95)
-    --systemPurpleDark:  #fd6fce
-    --systemRedDark:     rgb(255,69,58)
-    --systemTealDark:    rgb(100,210,255)
-    --systemYellowDark:  rgb(255,214,10)
+    --systemBlue--dark:    #51a8ff
+    --systemGray--dark:    rgb(152,152,157)
+    --systemGreen--dark:   rgb(48,209,88)
+    --systemIndigo--dark:  #9998ff
+    --systemOrange--dark:  rgb(255,159,10)
+    --systemPink--dark:    rgb(255,55,95)
+    --systemPurple--dark:  #fd6fce
+    --systemRed--dark:     rgb(255,69,58)
+    --systemTeal--dark:    rgb(100,210,255)
+    --systemYellow--dark:  rgb(255,214,10)
 
     --text-base: 0,0,0
-    --text: rgba(var(--text-base),1)
+    --text: rgba(var(--text-base), 1)
 
     --background-base: 0,0,0
     --background: rgba(var(--background-base), 1)
-
-    --font: ''
+    
+    --font: 'pxplus_ibm_vga8regular'
+    --avatar: url("../src/assets/avatar_pixelated.jpg")
 
     --border-radius: 50px
 
     &[theme-style='retro']
         --theme-style: 'retro'
         --font: 'pxplus_ibm_vga8regular'
+        --avatar: url('../src/assets/avatar_pixelated.jpg')
         --border-radius: 0px
+        --border-radius-image: 0px
 
     &[theme-style='modern']
         --theme-style: 'modern'
         --border-radius: 50px
+        --border-radius-image: 50%
+        --avatar: url('../src/assets/avatar.jpg')
         --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
 
-html[theme="light"]
+@mixin setThemeVariables($themeName)
+    html[theme=#{$themeName}]
+    
+        --link-color: var(--link-color--#{$themeName})
 
-    --primary:   var(--chrome—color-light0)
-    --secondary: var(--chrome—color-light1)
-    --third:     var(--chrome—color-light2)
+        --primary:   var(--primary--#{$themeName})
+        --secondary: var(--secondary--#{$themeName})
+        --third:     var(--third--#{$themeName})
 
-    --systemBlue:   var(--systemBlueLight)
-    --systemGray:   var(--systemGrayLight)
-    --systemGreen:  var(--systemGreenLight)
-    --systemIndigo: var(--systemIndigoLight)
-    --systemOrange: var(--systemOrangeLight)
-    --systemPink:   var(--systemPinkLight)
-    --systemPurple: var(--systemPurpleLight)
-    --systemRed:    var(--systemRedLight)
-    --systemTeal:   var(--systemTealLight)
-    --systemYellow: var(--systemYellowLight)
+        --systemBlue:   var(--systemBlue--#{$themeName})
+        --systemGray:   var(--systemGray--#{$themeName})
+        --systemGreen:  var(--systemGreen--#{$themeName})
+        --systemIndigo: var(--systemIndigo--#{$themeName})
+        --systemOrange: var(--systemOrange--#{$themeName})
+        --systemPink:   var(--systemPink--#{$themeName})
+        --systemPurple: var(--systemPurple--#{$themeName})
+        --systemRed:    var(--systemRed--#{$themeName})
+        --systemTeal:   var(--systemTeal--#{$themeName})
+        --systemYellow: var(--systemYellow--#{$themeName})
 
-    --background-color--selection: yellow
+        --background-color--selection: yellow
 
-    &[theme-style='retro']
-        --text-base:        var(--text--color-base--light)
-        --background-base:  var(--background--color-base--light)
+        &[theme-style='retro']
+            --text-base:        var(--text--color-base--#{$themeName})
+            --background-base:  var(--background--color-base--#{$themeName})
 
-    &[theme-style='modern']
-        --text-base: 54, 54, 54
-        --background-base: var(--primary)
+        &[theme-style='modern']
+            --text-base:        var(--text--color-base--#{$themeName})
+            --background-base:  var(--background--color-base--#{$themeName})
 
-html[theme='dark']
+ 
+@include setThemeVariables("light")
+@include setThemeVariables("dark")
 
-    --primary:   var(--chrome—color-dark0)
-    --secondary: var(--chrome—color-dark1)
-    --third:     var(--chrome—color-dark2)
-
-    --systemBlue:   var(--systemBlueDark)
-    --systemGray:   var(--systemGrayDark)
-    --systemGreen:  var(--systemGreenDark)
-    --systemIndigo: var(--systemIndigoDark)
-    --systemOrange: var(--systemOrangeDark)
-    --systemPink:   var(--systemPinkDark)
-    --systemPurple: var(--systemPurpleDark)
-    --systemRed:    var(--systemRedDark)
-    --systemTeal:   var(--systemTealDark)
-    --systemYellow: var(--systemYellowDark)
-
-    --background-color--selection: red
-
-    &[theme-style='retro']
-        --text-base:       var(--text--color-base--dark)
-        --background-base: var(--background--color-base--dark)
-
-    &[theme-style='modern']
-        --text-base: 200,200,200
-        --background: var(--primary)
 
 html
     margin: 0
     padding: 0
     line-height: 1.5
-    font-size: 1.25em
+    font-size: 1em
     font-family: var(--font)
     color: var(--text)
     background: var(--background)
@@ -136,56 +138,61 @@ html
 
 a
     color: var(--text)
-    opacity: 0.8
     text-decoration: none
     font-family: var(--font)
+    opacity: 1.0
     &:hover
-        color: var(--text)
         text-decoration: none
-        opacity: 1.0
-
-ul
-    padding-inline-start: 10px
+        color: var(--text)
+        opacity: 0.8
 
 li
     list-style-type: none
-    margin-top: 10px
-    margin-bottom: 10px
+    margin: 5px
 
 .badge
     display: inline-block
     margin-left: 10px
-    background: var(--third)
     padding: 5px
     padding-top: 1px
     padding-bottom: 1px
     border-radius: var(--border-radius)
-    font-size: 0.75em
+    font-size: 0.9em
+
+
+.list-item--name
+    color: var(--text)
+    font-size: 1.20em
+    opacity: 0.8
 
 .badge--item
-    margin-left: 5px
-    margin-right: 5px
+    margin: 0.2em
 
 .box
-    border-radius: 30px
+    border-radius: 5px
 
 $box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02) !default
 $box-padding: 1.25rem !default
-
 $box-link-hover-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0 0 1px $link !default
 $box-link-active-shadow: inset 0 1px 2px rgba($scheme-invert, 0.2), 0 0 0 1px $link !default
 
+$box-shadow-tiny: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.05), 0 0px 0 1px rgba($scheme-invert, 0.02) !default
+
 .button
-    &:hover,&:focus, &:active
+    &:hover, &:focus, &:active
         outline: 0
 
 html[theme="light"]
-    background: var(--secondary)
+    background: var(--background)
     .button
         color: var(--text)
         background: var(--primary)
         border: none
         box-shadow: $box-shadow
+    .badge
+        // border: 1px solid rgba(var(--text-base), 0.05)
+        // box-shadow: $box-shadow-tiny
+        background-color: var(--third)
 
 
 html[theme="dark"]
@@ -201,8 +208,17 @@ html[theme="dark"]
         border: 1px solid rgba(var(--text-base), 0.1)
     .button
         color: var(--text)
-        background: var(--third)
+        background: var(--secondary)
         border-color: rgba(var(--text-base), 0.1)
+
+.title
+    font-weight: bold
+
+.subtitle
+    font-size: 25px
+    font-weight: normal
+    opacity: 0.8
+    line-height: 1.0
 
 .section
     padding-top: 20px

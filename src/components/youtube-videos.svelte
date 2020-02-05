@@ -13,19 +13,19 @@
 </script>
 
 <template lang="pug">
-.box
     a.has-addons(style="font-size: 1.5em; font-weight: 700" href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
         icon.fontello.icon-youtube-play
         span Videos
     ul
         +each('videos as video, i')
             li
-                a(href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener") {video.title}
+                a(href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
+                    span.list-item--name  {video.title}
                     span.badge
                         +if('parseInt(video.statistics.viewCount)')
                             span.badge--item
-                                i(class="fontello icon-eye" style="color: var(--systemIndigo)")
-                                span(style="color: var(--systemIndigo)") {video.statistics.viewCount}
+                                i(class="fontello icon-eye" style="color: var(--systemGray)")
+                                span(style="color: var(--systemGray)") {video.statistics.viewCount}
                         +if('parseInt(video.statistics.likeCount)')
                             span.badge--item
                                 i(class="fontello icon-heart" style="color: var(--systemRed)")
