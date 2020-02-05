@@ -14,9 +14,11 @@
             .columns.is-centered
                 .column.is-half 
                     Hero
-            .columns.is-centered
-                +each('components as component')
-                    .column.is-half.is-narrow
-                        svelte:component(this='{component}')
-
+            
+            .box
+                .columns(style="justify-content: space-around")
+                    +each('components as component')
+                        .column.is-narrow
+                            svelte:component(this='{component}')
+        
 </template>

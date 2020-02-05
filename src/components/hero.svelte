@@ -1,34 +1,31 @@
 <style lang="sass">
 canvas
     margin: 0 auto
+    margin-top: 20px
     background-image: var(--avatar)
     background-size: cover
-    border-radius: 20px
     width: 200px
-    height: 311px
+    height: 200px
 </style>
 
 <template lang="pug">
 
-.container
-    .columns.is-centered.is-vcentered
-        .column.is-narrow(style="text-align: center;")
-            canvas(bind:this='{canvas}')
-        .column.is-narrow(style="text-align: center;")
-            h1.title.is-size-3 Marcus Mathiassen
-            p.subtitle.is-size-5.
-                I do compilers and graphics.#[br]
-                Interested in systems design and UX.
-            br
-            a.has-addons.is-bold.is-size-5(href="mailto:mathiassenmarcus@me.com")
-                icon.fontello.icon-mail-alt
-                span Contact Me
+.container(style="text-align: center;")
+    canvas(bind:this='{canvas}')
+    h1.title.is-size-3 Marcus Mathiassen
+    p.subtitle.is-size-5.
+        I do compilers and graphics.#[br]
+        Interested in systems design and UX.
+    br
+    a.button.has-addons.is-bold.is-size-5(href="mailto:mathiassenmarcus@me.com")
+        icon.fontello.icon-mail-alt
+        span Contact Me
 
 </template>
 
 <script>
     import avatar from '../assets/avatar.jpg'
-    import avatarBurned from '../assets/avatar_burned2.png'
+    // import avatarBurned from '../assets/avatar_burned2.png'
 
     import vert from './shaders/blob-avatar.vert'
     import frag from './shaders/blob-avatar.frag'
@@ -51,6 +48,7 @@ canvas
         sam: 0,
         time: 0,
         mouse: 0,
+        backColor: 0,
     }
 
     let texture
@@ -61,69 +59,68 @@ canvas
     let gl
     let program
     let canvas
-    let canvasWidth = 200*1.0
-    let canvasHeight = 311*1.0
+    let canvasWidth = 200*1.5
+    let canvasHeight = 200*1.5
 
     //
     // Initialize a texture and load an image.
     // When the image finished loading copy it into the texture.
     //
-    function loadTexture(gl, url) {
-      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-      const texture = gl.createTexture();
-      gl.bindTexture(gl.TEXTURE_2D, texture);
+    // function loadTexture(gl, url) {
+    //   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    //   const texture = gl.createTexture();
+    //   gl.bindTexture(gl.TEXTURE_2D, texture);
 
-      // Because images have to be download over the internet
-      // they might take a moment until they are ready.
-      // Until then put a single pixel in the texture so we can
-      // use it immediately. When the image has finished downloading
-      // we'll update the texture with the contents of the image.
-      const level = 0;
-      const internalFormat = gl.RGBA;
-      const width = 1;
-      const height = 1;
-      const border = 0;
-      const srcFormat = gl.RGBA;
-      const srcType = gl.UNSIGNED_BYTE;
-      const pixel = new Uint8Array([0, 0, 255, 255]);  // opaque blue
-      gl.texImage2D(gl.TEXTURE_2D, level, internalFormat,
-                    width, height, border, srcFormat, srcType,
-                    pixel);
+    //   // Because images have to be download over the internet
+    //   // they might take a moment until they are ready.
+    //   // Until then put a single pixel in the texture so we can
+    //   // use it immediately. When the image has finished downloading
+    //   // we'll update the texture with the contents of the image.
+    //   const level = 0;
+    //   const internalFormat = gl.RGBA;
+    //   const width = 1;
+    //   const height = 1;
+    //   const border = 0;
+    //   const srcFormat = gl.RGBA;
+    //   const srcType = gl.UNSIGNED_BYTE;
+    //   const pixel = new Uint8Array([0, 0, 255, 255]);  // opaque blue
+    //   gl.texImage2D(gl.TEXTURE_2D, level, internalFormat,
+    //                 width, height, border, srcFormat, srcType,
+    //                 pixel);
 
-      const image = new Image();
-      image.onload = function() {
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texImage2D(gl.TEXTURE_2D, level, internalFormat,
-                      srcFormat, srcType, image);
+    //   const image = new Image();
+    //   image.onload = function() {
+    //     gl.bindTexture(gl.TEXTURE_2D, texture);
+    //     gl.texImage2D(gl.TEXTURE_2D, level, internalFormat,
+    //                   srcFormat, srcType, image);
 
-        // WebGL1 has different requirements for power of 2 images
-        // vs non power of 2 images so check if the image is a
-        // power of 2 in both dimensions.
-        if (isPowerOf2(image.width) && isPowerOf2(image.height)) {
-           // Yes, it's a power of 2. Generate mips.
-           gl.generateMipmap(gl.TEXTURE_2D);
-        } else {
-           // No, it's not a power of 2. Turn off mips and set
-           // wrapping to clamp to edge
-           gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-           gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-           gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        }
-      };
-      image.src = url;
+    //     // WebGL1 has different requirements for power of 2 images
+    //     // vs non power of 2 images so check if the image is a
+    //     // power of 2 in both dimensions.
+    //     if (isPowerOf2(image.width) && isPowerOf2(image.height)) {
+    //        // Yes, it's a power of 2. Generate mips.
+    //        gl.generateMipmap(gl.TEXTURE_2D);
+    //     } else {
+    //        // No, it's not a power of 2. Turn off mips and set
+    //        // wrapping to clamp to edge
+    //        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    //        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    //        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    //     }
+    //   };
+    //   image.src = url;
 
-      return texture;
-    }
+    //   return texture;
+    // }
 
     function isPowerOf2(value) {
       return (value & (value - 1)) == 0;
     }
     const normalize = rgba => {
         return {
-            r: rgba.r / 255,
-            g: rgba.g / 255,
-            b: rgba.b / 255,
-            a: rgba.a || rgba.a / 255,
+            r: rgba.r / 255.0,
+            g: rgba.g / 255.0,
+            b: rgba.b / 255.0
         }
     }
     function updateValues () {
@@ -140,8 +137,7 @@ canvas
         canvasHeight *= devicePixelRatio
         // textColor = normalize(window.color.text)
         // textColor.a = 0.2
-        // backColor = normalize(window.color.background)
-        // backColor.a = 1.0
+        backColor = normalize(window.color.background)
         // GPUBuffersNeedingUpdate.colors = true
     }
 
@@ -174,6 +170,7 @@ canvas
         gl = canvas.getContext("webgl2")
         if (!gl)  {
             console.error("no webgl2 context found. stopping.")
+            canvas.style.borderRadius = "50%"
             return 
         }
         gl.enable(gl.BLEND)
@@ -204,18 +201,19 @@ canvas
         gl.attachShader(program, fs)
         gl.linkProgram(program)
         gl.validateProgram(program)
-        
+
         uniformLoc.viewport_size = gl.getUniformLocation(program, 'viewport_size')
         uniformLoc.sam = gl.getUniformLocation(program, 'sam'),
         uniformLoc.time = gl.getUniformLocation(program, 'time')
         uniformLoc.mouse = gl.getUniformLocation(program, 'mouse')
+        uniformLoc.backColor = gl.getUniformLocation(program, 'backColor')
 
         gl.deleteShader(vs)
         gl.deleteShader(fs)
         vao = gl.createVertexArray()
         gl.bindVertexArray(vao)
 
-        texture = loadTexture(gl, avatarBurned);
+        // texture = loadTexture(gl, avatarBurned);
 
         let frame;
 
@@ -238,12 +236,13 @@ canvas
             gl.uniform2f(uniformLoc.viewport_size, canvasWidth, canvasHeight)
             gl.uniform1f(uniformLoc.time, time)
             gl.uniform4f(uniformLoc.mouse, mouse.x, mouse.y, mouse.z, mouse.w)
+            gl.uniform3f(uniformLoc.backColor, backColor.r, backColor.g, backColor.b)
 
             // Tell WebGL we want to affect texture unit 0
-            gl.activeTexture(gl.TEXTURE0);
+            // gl.activeTexture(gl.TEXTURE0);
 
             // Bind the texture to texture unit 0
-            gl.bindTexture(gl.TEXTURE_2D, texture);
+            // gl.bindTexture(gl.TEXTURE_2D, texture);
 
               // Tell the shader we bound the texture to texture unit 0
             gl.uniform1i(uniformLoc.sam, 0)
