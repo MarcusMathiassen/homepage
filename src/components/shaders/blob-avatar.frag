@@ -64,6 +64,12 @@ f32 dCircle(v2 p, f32 r)
     return length(p) - r;
 }
 
+f32 hash21(v2 p) {
+  p = fract(p * v2(233.34, 851.74));
+  p += dot(p, p + 23.45);
+  return fract(p.x * p.y);
+}
+
 f32 map(v2 p, f32 time, v2 mo)
 {
     f32 d = dCircle(p, 0.01) + sin(p.x*time)*0.3*sin(p.y*time)*0.3;
@@ -75,7 +81,7 @@ void main()
     // v2 uv = gl_FragCoord.xy / viewport_size;
     v2 p = (gl_FragCoord.xy - viewport_size* 0.5) / viewport_size.y;
     v2 mo = (mouse.xy-viewport_size*0.5)/viewport_size.y;
-    // mo.y = -mo.y;
+    mo.y = -mo.y;
     // f32 mask = 1.0-(texture(sam, uv*v2(1.0, 0.64308)+v2(0.0, 0.3569)).a);
     
     f32 d = map(p, min(5.0,time*2.0)*2.0, mo);

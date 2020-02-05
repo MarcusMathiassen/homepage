@@ -2370,7 +2370,7 @@ module.exports = "/avatar.539b9fbc.jpg";
 },{}],"components/shaders/blob-avatar.vert":[function(require,module,exports) {
 module.exports = "#version 300 es\n\nprecision mediump float;\n#define GLSLIFY 1\n\n// out vec2 uv;\n\nvoid main()\n{\n    vec2 uv = vec2((gl_VertexID << 1) & 2, gl_VertexID & 2);\n    gl_Position = vec4(uv * 2.0 + -1.0, 0.0, 1.0);\n}\n";
 },{}],"components/shaders/blob-avatar.frag":[function(require,module,exports) {
-module.exports = "#version 300 es\n\nprecision mediump float;\n#define GLSLIFY 1\n\nout vec4 frag;\n\nuniform float time;\nuniform vec4 mouse;\nuniform vec2 viewport_size;\nuniform vec3 backColor;\n\nuniform sampler2D sam;\n\n#define f32 float\n#define v2 vec2\n#define v3 vec3\n#define v4 vec4\n\n// cosine based palette, 4 vec3 params\n// https://www.iquilezles.org/www/articles/palettes/palettes.htm\nv3 palette(f32 t, v3 a, v3 b, v3 c, v3 d)\n{\n    return a + b * cos(6.2831 * (c * t + d));\n}\n\nv3 rainbowMap(f32 t)\n{\n    v3 a = v3(0.5, 0.5, 0.5);\n    v3 b = v3(0.5, 0.5, 0.5);\n    v3 c = v3(1.0, 1.0, 1.0);\n    v3 d = v3(0.00, 0.33, 0.67);\n    return palette(t, a, b, c, d);\n}\n\nv3 heatMap2(f32 t)\n{\n    v3 a = v3(0.5, 0.5, 0.5);\n    v3 b = v3(0.5, 0.5, 0.5);\n    v3 c = v3(1.0, 1.0, 1.0);\n    v3 d = v3(0.00, 0.10, 0.20);\n    return palette(t, a, b, c, d);\n}\n\nv3 heatMap(f32 t)\n{\n    v3 a = v3(0.5, 0.5, 0.5);\n    v3 b = v3(0.5, 0.5, 0.5);\n    v3 c = v3(1.0, 0.7, 0.4);\n    v3 d = v3(0.00, 0.15, 0.20);\n    return palette(t, a, b, c, d);\n}\n\nv3 papayaMap(f32 t)\n{\n    v3 a = v3(0.8, 0.5, 0.4);\n    v3 b = v3(0.2, 0.4, 0.2);\n    v3 c = v3(2.0, 1.0, 1.0);\n    v3 d = v3(0.00, 0.25, 0.2);\n    return palette(t, a, b, c, d);\n}\n\nf32 dCircle(v2 p, f32 r)\n{\n    return length(p) - r;\n}\n\nf32 map(v2 p, f32 time, v2 mo)\n{\n    f32 d = dCircle(p, 0.01) + sin(p.x*time)*0.3*sin(p.y*time)*0.3;\n    return d;\n}\n\nvoid main()\n{\n    // v2 uv = gl_FragCoord.xy / viewport_size;\n    v2 p = (gl_FragCoord.xy - viewport_size* 0.5) / viewport_size.y;\n    v2 mo = (mouse.xy-viewport_size*0.5)/viewport_size.y;\n    // mo.y = -mo.y;\n    // f32 mask = 1.0-(texture(sam, uv*v2(1.0, 0.64308)+v2(0.0, 0.3569)).a);\n    \n    f32 d = map(p, min(5.0,time*2.0)*2.0, mo);\n    f32 r = 0.4;\n    frag = v4(backColor, 1.0) * (smoothstep(r-0.01, r, d));\n}\n";
+module.exports = "#version 300 es\n\nprecision mediump float;\n#define GLSLIFY 1\n\nout vec4 frag;\n\nuniform float time;\nuniform vec4 mouse;\nuniform vec2 viewport_size;\nuniform vec3 backColor;\n\nuniform sampler2D sam;\n\n#define f32 float\n#define v2 vec2\n#define v3 vec3\n#define v4 vec4\n\n// cosine based palette, 4 vec3 params\n// https://www.iquilezles.org/www/articles/palettes/palettes.htm\nv3 palette(f32 t, v3 a, v3 b, v3 c, v3 d)\n{\n    return a + b * cos(6.2831 * (c * t + d));\n}\n\nv3 rainbowMap(f32 t)\n{\n    v3 a = v3(0.5, 0.5, 0.5);\n    v3 b = v3(0.5, 0.5, 0.5);\n    v3 c = v3(1.0, 1.0, 1.0);\n    v3 d = v3(0.00, 0.33, 0.67);\n    return palette(t, a, b, c, d);\n}\n\nv3 heatMap2(f32 t)\n{\n    v3 a = v3(0.5, 0.5, 0.5);\n    v3 b = v3(0.5, 0.5, 0.5);\n    v3 c = v3(1.0, 1.0, 1.0);\n    v3 d = v3(0.00, 0.10, 0.20);\n    return palette(t, a, b, c, d);\n}\n\nv3 heatMap(f32 t)\n{\n    v3 a = v3(0.5, 0.5, 0.5);\n    v3 b = v3(0.5, 0.5, 0.5);\n    v3 c = v3(1.0, 0.7, 0.4);\n    v3 d = v3(0.00, 0.15, 0.20);\n    return palette(t, a, b, c, d);\n}\n\nv3 papayaMap(f32 t)\n{\n    v3 a = v3(0.8, 0.5, 0.4);\n    v3 b = v3(0.2, 0.4, 0.2);\n    v3 c = v3(2.0, 1.0, 1.0);\n    v3 d = v3(0.00, 0.25, 0.2);\n    return palette(t, a, b, c, d);\n}\n\nf32 dCircle(v2 p, f32 r)\n{\n    return length(p) - r;\n}\n\nf32 hash21(v2 p) {\n  p = fract(p * v2(233.34, 851.74));\n  p += dot(p, p + 23.45);\n  return fract(p.x * p.y);\n}\n\nf32 map(v2 p, f32 time, v2 mo)\n{\n    f32 d = dCircle(p, 0.01) + sin(p.x*time)*0.3*sin(p.y*time)*0.3;\n    return d;\n}\n\nvoid main()\n{\n    // v2 uv = gl_FragCoord.xy / viewport_size;\n    v2 p = (gl_FragCoord.xy - viewport_size* 0.5) / viewport_size.y;\n    v2 mo = (mouse.xy-viewport_size*0.5)/viewport_size.y;\n    mo.y = -mo.y;\n    // f32 mask = 1.0-(texture(sam, uv*v2(1.0, 0.64308)+v2(0.0, 0.3569)).a);\n    \n    f32 d = map(p, min(5.0,time*2.0)*2.0, mo);\n    f32 r = 0.4;\n    frag = v4(backColor, 1.0) * (smoothstep(r-0.01, r, d));\n}\n";
 },{}],"components/utils/v2.js":[function(require,module,exports) {
 "use strict";
 
@@ -3074,13 +3074,17 @@ function instance($$self, $$props, $$invalidate) {
     let pos = getRelativeMousePosition(event, target);
     pos.x *= devicePixelRatio;
     pos.y *= devicePixelRatio;
-    mouse = pos;
+    mouse.x = pos.x;
+    mouse.y = pos.y;
   };
 
   (0, _svelte.onMount)(async () => {
     canvas.addEventListener("mousemove", updateMousePos);
     canvas.addEventListener("mouseenter", () => focused = !focused);
     canvas.addEventListener("mouseleave", () => focused = !focused);
+    canvas.addEventListener("mousedown", () => {
+      mouse.w = 1;
+    });
     gl = canvas.getContext("webgl2");
 
     if (!gl) {
@@ -3141,6 +3145,8 @@ function instance($$self, $$props, $$invalidate) {
       gl.uniform3f(uniformLoc.backColor, backColor.r, backColor.g, backColor.b);
       gl.uniform1i(uniformLoc.sam, 0);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
+      mouse.z = 0;
+      mouse.w = 0;
     };
 
     loop();
@@ -6408,7 +6414,6 @@ observer.observe(document.documentElement, {
 
 });
 window.matchMedia('(prefers-color-scheme: light)').addListener(updateGlobalColorVariables);
-updateGlobalColorVariables();
 window.matchMedia('(prefers-color-scheme: light)').addListener(() => document.documentElement.setAttribute('theme', window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
 document.documentElement.setAttribute('theme', window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
 const app = new _App.default({
@@ -6444,7 +6449,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57722" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64394" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

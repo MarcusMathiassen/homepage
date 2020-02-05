@@ -34,8 +34,6 @@ window
     .matchMedia('(prefers-color-scheme: light)')
     .addListener(updateGlobalColorVariables)
 
-updateGlobalColorVariables()
-
 window
     .matchMedia('(prefers-color-scheme: light)')
     .addListener(() =>

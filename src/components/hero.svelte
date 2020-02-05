@@ -158,7 +158,8 @@ canvas
         pos.x *= devicePixelRatio
         pos.y *= devicePixelRatio
 
-        mouse = pos
+        mouse.x = pos.x
+        mouse.y = pos.y
     }
 
     onMount(async() => {
@@ -166,6 +167,10 @@ canvas
         canvas.addEventListener('mousemove', updateMousePos)
         canvas.addEventListener('mouseenter', () => (focused = !focused))
         canvas.addEventListener('mouseleave', () => (focused = !focused))
+        canvas.addEventListener('mousedown', () => {
+            mouse.w = 1.0
+
+        })
 
         gl = canvas.getContext("webgl2")
         if (!gl)  {
@@ -248,6 +253,9 @@ canvas
             gl.uniform1i(uniformLoc.sam, 0)
 
             gl.drawArrays(gl.TRIANGLES, 0, 3)
+
+            mouse.z = 0.0
+            mouse.w = 0.0
         }
         loop()
         return () => cancelAnimationFrame(frame)
