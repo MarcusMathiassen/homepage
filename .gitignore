@@ -20,6 +20,7 @@ yarn-error.log*
 *.sln
 *.sw*
 node_modules
+docs
 
 # Local Netlify folder
 .netlify
