@@ -34,7 +34,7 @@ html
 
     --theme-style: 'modern'
 
-    --text--color-base--light:            22, 21, 30
+    --text--color-base--light:            55,55,55
     --background--color-base--light:      254,254,254
 
     --text--color-base--dark:             254, 248, 239
@@ -168,7 +168,7 @@ li
     margin: 0.2em
 
 .box
-    border-radius: 5px
+    border-radius: 20px
 
 $box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02) !default
 $box-padding: 1.25rem !default
@@ -212,9 +212,11 @@ html[theme="dark"]
         border-color: rgba(var(--text-base), 0.1)
 
 .title
+    color: var(--text)
     font-weight: bold
 
 .subtitle
+    color: var(--text)
     font-size: 25px
     font-weight: normal
     opacity: 0.8

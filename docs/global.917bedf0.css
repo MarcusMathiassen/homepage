@@ -3095,7 +3095,7 @@ html {
   --secondary--dark: hsl(0, 0%, 5%);
   --third--dark: hsl(0, 0%, 10%);
   --theme-style: 'modern';
-  --text--color-base--light:            22, 21, 30;
+  --text--color-base--light:            55,55,55;
   --background--color-base--light:      254,254,254;
   --text--color-base--dark:             254, 248, 239;
   --background--color-base--dark:       22, 21, 30;
@@ -3229,7 +3229,7 @@ li {
   margin: 0.2em; }
 
 .box {
-  border-radius: 5px; }
+  border-radius: 20px; }
 
 .button {
   border-radius: var(--border-radius); }
@@ -3266,9 +3266,11 @@ html[theme="dark"] .button {
   border-color: rgba(var(--text-base), 0.1); }
 
 .title {
+  color: var(--text);
   font-weight: bold; }
 
 .subtitle {
+  color: var(--text);
   font-size: 25px;
   font-weight: normal;
   opacity: 0.8;
