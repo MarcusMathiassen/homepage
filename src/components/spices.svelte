@@ -50,29 +50,12 @@
 
 </script>
 
-<style lang="sass">
-
-    button
-        background: none
-        font-size: 20px
-
-    #darkModeToggle
-        position: absolute
-        top: 10px
-        left: 20px
-
-    #retroToggle
-        position: absolute
-        top: 10px
-        right: 20px
-
-</style>
-
+<!--     #retroToggle(on:click = '{toggleThemeStyle}')
+        i.themeToggle(class="fontello icon-{themeStyle === 'retro' ? 'fire' : 'water' }")
+ -->
 <template lang="pug">
-    button#retroToggle(on:click = '{toggleThemeStyle}')
-        i.fas.fa-pepper-hot
 
-    button#darkModeToggle(on:click = '{toggleTheme}')
-        i(class="fas fa-{theme === 'light' ? 'sun' : 'moon' }")
+    #darkModeToggle(on:click = '{toggleTheme}')
+        i.themeToggle(class="fontello icon-{theme === 'light' ? 'sun' : 'moon' }")
 
 </template>

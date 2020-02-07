@@ -72,7 +72,7 @@ f32 hash21(v2 p) {
 
 f32 map(v2 p, f32 time, v2 mo)
 {
-    f32 d = dCircle(p, 0.01) + sin(p.x*time)*0.3*sin(p.y*time)*0.3;
+    f32 d = dCircle(p, 0.1*sin(p.x*time)*0.9*sin(p.y*time)*0.3);
     return d;
 }
 
@@ -84,7 +84,7 @@ void main()
     mo.y = -mo.y;
     // f32 mask = 1.0-(texture(sam, uv*v2(1.0, 0.64308)+v2(0.0, 0.3569)).a);
     
-    f32 d = map(p, min(5.0,time*2.0)*2.0, mo);
+    f32 d = map(p, time, mo);
     f32 r = 0.4;
     frag = v4(backColor, 1.0) * (smoothstep(r-0.01, r, d));
 }

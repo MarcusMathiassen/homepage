@@ -14,7 +14,7 @@
 
 <template lang="pug">
     a.has-addons(style="font-size: 1.5em; font-weight: 700" href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
-        icon.fontello.icon-youtube-play
+        icon.fontello.icon-youtube
         span Videos
     ul
         +each('videos as video, i')
@@ -24,7 +24,7 @@
                     span.badge
                         +if('parseInt(video.statistics.viewCount)')
                             span.badge--item
-                                i(class="fontello icon-eye" style="color: var(--systemGray)")
+                                i(class="fontello icon-user" style="color: var(--systemGray)")
                                 span(style="color: var(--systemGray)") {video.statistics.viewCount}
                         +if('parseInt(video.statistics.likeCount)')
                             span.badge--item

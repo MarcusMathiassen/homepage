@@ -1,7 +1,6 @@
 <style lang="sass">
 canvas
-    margin: 0 auto
-    margin-top: 20px
+    padding: 0
     background-image: var(--avatar)
     background-size: cover
     width: 200px
@@ -10,15 +9,15 @@ canvas
 
 <template lang="pug">
 
-.container(style="text-align: center;")
+.d(style="text-align: center")
     canvas(bind:this='{canvas}')
-    h1.title.is-size-3 Marcus Mathiassen
-    p.subtitle.is-size-5.
+    .title Marcus Mathiassen
+    .subtitle.
         I do compilers and graphics.#[br]
         Interested in systems design and UX.
     br
-    a.button.has-addons.is-bold.is-size-5(href="mailto:mathiassenmarcus@me.com")
-        icon.fontello.icon-mail-alt
+    a.is-bold(href="mailto:mathiassenmarcus@me.com" style="font-size: 1.5em")
+        icon.fontello.icon-mail
         span Contact Me
 
 </template>
@@ -59,8 +58,8 @@ canvas
     let gl
     let program
     let canvas
-    let canvasWidth = 200*1.5
-    let canvasHeight = 200*1.5
+    let canvasWidth = 200*2.0
+    let canvasHeight = 200*2.0
 
     //
     // Initialize a texture and load an image.
@@ -141,9 +140,9 @@ canvas
         
         // @hardcoded
         if (document.documentElement.getAttribute('theme') === 'light') {
-            backColor = normalize({r:254,g:254,b:254})
+            backColor = normalize({r:230,g:230,b:230})
         } else {
-            backColor = normalize({r:22, g:21, b:30})
+            backColor = normalize({r:15, g:15, b:15})
         }
         // GPUBuffersNeedingUpdate.colors = true
     }

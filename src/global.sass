@@ -1,14 +1,14 @@
 // @import "~bulma/bulma"
-@import "~bulma/sass/utilities/_all"
-@import "~bulma/sass/base/_all"
-@import "~bulma/sass/grid/columns"
-@import "~bulma/sass/elements/icon"
+// @import "~bulma/sass/utilities/_all"
+// @import "~bulma/sass/base/_all"
+// @import "~bulma/sass/grid/columns"
+// @import "~bulma/sass/elements/icon"
 // @import "~bulma/sass/elements/image"
-@import "~bulma/sass/elements/box"
+// @import "~bulma/sass/elements/box"
 // @import "~bulma/sass/elements/title"
-@import "~bulma/sass/elements/container"
-@import "~bulma/sass/layout/section"
-@import "~bulma/sass/elements/button"
+// @import "~bulma/sass/elements/container"
+// @import "~bulma/sass/layout/section"
+// @import "~bulma/sass/elements/button"
 
 @font-face
     font-family: 'pxplus_ibm_vga8regular'
@@ -34,17 +34,17 @@ html
 
     --theme-style: 'modern'
 
-    --text--color-base--light:            55,55,55
-    --background--color-base--light:      254,254,254
+    --text--color-base--light:            15,15,15
+    --background--color-base--light:      230,230,230
 
-    --text--color-base--dark:             254, 248, 239
-    --background--color-base--dark:       22, 21, 30
+    --text--color-base--dark:             230,230,230
+    --background--color-base--dark:       15,15,15
 
     --systemBlue--light:   #2f67a5
     --systemGray--light:   rgb(142,142,147)
     --systemGreen--light:  #008221
     --systemIndigo--light: rgb(88,86,214)
-    --systemOrange--light: rgb(255,149,0)
+    --systemOrange--light: #d49637
     --systemPink--light:   rgb(255,45,85)
     --systemPurple--light: rgb(175,82,222)
     --systemRed--light:    #f72c20
@@ -123,7 +123,6 @@ html
 
 
 html
-    margin: 0
     padding: 0
     line-height: 1.5
     font-size: 1em
@@ -139,15 +138,17 @@ a
     color: var(--text)
     text-decoration: none
     font-family: var(--font)
-    opacity: 1.0
     &:hover
-        text-decoration: none
         color: var(--text)
-        opacity: 0.8
+        text-decoration: underline
 
 li
     list-style-type: none
     margin: 5px
+
+ul
+    margin: 20px
+    padding-left: 0
 
 .badge
     display: inline-block
@@ -167,33 +168,23 @@ li
 .badge--item
     margin: 0.2em
 
-.box
-    border-radius: 20px
-
-$box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02) !default
-$box-padding: 1.25rem !default
-$box-link-hover-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0 0 1px $link !default
-$box-link-active-shadow: inset 0 1px 2px rgba($scheme-invert, 0.2), 0 0 0 1px $link !default
-
-$box-shadow-tiny: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.05), 0 0px 0 1px rgba($scheme-invert, 0.02) !default
-
 .button
     border-radius: var(--border-radius)
     &:hover, &:focus, &:active
         outline: 0
+
+.themeToggle
+        color: var(--text)
 
 html[theme="light"]
     background: var(--background)
     .button
         color: var(--text)
         background: var(--primary)
-        border: none
-        box-shadow: $box-shadow
-    .badge
-        // border: 0.5px solid rgba(var(--text-base), 0.01)
-        // box-shadow: $box-shadow-tiny
-        background-color: var(--secondary)
+        font-size: 1.25em
 
+    button
+        box-shadow: 0 0 10px red
 
 html[theme="dark"]
     .title
@@ -201,26 +192,50 @@ html[theme="dark"]
     .subtitle
         color: var(--text)
         opacity: 0.8
-    .badge
-        border: 1px solid rgba(var(--text-base), 0.1)
-    .box
-        background: var(--background)
-        border: 1px solid rgba(var(--text-base), 0.1)
     .button
         color: var(--text)
         background: var(--background)
         border-color: rgba(var(--text-base), 0.1)
 
+    button
+        box-shadow: 0 0 10px gold
+button
+    padding: 10px
+    border: 1px solid rgba(var(--text-base), 0.1)
+    border-radius: var(--border-radius)
+
+.columns
+    display: flex
+    justify-content: center
+
+
+.column
+    margin: 20px
+    padding: 20px
+
+@media only screen and (max-width: 800px)
+    .columns
+        display: block
+        
+@media only screen and (max-width: 600px)
+    ul
+        margin-left: 5px
+        padding-left: 0px
+    .column
+        margin-left: 5px
+        padding-left: 0px
+
+
+
 .title
-    color: var(--text)
     font-weight: bold
+    font-size: 2.5em
 
 .subtitle
-    color: var(--text)
-    font-size: 25px
+    font-size: 1.2em
     font-weight: normal
     opacity: 0.8
-    line-height: 1.0
+    line-height: 1
 
 .section
     padding-top: 20px
@@ -240,3 +255,6 @@ html[theme="dark"]
     font-weight: 500
 .is-bold
     font-weight: 700
+
+.is-valign
+    vertical-align: bottom

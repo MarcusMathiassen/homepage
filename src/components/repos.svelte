@@ -41,8 +41,8 @@
 </script>
 
 <template lang="pug">
-    a.has-addons(style="font-size: 1.5em; font-weight: 700" href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
-        icon.fontello.icon-github-circled
+    a(style="font-size: 1.5em; font-weight: 700" href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
+        span.icon.fontello.icon-github
         span Repositories
     ul
         +each('repos as repo, i')

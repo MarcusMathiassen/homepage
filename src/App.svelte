@@ -9,16 +9,12 @@
 <template lang="pug">
     svelte:head
         title Marcus Mathiassen - Homepage
-    section.section
-        .container
-            .columns.is-centered
-                .column.is-half 
-                    Hero
+    Spices
+    Hero
+    br
+    .columns
+        +each('components as component')
+            .column
+                svelte:component(this='{component}')
             
-            .box
-                .columns(style="justify-content: space-around")
-                    +each('components as component')
-                        .column.is-narrow
-                            svelte:component(this='{component}')
-        
 </template>
