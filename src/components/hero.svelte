@@ -16,7 +16,7 @@ canvas
         I do compilers and graphics.#[br]
         Interested in systems design and UX.
     br
-    a.is-bold(href="mailto:mathiassenmarcus@me.com" style="font-size: 1.5em")
+    a.is-bold(href="mailto:mathiassenmarcus@me.com" style="font-size: 1.2em")
         icon.fontello.icon-mail
         span Contact Me
 
