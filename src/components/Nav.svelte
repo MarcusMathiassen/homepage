@@ -9,6 +9,12 @@
 	img
 		border-radius: 50%
 
+	.navbar-item
+	    color: var(--text)
+	    background: var(--background) !important
+	    &:hover
+	        color: var(--link-color)
+	        background: rgba(var(--text-base),0.03) !important
 </style>
 
 <template lang='pug'>

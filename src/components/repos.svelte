@@ -37,7 +37,7 @@
 
 <template lang="pug">
         h3
-            a.is-size-4.has-text-dark(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
+            a.is-size-4(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
                 span.icon(style='margin-right: 0.5rem'): i.fab.fa-github
                 span Repos
 

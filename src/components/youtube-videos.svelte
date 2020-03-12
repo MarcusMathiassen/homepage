@@ -35,7 +35,7 @@
 
 <template lang="pug">
     h3
-        a.is-size-4.has-text-dark(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
+        a.is-size-4(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
             span.icon(style='margin-right: 0.5rem'): i.fab.fa-youtube
             span Videos
 

@@ -1,9 +1,11 @@
 <script context='module'>
-	export async function preload({ params, query }) {
-		const res = await this.fetch(`gallary.json`)
-        const assets = await res.json()
-		return { assets }
-	}
+
+  export async function preload({params, query}) {
+      const res = await this.fetch(`gallary.json`)
+      const assets = await res.json()
+      return { assets }
+  }
+
 </script>
 <script>
     export let assets

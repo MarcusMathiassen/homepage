@@ -11,15 +11,15 @@ const server = polka()
 console.log(PORT)
 
 server // You can also use Express
-	.use(
-		compression({ threshold: 0 }),
-		sirv('static', { dev }),
-		sapper.middleware({
+    .use(
+        compression({ threshold: 0 }),
+        sirv('static', { dev }),
+        sapper.middleware({
             session: (req, res) => ({
-                user: req.user
-            })
+                user: req.user,
+            }),
         })
-	)
-	.listen(PORT, err => {
-		if (err) console.log('error', err)
-	})
+    )
+    .listen(PORT, err => {
+        if (err) console.log('error', err)
+    })

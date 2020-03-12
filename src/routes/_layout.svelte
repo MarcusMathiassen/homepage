@@ -32,7 +32,6 @@ export async function preload(page, session) {
                 return posts
         }
 
-
         const getVideos = async () => {
             const apiRoot = 'https://www.googleapis.com/youtube/v3/'
             const YOUTUBE_TOKEN = process.env.YOUTUBE_TOKEN

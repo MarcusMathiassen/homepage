@@ -13,7 +13,7 @@
 <template lang="pug">
 
     h3
-        a.is-size-4.has-text-dark(href="blog" aria-label="checkout blog")
+        a.is-size-4(href="blog" aria-label="checkout blog")
             span.icon(style='margin-right: 0.5rem'): i.fas.fa-book-open
             span Posts
 

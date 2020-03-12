@@ -88,7 +88,7 @@ html
 
 
 @include setThemeVariables("light")
-// @include setThemeVariables("dark")
+@include setThemeVariables("dark")
 
 // *
 //     box-sizing: border-box
@@ -102,11 +102,22 @@ html
     font-family: var(--font)
     line-height: 1.5
 
+h3 > a, html, strong, body, main, nav, h1, h2, h3, p, .navbar, .navbar-burger, .navbar-menu, .button, .title, .subtitle
+    color: var(--text) !important
+    background: var(--background) !important
+
+a
+    color: var(--link-color)
+    &:hover
+        color: var(--text)
+
+.button
+    &:hover
+        color: var(--text) !important
+        background: rgba(var(--text-base),0.03) !important
 // body
 //     margin: 0
 //     padding: 0
-//     color: var(--text)
-//     background: var(--background)
 
 // main
 //     margin: 1rem
