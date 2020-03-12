@@ -1,8 +1,4 @@
 <script>
-
-    import { onMount } from 'svelte'
-    import List from './List.svelte'
-    import { cachedFetch } from './utils/utility'
     import contrast from 'contrast'
 
     import { stores } from '@sapper/app'
