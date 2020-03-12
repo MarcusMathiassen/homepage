@@ -14,7 +14,7 @@
     
     Hero
     section.section
-        .columns.is-centered
+        .columns.is-centered.is-multiline
             +each('components as component')
                 .column.is-narrow
                     svelte:component(this='{component}')
