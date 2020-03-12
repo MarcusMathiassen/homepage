@@ -27,6 +27,10 @@
     font-weight: 700
     background: #ff776e
 
+@media (max-width: 600px)
+    .likes, .comments
+        display: none
+
 </style>
 
 <template lang="pug">

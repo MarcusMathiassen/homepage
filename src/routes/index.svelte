@@ -14,8 +14,9 @@
     
     Hero
     section.section
-        .columns.is-centered.is-multiline
-            +each('components as component')
-                .column.is-narrow
-                    svelte:component(this='{component}')
+        .container
+            .columns.is-centered.is-multiline
+                +each('components as component')
+                    .column.is-narrow
+                        svelte:component(this='{component}')
 </template>
