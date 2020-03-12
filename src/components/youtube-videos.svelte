@@ -44,17 +44,17 @@
             span.name {video.title}
             span.badge
                 +if('parseInt(video.statistics.viewCount)')
-                    span.tag.views.has-text-dark
+                    span.tag.views
                         span.icon: i.fas.fa-user
                         span {video.statistics.viewCount}
                 
                 +if('parseInt(video.statistics.likeCount)')
-                    span.tag.likes.has-text-light
+                    span.tag.likes
                         span.icon: i.fas.fa-heart
                         span {video.statistics.likeCount}
                 
                 +if('parseInt(video.statistics.commentCount)')
-                    span.tag.comments.has-text-light
+                    span.tag.comments
                         span.icon: i.fas.fa-comment
                         span {video.statistics.commentCount}
 </template>
