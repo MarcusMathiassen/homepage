@@ -1,5 +1,5 @@
 <template lang="pug">
-    .footer.faint.
+    footer.
         Built using
         #[a(href="https://sapper.svelte.dev/" target="_blank" rel="noopener") Sapper]
         &
@@ -14,10 +14,3 @@
         & hosted by
         #[a(href="https://www.netlify.com" target="_blank" rel="noopener") Netlify]
 </template>
-
-<style lang="sass">
-
-.footer
-    font-size: 1em
-
-</style>

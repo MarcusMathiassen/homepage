@@ -1,44 +1,48 @@
-<script lang="coffee">
-    segment = undefined
-    export { segment }
+<script>
+	export let segment
+	let burger = false
+
+	const toggleBurger = () => burger = !burger
 </script>
 
-<style lang="sass">
+<style lang='sass'>
+	img
+		border-radius: 50%
 
-    nav
-        position: relative
-        margin-top: 15px
-        font-weight: 600
-    ul
-        margin: 0
-        padding: 0
-
-    ul::after
-        content: ''
-        display: block
-        clear: both
-    li
-        display: block
-        float: left
-        margin: 0
-        padding: 0
-    .selected
-        color: var(--text)
-    .selected::after
-        position: absolute
-        display: block
-    a
-        color: rgba(var(--text-base), 0.5)
-        margin-top: 0px
-        padding: 0em 1em
-        display: block
-    ul
-        display: flex
-        justify-content: center
 </style>
 
-<template lang="pug">
+<template lang='pug'>
 
-    nav: ul: +each("['home', 'about'] as page")
-                li: a(class = "{segment === page ? 'selected' : ''}" href = "{page === 'home' ? '.' : page}") {page}
+nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
+	.container
+		.navbar-brand
+			a.navbar-item(href='.')
+				img(src="avatar.jpg" alt='picture of me')
+
+			a.navbar-item.fancy-font(style='color: #6fbb89;' href="mailto:hello@mathiassen.dev" aria-label="Contact me")
+				span.icon: i.fas.fa-envelope
+				span Say Hello
+			.navbar-burger.burger(on:click='{toggleBurger}' class:is-active='{burger}' role="button" aria-label="menu" aria-expanded="{burger}" data-target="navbarBasicExample")
+				span(aria-hidden="true")
+				span(aria-hidden="true")
+				span(aria-hidden="true")
+
+		.navbar-menu#navbarBasicExample(class:is-active='{burger}')
+			.navbar-end
+				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === undefined}" href=".")
+					span.icon: i.fas.fa-home
+					span Home
+				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === 'gallery'}" href="gallary")
+					span.icon: i.fas.fa-images
+					span Gallery
+				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === 'blog'}" href="blog")
+					span.icon: i.fas.fa-book-open
+					span Blog
+				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === 'about'}" href="about")
+					span.icon: i.fas.fa-portrait
+					span About
 </template>
+				<!-- a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === 'projects'}" href="projects")
+					span.icon: i.fas.fa-layer-group
+					span Projects -->
+

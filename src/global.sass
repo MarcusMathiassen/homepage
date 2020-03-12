@@ -1,44 +1,31 @@
-// @import "~bulma/bulma"
-// @import "~bulma/sass/utilities/_all"
-// @import "~bulma/sass/base/_all"
-// @import "~bulma/sass/grid/columns"
-// @import "~bulma/sass/elements/icon"
-// @import "~bulma/sass/elements/image"
-// @import "~bulma/sass/elements/box"
-// @import "~bulma/sass/elements/title"
-// @import "~bulma/sass/elements/container"
-// @import "~bulma/sass/layout/section"
-// @import "~bulma/sass/elements/button"
 
-@font-face
-    font-family: 'pxplus_ibm_vga8regular'
-    src: url('../src/assets/pxplus_ibm_vga8-webfont.woff') format('woff')
-    font-weight: normal
-    font-style: normal
-
-$background--light: #FEF8EF
-$background--dark: #16152E
+// @import bulma/bulma
+@import bulma/sass/utilities/_all
+@import bulma/sass/base/_all
+@import bulma/sass/grid/columns
+@import bulma/sass/layout/section
+@import bulma/sass/elements/button
+@import bulma/sass/elements/container
+@import bulma/sass/elements/icon
+@import bulma/sass/elements/title
+@import bulma/sass/elements/tag
+@import bulma/sass/components/navbar
+@import bulma/sass/layout/hero
 
 html
-    --link-color--light: rgb(33, 100, 217)
-    --link-color--dark: rgb(44, 140, 228)
-    --link-color: 0
+    --palette0: #ffac8e
+    --palette1: #fd7792
+    --palette2: #3f4d71
+    --palette3: #55ae95
 
-    --primary--light: hsl(0, 0%, 100%)
-    --secondary--light: hsl(0, 0%, 98%)
-    --third--light: hsl(0, 0%, 97%)
+    --text--color-base--light:            36,36,50
+    --background--color-base--light:      236,236,236
 
-    --primary--dark: hsl(0, 0%, 0%)
-    --secondary--dark: hsl(0, 0%, 5%)
-    --third--dark: hsl(0, 0%, 10%)
+    --text--color-base--dark:             235,220,220
+    --background--color-base--dark:       25,23,23
 
-    --theme-style: 'modern'
-
-    --text--color-base--light:            44,44,44
-    --background--color-base--light:      230,230,230
-
-    --text--color-base--dark:             230,230,230
-    --background--color-base--dark:       15,15,15
+    --background-color--selection--light: yellow
+    --background-color--selection--dark: red
 
     --systemBlue--light:   #2f67a5
     --systemGray--light:   rgb(142,142,147)
@@ -62,34 +49,21 @@ html
     --systemTeal--dark:    rgb(100,210,255)
     --systemYellow--dark:  rgb(255,214,10)
 
+    --link-color--light: #2f67a5
+    --link-color--dark: #51a8ff
+
     --text-base: 0,0,0
     --text: rgba(var(--text-base), 1)
 
     --background-base: 0,0,0
     --background: rgba(var(--background-base), 1)
-    
-    --font: 'pxplus_ibm_vga8regular'
-    --avatar: url("../src/assets/avatar.jpg")
 
-    --border-radius: 50px
-
-    &[theme-style='retro']
-        --theme-style: 'retro'
-        --font: 'pxplus_ibm_vga8regular'
-        // --avatar: url('../src/assets/avatar_pixelated.jpg')
-        --border-radius: 0px
-        --border-radius-image: 0px
-
-    &[theme-style='modern']
-        --theme-style: 'modern'
-        --border-radius: 50px
-        --border-radius-image: 50%
-        --avatar: url('../src/assets/avatar.jpg')
-        --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
+    --avatar: url('avatar.jpg')
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
 
 @mixin setThemeVariables($themeName)
     html[theme=#{$themeName}]
-    
+
         --link-color: var(--link-color--#{$themeName})
 
         --primary:   var(--primary--#{$themeName})
@@ -107,156 +81,71 @@ html
         --systemTeal:   var(--systemTeal--#{$themeName})
         --systemYellow: var(--systemYellow--#{$themeName})
 
-        --background-color--selection: yellow
+        --background-color--selection: var(----background-color--selection--#{themeName})
 
-        &[theme-style='retro']
-            --text-base:        var(--text--color-base--#{$themeName})
-            --background-base:  var(--background--color-base--#{$themeName})
+        --text-base:        var(--text--color-base--#{$themeName})
+        --background-base:  var(--background--color-base--#{$themeName})
 
-        &[theme-style='modern']
-            --text-base:        var(--text--color-base--#{$themeName})
-            --background-base:  var(--background--color-base--#{$themeName})
 
- 
 @include setThemeVariables("light")
-@include setThemeVariables("dark")
+// @include setThemeVariables("dark")
 
+// *
+//     box-sizing: border-box
+//     padding: 0
+//     margin: 0
 
+// .button
+    // align-items: center !important
 html
-    padding: 0
+    font-size: 16px
+    font-family: var(--font)
     line-height: 1.5
-    font-size: 1em
-    font-family: var(--font)
-    color: var(--text)
-    background: var(--background)
 
-::selection
-    color: var(--text-color--selection)
-    background-color: var(--background-color--selection)
+// body
+//     margin: 0
+//     padding: 0
+//     color: var(--text)
+//     background: var(--background)
 
-a
-    color: var(--text)
-    text-decoration: none
-    font-family: var(--font)
-    &:hover
-        color: var(--text)
-        text-decoration: underline
+// main
+//     margin: 1rem
+//     margin-top: var(--navbar-height)
 
-li
-    list-style-type: none
-    margin: 5px
+// .icon
+//     font-style: normal
+//     font-weight: normal
+//     speak: none
+//     display: inline-block
+//     text-decoration: inherit
+//     width: 1em
+//     margin-right: 0.2em
+//     text-align: center
+//     font-variant: normal
+//     text-transform: none
+//     line-height: 1em
+//     margin-left: 0.2em
 
-ul
-    margin: 20px
-    padding-left: 0
+// .has-text-center
+//     text-align: center
+// .has-text-left
+//     text-align: left
+// .has-text-right
+//     text-align: right
+
+h3
+    margin-bottom: 0.5rem
+
+.content
+    max-width: 70ch
+    padding: 2ch
+    margin: auto
 
 .badge
-    display: inline-block
-    margin-left: 10px
-    padding: 5px
-    padding-top: 1px
-    padding-bottom: 1px
-    border-radius: var(--border-radius)
-    font-size: 0.8em
+    margin-left: 0.5rem
+.tag
+    margin: 0.2rem
+    border-radius: 2rem !important
 
-
-.list-item--name
-    color: var(--text)
-    font-size: 1.0em
-    opacity: 0.8
-
-.badge--item
-    margin: 0.2em
-
-.button
-    border-radius: var(--border-radius)
-    &:hover, &:focus, &:active
-        outline: 0
-
-.themeToggle
-        color: var(--text)
-
-html[theme="light"]
-    background: var(--background)
-    .button
-        color: var(--text)
-        background: var(--primary)
-        font-size: 1.25em
-
-    button
-        box-shadow: 0 0 10px red
-
-html[theme="dark"]
-    .title
-        color: var(--text)
-    .subtitle
-        color: var(--text)
-        opacity: 0.8
-    .button
-        color: var(--text)
-        background: var(--background)
-        border-color: rgba(var(--text-base), 0.1)
-
-    button
-        box-shadow: 0 0 10px gold
-button
-    padding: 10px
-    border: 1px solid rgba(var(--text-base), 0.1)
-    border-radius: var(--border-radius)
-
-.columns
-    display: flex
-    justify-content: center
-
-
-.column
-    margin: 20px
-    padding: 20px
-
-@media only screen and (max-width: 800px)
-    .columns
-        display: block
-
-@media only screen and (max-width: 600px)
-    ul
-        margin-left: 5px
-        padding-left: 0px
-    .column
-        margin-left: 5px
-        padding-left: 0px
-
-
-
-.title
-    font-weight: bold
-    font-size: 2.0em
-    margin: 20px
-    line-height: 1.0
-
-.subtitle
-    font-size: 1.2em
-    font-weight: normal
-    opacity: 0.8
-    line-height: 1
-
-.section
-    padding-top: 20px
-
-.has-secondary
-    background: var(--secondary)
-
-.is-fullwidth
-    width: 100%
-
-.box-inset
-    border-radius: 30px
-    box-shadow: inset 0 0 10px rgba(10, 10, 10, 0.1)
-    padding: 20px
-
-.is-semibold
-    font-weight: 500
-.is-bold
-    font-weight: 700
-
-.is-valign
-    vertical-align: bottom
+.is-text
+    text-decoration: none !important

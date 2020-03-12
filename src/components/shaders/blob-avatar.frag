@@ -70,10 +70,16 @@ f32 hash21(v2 p) {
   return fract(p.x * p.y);
 }
 
+float opSmoothSub( float d1, float d2, float k ) {
+    float h = clamp( 0.5 - 0.5*(d2+d1)/k, 0.0, 1.0 );
+    return mix( d2, -d1, h ) + k*h*(1.0-h);
+}
+
 f32 map(v2 p, f32 time, v2 mo)
 {
-    f32 d = dCircle(p, 0.1*sin(p.x*time)*0.9*sin(p.y*time)*0.3);
-    return d;
+
+    f32 d1 = dCircle(p, 0.1*sin(p.x*time)*0.9*sin(p.y*time)*0.3);
+    return d1;
 }
 
 void main()
@@ -83,7 +89,6 @@ void main()
     v2 mo = (mouse.xy-viewport_size*0.5)/viewport_size.y;
     mo.y = -mo.y;
     // f32 mask = 1.0-(texture(sam, uv*v2(1.0, 0.64308)+v2(0.0, 0.3569)).a);
-    
     f32 d = map(p, time, mo);
     f32 r = 0.4;
     frag = v4(backColor, 1.0) * (smoothstep(r-0.01, r, d));

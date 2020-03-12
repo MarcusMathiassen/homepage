@@ -2,8 +2,8 @@ import { v2 } from './math'
 import jq from './query'
 
 export const rawNumToSuffixed = num => {
-    if (num >= 1000000) return (parseInt(num/1000000)).toString()+"m"
-    if (num >= 1000) return (parseInt(num/1000)).toString()+"k"
+    if (num >= 1000000) return parseInt(num / 1000000).toString() + 'm'
+    if (num >= 1000) return parseInt(num / 1000).toString() + 'k'
     return num.toString()
 }
 
@@ -180,7 +180,6 @@ export const HSLtoRGBA = (h, s, l) => {
 
     return { r: r, g: g, b: b, a: 1 }
 }
-
 
 export const cachedFetch = async (root, storage = sessionStorage) => {
     const result = storage.getItem(root)

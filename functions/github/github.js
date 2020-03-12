@@ -14,17 +14,8 @@ const githubQuery_GetLast30UpdatedRepos = `
             totalCount
           }
           forkCount
-          createdAt
-          nameWithOwner
           name
-          updatedAt
-          pushedAt
-          createdAt
-          description
           url
-          licenseInfo {
-            name
-          }
         }
     }
   }

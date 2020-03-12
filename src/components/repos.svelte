@@ -1,63 +1,65 @@
-<script lang="coffee">
+<script>
 
     import { onMount } from 'svelte'
+    import List from './List.svelte'
     import { cachedFetch } from './utils/utility'
+    import contrast from 'contrast'
 
-    repos = []
+    import { stores } from '@sapper/app'
+    const { session } = stores()
 
-    languageColorChoicesIter = 0
-    languageColors = new Map()
-    languageColorChoices = [
-        'var(--systemBlue)',
-        'var(--systemGreen)',
-        'var(--systemIndigo)',
-        'var(--systemTeal)',
-        'var(--systemPurple)',
-        'var(--systemRed)',
-        'var(--systemYellow)',
-        'var(--systemPink)',
-        'var(--systemOrange)'
-        'var(--systemGray)',
-    ]
+    let repos = $session.repos || null
 
-    starBias = 1.5
-    forkBias = 2.0 # slight bias towards forks
+    ;(async () => {
+        // // Get repositories from github
+        // repos = await cachedFetch('/.netlify/functions/github')
 
-    onMount () =>
-        # Get repositories from github
-        repos = await cachedFetch '/.netlify/functions/github'
+        // // Sort repositories based on star and fork count, with a bias towards forks.
+        const starBias = 1.5
+        const forkBias = 2.0
+        repos.sort((a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias))
+    })()
 
-        # Sort repositories based on star and fork count, with a bias towards forks.
-        repos.sort (a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias)
+    const getContrastColor = (lang) => lang.name === 'C' ? 'rgb(var(--text--color-base--dark))' : 'hsl(0, 0%, 29%)'
 
-        # Setup the (name, color) pair for the programming languages and the color used for them on Github.
-        for repo in repos
-            name = repo.primaryLanguage.name
-            color = if languageColors.has(name)
-                        languageColors.get(name)
-                    else
-                        languageColorChoices[languageColorChoicesIter++ % languageColorChoices.length]
-            languageColors.set(name, color)
 </script>
+<style lang='sass'>
+
+.language
+    font-weight: 700
+    color: rgba(var(--text--color-base--dark), 0.9)
+
+.forks
+    font-weight: 700
+    background: #a7dea4
+
+.stars
+    font-weight: 700
+    background: #ffe167
+
+</style>
 
 <template lang="pug">
-    a(style="font-size: 1.5em; font-weight: 700" href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
-        span.icon.fontello.icon-github
-        span Repositories
-    ul
-        +each('repos as repo, i')
-            li
-                a(href="{repo.url}" target="_blank" rel="noopener") 
-                    span.list-item--name {repo.name}
-                    span.badge
-                        +if('repo.primaryLanguage')
-                            span.badge--item(style="font-weight: 700; color: {languageColors.get(repo.primaryLanguage.name)}") {repo.primaryLanguage.name}
-                        +if('repo.stargazers.totalCount')
-                            span.badge--item
-                                i(class="fontello icon-star" style="color: var(--systemOrange)")
-                                span(style="color: var(--systemOrange)") {repo.stargazers.totalCount}
-                        +if('repo.forkCount')
-                            span.badge--item
-                                i(class="fontello icon-fork" style="color: var(--systemPurple)")
-                                span(style="color: var(--systemPurple)") {repo.forkCount}
+        h3
+            a.is-size-4.has-text-dark(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
+                span.icon(style='margin-right: 0.5rem'): i.fab.fa-github
+                span Repos
+
+        ul: +each('repos as item')
+            li: a.button.is-text.is-block.has-text-left(href="{item.url}" target="_blank" rel="noopener")
+                span.name {item.name}
+                span.badge
+                    +if('item.primaryLanguage')
+                        span.tag.language(style="background: {item.primaryLanguage.color}; color: {getContrastColor(item.primaryLanguage)}") {item.primaryLanguage.name}
+                    
+                    +if('item.stargazers.totalCount')
+                        span.tag.stars
+                            span.icon: i.fas.fa-star
+                            span {item.stargazers.totalCount}
+                    
+                    +if('item.forkCount')
+                        span.tag.forks
+                            span.icon: i.fas.fa-code-branch
+                            span {item.forkCount}
+
 </template>
