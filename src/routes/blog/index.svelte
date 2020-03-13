@@ -10,6 +10,16 @@
 	export let posts
 </script>
 
+
+<style lang='sass'>
+
+.key
+    font-weight: 700
+    color: rgba(var(--text-base), 0.8)
+    background: rgba(var(--text-base), 0.1)
+
+</style>
+
 <template lang='pug'>
 
 svelte:head
@@ -27,5 +37,5 @@ svelte:head
 			+if('post.keys')
 				span.badge
 					+each('post.keys as key')
-						span.tag {key}
+						span.tag.key {key}
 </template>

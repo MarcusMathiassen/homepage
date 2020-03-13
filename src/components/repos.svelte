@@ -23,7 +23,6 @@
 
 .language
     font-weight: 700
-    color: rgba(var(--text--color-base--dark), 0.9)
 
 .forks
     font-weight: 700
@@ -32,6 +31,16 @@
 .stars
     font-weight: 700
     background: #ffe167
+
+
+@media (prefers-color-scheme: dark)
+    .language, .forks, .stars
+        color: rgba(var(--background-base), 0.8)
+
+@media (prefers-color-scheme: light)
+    .language, .forks, .stars
+        color: rgba(var(--text-base), 0.8)
+
 
 </style>
 

@@ -31,7 +31,11 @@ section.hero
                     h2.subtitle.
                         Interested in #[span.has-text-weight-bold.fancy-font graphics] and all things #[span.has-text-weight-bold.fancy-font UX].
 
-                    .columns.is-3.is-centered.is-mobile
+                    .columns.is-3.is-centered.is-multiline
+                        .column.is-narrow
+                            a.button.is-text.is-size-4(href="gallery")
+                                span.icon: i.fas.fa-images
+                                span Gallery
                         .column.is-narrow
                             a.button.is-text.is-size-4(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
                                 span.icon: i.fab.fa-github

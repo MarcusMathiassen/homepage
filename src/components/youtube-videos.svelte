@@ -17,6 +17,7 @@
 
 .views
     font-weight: 700
+    color: rgba(var(--text-base), 0.8)
     background: rgba(var(--text-base), 0.1)
 
 .comments
@@ -26,6 +27,14 @@
 .likes
     font-weight: 700
     background: #ff776e
+
+@media (prefers-color-scheme: light)
+    .likes, .comments
+        color: rgba(var(--text-base), 0.8)
+
+@media (prefers-color-scheme: dark)
+    .likes, .comments
+        color: rgba(var(--background-base), 0.8)
 
 @media (max-width: 600px)
     .likes, .comments

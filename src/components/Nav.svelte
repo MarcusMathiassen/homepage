@@ -38,7 +38,7 @@ nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
 				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === undefined}" href=".")
 					span.icon: i.fas.fa-home
 					span Home
-				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === 'gallery'}" href="gallary")
+				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === 'gallery'}" href="gallery")
 					span.icon: i.fas.fa-images
 					span Gallery
 				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === 'blog'}" href="blog")
