@@ -22,6 +22,6 @@
         .container
             .columns.is-centered.is-multiline
                 +each('components as component')
-                    .column
+                    .column.is-narrow
                             svelte:component(this='{component}')
 </template>
