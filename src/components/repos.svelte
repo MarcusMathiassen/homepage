@@ -1,22 +1,15 @@
 <script>
-    import contrast from 'contrast'
-
     import { stores } from '@sapper/app'
     const { session } = stores()
 
-    let repos = $session.repos || null
+    let repos = $session.repos
 
-    ;(async () => {
-        // // Get repositories from github
-        // repos = await cachedFetch('/.netlify/functions/github')
+    // Sort repositories based on star and fork count, with a bias towards forks.
+    const starBias = 1.0
+    const forkBias = 2.0
+    repos.sort((a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias))
 
-        // // Sort repositories based on star and fork count, with a bias towards forks.
-        const starBias = 1.5
-        const forkBias = 2.0
-        repos.sort((a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias))
-    })()
-
-    const getContrastColor = (lang) => lang.name === 'C' ? 'rgb(var(--text--color-base--dark))' : 'hsl(0, 0%, 29%)'
+    const getContrastColor = (lang) => lang.name === 'C' ? 'rgb(var(--text--color-base--dark))' : 'hsl(0, 0%, 14%)'
 
 </script>
 <style lang='sass'>
@@ -26,32 +19,31 @@
 
 .forks
     font-weight: 700
-    background: #a7dea4
+    background: var(--systemPurple)
 
 .stars
     font-weight: 700
-    background: #ffe167
+    background: var(--systemYellow)
 
 
 @media (prefers-color-scheme: dark)
-    .language, .forks, .stars
+    .forks, .stars
         color: rgba(var(--background-base), 0.8)
 
 @media (prefers-color-scheme: light)
-    .language, .forks, .stars
+    .forks, .stars
         color: rgba(var(--text-base), 0.8)
-
 
 </style>
 
 <template lang="pug">
         h3
-            a.is-size-4(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
-                span.icon(style='margin-right: 0.5rem'): i.fab.fa-github
+            a.is-size-3(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
+                span.icon(style='margin-right: 0.8rem'): i.fab.fa-github
                 span Repos
 
         ul: +each('repos as item')
-            li: a.button.is-text.is-block.has-text-left(href="{item.url}" target="_blank" rel="noopener")
+            li: a.is-flex.button.is-text(style='justify-content: end;' href="{item.url}" target="_blank" rel="noopener")
                 span.name {item.name}
                 span.badge
                     +if('item.primaryLanguage')

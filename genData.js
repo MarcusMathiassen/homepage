@@ -1,4 +1,6 @@
 const fetch = require('node-fetch')
+require('dotenv').config()
+const fs = require('fs')
 
 const getPosts = async () => {
     const firebase = require('firebase')
@@ -117,11 +119,11 @@ const getRepos = async () => {
         videos: videos
     })
 
-    fs.writeFile("output.json", content, 'utf8', err => {
+    fs.writeFile("src/data.json", content, 'utf8', err => {
         if (err) {
             console.log("An error occured while writing JSON Object to File.");
-            return console.log(err);
+            console.log(err);
         }
+        process.exit()
     })
-
 })()

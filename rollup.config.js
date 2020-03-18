@@ -8,6 +8,7 @@ import config from 'sapper/config/rollup.js'
 import pkg from './package.json'
 
 import glslify from 'rollup-plugin-glslify'
+import json from 'rollup-plugin-json'
 import sveltePreprocess from 'svelte-preprocess'
 
 import sass from 'rollup-plugin-sass'
@@ -28,6 +29,7 @@ export default {
 		input: config.client.input(),
 		output: config.client.output(),
 		plugins: [
+			json(),
 			sass(),
 			pug(),
 			coffee(),
@@ -85,6 +87,7 @@ export default {
 		input: config.server.input(),
 		output: config.server.output(),
 		plugins: [
+			json(),
 			sass(),
 			pug(),
 			coffee(),

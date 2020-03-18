@@ -13,8 +13,15 @@
 	    color: var(--text)
 	    background: var(--background) !important
 	    &:hover
-	        color: var(--link-color)
-	        background: rgba(var(--text-base),0.03) !important
+	        color: var(--link-color) !important
+	        background: rgba(var(--text-base),0.05) !important
+
+	.is-text
+		border-radius: 0
+
+	.sayHello
+		color: var(--link-color)
+
 </style>
 
 <template lang='pug'>
@@ -25,16 +32,16 @@ nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
 			a.navbar-item(href='.')
 				img(src="avatar.jpg" alt='picture of me')
 
-			a.navbar-item.fancy-font(style='color: #6fbb89;' href="mailto:hello@mathiassen.dev" aria-label="Contact me")
-				span.icon: i.fas.fa-envelope
-				span Say Hello
-			.navbar-burger.burger(on:click='{toggleBurger}' class:is-active='{burger}' role="button" aria-label="menu" aria-expanded="{burger}" data-target="navbarBasicExample")
+			a.navbar-item.fancy-font(href="mailto:hello@mathiassen.dev" aria-label="Contact me")
+				span.icon.sayHello: i.fas.fa-envelope
+				span.sayHello Say Hello
+			.navbar-burger.burger.button.is-text(on:click='{toggleBurger}' class:is-active='{burger}' role="button" aria-label="menu" aria-expanded="{burger}" data-target="navbarBasicExample")
 				span(aria-hidden="true")
 				span(aria-hidden="true")
 				span(aria-hidden="true")
 
 		.navbar-menu#navbarBasicExample(class:is-active='{burger}')
-			.navbar-end
+			.navbar-end.has-text-centered
 				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === undefined}" href=".")
 					span.icon: i.fas.fa-home
 					span Home

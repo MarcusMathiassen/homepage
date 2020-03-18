@@ -12,7 +12,6 @@ export const get = async(req, res, next) => {
 	let markdown = await fetch(post.url)
 	markdown = await markdown.text()
 
-	console.log(markdown)
 	res.writeHead(200, { 'Content-Type': 'application/json' })
 	res.end(JSON.stringify({
 		title: post.title,

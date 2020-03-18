@@ -1,5 +1,3 @@
-
-// @import bulma/bulma
 @import bulma/sass/utilities/_all
 @import bulma/sass/base/_all
 @import bulma/sass/grid/columns
@@ -13,17 +11,13 @@
 @import bulma/sass/layout/hero
 
 html
-    --palette0: #ffac8e
-    --palette1: #fd7792
-    --palette2: #3f4d71
-    --palette3: #55ae95
-
-    --text--color-base--light:            36,36,50
+    --text--color-base--light:            23,23,23
     --background--color-base--light:      236,236,236
 
     --text--color-base--dark:             235,220,220
-    --background--color-base--dark:       25,23,23
+    --background--color-base--dark:       23,23,23
 
+    --background-color--selection
     --background-color--selection--light: yellow
     --background-color--selection--dark: red
 
@@ -47,10 +41,10 @@ html
     --systemPurple--dark:  #fd6fce
     --systemRed--dark:     rgb(255,69,58)
     --systemTeal--dark:    rgb(100,210,255)
-    --systemYellow--dark:  rgb(255,214,10)
+    --systemYellow--dark:  #ffcf46
 
     --link-color--light: #2f67a5
-    --link-color--dark: #51a8ff
+    --link-color--dark: #ff9e6f
 
     --text-base: 0,0,0
     --text: rgba(var(--text-base), 1)
@@ -58,45 +52,37 @@ html
     --background-base: 0,0,0
     --background: rgba(var(--background-base), 1)
 
-    --avatar: url('avatar.jpg')
     --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
 
-@mixin setThemeVariables($themeName)
-    html[theme=#{$themeName}]
-
-        --link-color: var(--link-color--#{$themeName})
-
-        --primary:   var(--primary--#{$themeName})
-        --secondary: var(--secondary--#{$themeName})
-        --third:     var(--third--#{$themeName})
-
-        --systemBlue:   var(--systemBlue--#{$themeName})
-        --systemGray:   var(--systemGray--#{$themeName})
-        --systemGreen:  var(--systemGreen--#{$themeName})
-        --systemIndigo: var(--systemIndigo--#{$themeName})
-        --systemOrange: var(--systemOrange--#{$themeName})
-        --systemPink:   var(--systemPink--#{$themeName})
-        --systemPurple: var(--systemPurple--#{$themeName})
-        --systemRed:    var(--systemRed--#{$themeName})
-        --systemTeal:   var(--systemTeal--#{$themeName})
-        --systemYellow: var(--systemYellow--#{$themeName})
-
-        --background-color--selection: var(----background-color--selection--#{themeName})
-
-        --text-base:        var(--text--color-base--#{$themeName})
-        --background-base:  var(--background--color-base--#{$themeName})
+@mixin setThemeVariables($theme)
+    @media (prefers-color-scheme: $theme)
+        html
+            --link-color: var(--link-color--#{$theme})
+            --primary:   var(--primary--#{$theme})
+            --secondary: var(--secondary--#{$theme})
+            --third:     var(--third--#{$theme})
+            --systemBlue:   var(--systemBlue--#{$theme})
+            --systemGray:   var(--systemGray--#{$theme})
+            --systemGreen:  var(--systemGreen--#{$theme})
+            --systemIndigo: var(--systemIndigo--#{$theme})
+            --systemOrange: var(--systemOrange--#{$theme})
+            --systemPink:   var(--systemPink--#{$theme})
+            --systemPurple: var(--systemPurple--#{$theme})
+            --systemRed:    var(--systemRed--#{$theme})
+            --systemTeal:   var(--systemTeal--#{$theme})
+            --systemYellow: var(--systemYellow--#{$theme})
+            --background-color--selection: var(--background-color--selection--#{$theme})
+            --text-base:        var(--text--color-base--#{$theme})
+            --background-base:  var(--background--color-base--#{$theme})
 
 
 @include setThemeVariables("light")
 @include setThemeVariables("dark")
 
-// *
-//     box-sizing: border-box
-//     padding: 0
-//     margin: 0
 
-// .button
-    // align-items: center !important
+*::selection
+    background: var(--background-color--selection) !important
+    
 html
     font-size: 1rem
     font-family: var(--font)
@@ -115,34 +101,6 @@ a
     &:hover
         color: var(--text) !important
         background: rgba(var(--text-base),0.03) !important
-// body
-//     margin: 0
-//     padding: 0
-
-// main
-//     margin: 1rem
-//     margin-top: var(--navbar-height)
-
-// .icon
-//     font-style: normal
-//     font-weight: normal
-//     speak: none
-//     display: inline-block
-//     text-decoration: inherit
-//     width: 1em
-//     margin-right: 0.2em
-//     text-align: center
-//     font-variant: normal
-//     text-transform: none
-//     line-height: 1em
-//     margin-left: 0.2em
-
-// .has-text-center
-//     text-align: center
-// .has-text-left
-//     text-align: left
-// .has-text-right
-//     text-align: right
 
 h3
     margin-bottom: 0.5rem

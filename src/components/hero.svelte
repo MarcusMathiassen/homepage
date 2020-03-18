@@ -26,12 +26,12 @@ section.hero
         .container.has-text-centered
             .columns.is-centered.is-vcentered
                 .column.is-narrow
-                    img(src="avatar.jpg" width='200px')
+                    img(src="avatar.jpg" width='200px' alt='picture of me')
                     h1.title.is-2 Marcus Mathiassen
                     h2.subtitle.
                         Interested in #[span.has-text-weight-bold.fancy-font graphics] and all things #[span.has-text-weight-bold.fancy-font UX].
 
-                    .columns.is-3.is-centered.is-multiline
+                    .columns.is-3.is-centered
                         .column.is-narrow
                             a.button.is-text.is-size-4(href="gallery")
                                 span.icon: i.fas.fa-images

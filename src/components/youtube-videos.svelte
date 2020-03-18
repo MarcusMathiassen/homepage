@@ -5,12 +5,8 @@
     import { stores } from '@sapper/app'
     const { session } = stores()
 
-    let videos = $session.videos || null
-
-    ;(async () => {
-        // videos = await cachedFetch('/.netlify/functions/youtube')
-        videos.sort((a, b) => b.statistics.viewCount - a.statistics.viewCount)
-    })()
+    let videos = $session.videos
+    videos.sort((a, b) => b.statistics.viewCount - a.statistics.viewCount)
 
 </script>
 <style lang='sass'>
@@ -44,12 +40,12 @@
 
 <template lang="pug">
     h3
-        a.is-size-4(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
-            span.icon(style='margin-right: 0.5rem'): i.fab.fa-youtube
+        a.is-size-3(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
+            span.icon(style='margin-right: 0.8rem'): i.fab.fa-youtube
             span Videos
 
     ul: +each('videos as video')
-        li: a.button.is-text.is-block.has-text-left(href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
+        li: a.is-flex.button.is-text(style='justify-content: end;' href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
             span.name {video.title}
             span.badge
                 +if('parseInt(video.statistics.viewCount)')

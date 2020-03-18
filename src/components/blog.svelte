@@ -18,12 +18,12 @@
 <template lang="pug">
 
     h3
-        a.is-size-4(href="blog" aria-label="checkout blog")
-            span.icon(style='margin-right: 0.5rem'): i.fas.fa-book-open
+        a.is-size-3(href="blog" aria-label="checkout blog")
+            span.icon(style='margin-right: 0.8rem'): i.fas.fa-book-open
             span Posts
 
     ul: +each('posts as post')
-        li: a.button.is-text.is-block.has-text-left(rel='prefetch' href='blog/{post.slug}')
+        li: a.is-flex.button.is-text(style='justify-content: end;' rel='prefetch' href='blog/{post.slug}')
             span.name {post.title}
             +if('post.keys')
                 span.badge
