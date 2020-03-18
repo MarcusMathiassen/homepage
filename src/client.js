@@ -1,5 +1,7 @@
 import * as sapper from '@sapper/app'
 
+import './global.sass'
+
 sapper.start({
-    target: document.querySelector('#sapper'),
+    target: document.getElementById('sapper'),
 })

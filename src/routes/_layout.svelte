@@ -18,7 +18,7 @@
 
 </script>
 
-<style global lang="sass" src='../global.sass'></style>
+<!-- <style global lang="sass" src='../global.sass'></style> -->
 
 <template lang='pug'>
 

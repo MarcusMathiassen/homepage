@@ -30,7 +30,10 @@ export default {
 		output: config.client.output(),
 		plugins: [
 			json(),
-			sass(),
+			sass({
+				output: true,
+				output: 'static/global.css'
+			}),
 			pug(),
 			coffee(),
 			glslify(),
@@ -88,7 +91,10 @@ export default {
 		output: config.server.output(),
 		plugins: [
 			json(),
-			sass(),
+			sass({
+				output: true,
+				output: 'static/global.css'
+			}),
 			pug(),
 			coffee(),
 			glslify(),

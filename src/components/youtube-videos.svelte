@@ -10,7 +10,6 @@
 
 </script>
 <style lang='sass'>
-
 .views
     font-weight: 700
     color: rgba(var(--text-base), 0.8)

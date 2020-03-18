@@ -9,7 +9,6 @@
 </script>
 
 <style lang='sass'>
-
     .column
         margin-bottom: 1rem // add some spacing below each component.
 

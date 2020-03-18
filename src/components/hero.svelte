@@ -1,5 +1,4 @@
 <style lang="sass">
-
 .center
     display: block
     margin-left: auto

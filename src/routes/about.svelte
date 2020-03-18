@@ -1,3 +1,6 @@
+<style lang='sass'>
+</style>
+
 <template lang='pug'>
 
 svelte:head

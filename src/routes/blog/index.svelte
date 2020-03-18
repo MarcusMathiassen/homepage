@@ -10,8 +10,8 @@
 </script>
 
 
-<style lang='sass'>
 
+<style lang='sass'>
 .key
     font-weight: 700
     color: rgba(var(--text-base), 0.8)
