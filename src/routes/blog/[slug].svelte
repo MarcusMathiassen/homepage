@@ -1,14 +1,15 @@
 <script context="module">
+	import marked from 'marked'
 	export async function preload({ params }) {
 		const { slug } = params
 		const res = await this.fetch(`blog/${slug}.json`);
-		const post = await res.json();
+		let post = await res.json();
+		post.markdown = marked(post.markdown)
 		return { post }
 	}
 </script>
 
 <script>
-	import marked from 'marked'
 	export let post
 </script>
 
@@ -20,8 +21,8 @@
 svelte:head
 	title {post.title}
 
-.content
-	.title {post.title}
-	p {@html marked(post.markdown)}
-
 </template>
+
+<div class="content">
+	{@html post.markdown}
+</div>
