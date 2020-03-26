@@ -22,12 +22,14 @@
 	.sayHello
 		color: var(--link-color)
 
+	.selected
+		background: var(--c)
 </style>
 
 <template lang='pug'>
 
 nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
-	.container
+	.container.has-text-weight-bold
 		.navbar-brand
 			a.navbar-item(href='.')
 				img(src="avatar.jpg" alt='picture of me')
@@ -35,7 +37,7 @@ nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
 			a.navbar-item.fancy-font(href="mailto:hello@mathiassen.dev" aria-label="Contact me")
 				span.icon.sayHello: i.fas.fa-envelope
 				span.sayHello Say Hello
-			.navbar-burger.burger.button.is-text(on:click='{toggleBurger}' class:is-active='{burger}' role="button" aria-label="menu" aria-expanded="{burger}" data-target="navbarBasicExample")
+			.navbar-burger.burger(on:click='{toggleBurger}' class:is-active='{burger}' role="button" aria-label="menu" aria-expanded="{burger}" data-target="navbarBasicExample")
 				span(aria-hidden="true")
 				span(aria-hidden="true")
 				span(aria-hidden="true")
@@ -49,7 +51,7 @@ nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
 					span.icon: i.fas.fa-images
 					span Gallery
 				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === 'blog'}" href="blog")
-					span.icon: i.fas.fa-book-open
+					span.icon: i.fas.fa-pen
 					span Blog
 				a.navbar-item(on:click='{toggleBurger}' class:selected="{segment === 'about'}" href="about")
 					span.icon: i.fas.fa-portrait

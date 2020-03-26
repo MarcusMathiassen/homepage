@@ -31,16 +31,20 @@ section.hero
                         Interested in #[span.has-text-weight-bold.fancy-font graphics] and all things #[span.has-text-weight-bold.fancy-font UX].
 
                     .columns.is-3.is-centered
-                        .column.is-narrow
-                            a.button.is-text.is-size-4(href="gallery")
+                        .column.is-narrow(style='display: inline-flex')
+                            a.button.is-size-4.gallery.underline.has-text-weight-bold(href="gallery")
                                 span.icon: i.fas.fa-images
                                 span Gallery
-                        .column.is-narrow
-                            a.button.is-text.is-size-4(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
+                        .column.is-narrow(style='display: inline-flex')
+                            a.button.is-size-4.blog.underline.has-text-weight-bold(href="blog")
+                                span.icon: i.fas.fa-pen
+                                span Blog
+                        .column.is-narrow(style='display: inline-flex')
+                            a.button.is-size-4.github.underline.has-text-weight-bold(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
                                 span.icon: i.fab.fa-github
                                 span Github
-                        .column.is-narrow
-                            a.button.is-text.is-size-4(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my Youtube")
+                        .column.is-narrow(style='display: inline-flex')
+                            a.button.is-size-4.youtube.underline(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my Youtube")
                                 span.icon: i.fab.fa-youtube
                                 span Youtube
 

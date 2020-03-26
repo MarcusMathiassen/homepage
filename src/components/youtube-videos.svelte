@@ -31,20 +31,21 @@
     .likes, .comments
         color: rgba(var(--background-base), 0.8)
 
-@media (max-width: 600px)
+@media (max-width: 400px)
     .likes, .comments
         display: none
-
+.name
+    color: var(--text) !important
 </style>
 
 <template lang="pug">
-    h3
-        a.is-size-3(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
-            span.icon(style='margin-right: 0.8rem'): i.fab.fa-youtube
-            span Videos
 
+.youtube
+    h3.has-text-weight-bold
+        a.is-size-3.youtube(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
+            span Youtube
     ul: +each('videos as video')
-        li: a.is-flex.button.is-text(style='justify-content: end;' href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
+        li: a.is-flex.button(style='justify-content: end;' href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
             span.name {video.title}
             span.badge
                 +if('parseInt(video.statistics.viewCount)')

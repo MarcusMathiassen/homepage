@@ -1,5 +1,6 @@
 import firebase from '../_firebaseconfig.js'
 const db = firebase.firestore()
+import marked from 'marked'
 
 export const get = async(req, res, next) => {
 
@@ -15,6 +16,6 @@ export const get = async(req, res, next) => {
 	res.writeHead(200, { 'Content-Type': 'application/json' })
 	res.end(JSON.stringify({
 		title: post.title,
-		markdown: markdown
+		html: marked(markdown)
 	}))
 }

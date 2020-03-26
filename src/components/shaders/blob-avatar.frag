@@ -77,7 +77,6 @@ float opSmoothSub( float d1, float d2, float k ) {
 
 f32 map(v2 p, f32 time, v2 mo)
 {
-
     f32 d1 = dCircle(p, 0.1*sin(p.x*time)*0.9*sin(p.y*time)*0.3);
     return d1;
 }

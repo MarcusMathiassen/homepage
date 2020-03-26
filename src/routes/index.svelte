@@ -1,4 +1,5 @@
 <script>
+
     import Hero from '../components/hero.svelte'
     import Blog from '../components/blog.svelte'
     import Repos from '../components/repos.svelte'
@@ -23,5 +24,6 @@
             .columns.is-centered.is-multiline
                 +each('components as component')
                     .column.is-narrow
+                        .container
                             svelte:component(this='{component}')
 </template>

@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap')
 
-// @import bulma/bulma
+
+$family-sans-serif: Quicksand,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif
+$body-weight: 500
+// @import ../node_modules/bulma/bulma.sass
 
 @import '../node_modules/bulma/sass/utilities/_all'
 @import '../node_modules/bulma/sass/base/_all'
@@ -12,70 +16,137 @@
 @import '../node_modules/bulma/sass/elements/tag'
 @import '../node_modules/bulma/sass/components/navbar'
 @import '../node_modules/bulma/sass/layout/hero'
+@import '../node_modules/bulma/sass/form/_all'
+
+@import '../node_modules/wysiwyg.css/wysiwyg.sass'
+
+$orange:    hsl(14,  100%, 53%)
+$yellow:    hsl(48,  100%, 47%)
+$green:     hsl(141, 53%,  53%)
+$turquoise: hsl(171, 100%, 41%)
+$cyan:      hsl(204, 71%,  53%)
+$blue:      hsl(217, 71%,  53%)
+$purple:    hsl(271, 100%, 71%)
+$red:       hsl(348, 86%, 61%)
 
 html
-    --text--color-base--light:            23,23,23
-    --background--color-base--light:      236,236,236
+	--text--color-base--light:            23,23,23
+	--background--color-base--light:      236,236,236
 
-    --text--color-base--dark:             235,220,220
-    --background--color-base--dark:       23,23,23
+	--text--color-base--dark:             255,255,255
+	--background--color-base--dark:       26,26,26
 
-    --background-color--selection--light: yellow
-    --background-color--selection--dark: red
+	--background-color--selection--light: yellow
+	--background-color--selection--dark: red
 
-    --systemBlue--light:   #2f67a5
-    --systemGray--light:   rgb(142,142,147)
-    --systemGreen--light:  #008221
-    --systemIndigo--light: rgb(88,86,214)
-    --systemOrange--light: #d49637
-    --systemPink--light:   rgb(255,45,85)
-    --systemPurple--light: #fd6fce
-    --systemRed--light:    #f72c20
-    --systemTeal--light:   rgb(1, 157, 228)
-    --systemYellow--light: rgb(255,204,0)
+	--orange:    #{$orange}
+	--yellow:    #{$yellow}
+	--green:     #{$green}
+	--turquoise: #{$turquoise}
+	--cyan:      #{$cyan}
+	--blue:      #{$blue}
+	--purple:    #{$purple}
+	--red:       #{$red}
+	
+	--link:      #{$blue}
 
-    --systemBlue--dark:    #51a8ff
-    --systemGray--dark:    rgb(152,152,157)
-    --systemGreen--dark:   rgb(48,209,88)
-    --systemIndigo--dark:  #9998ff
-    --systemOrange--dark:  rgb(255,159,10)
-    --systemPink--dark:    rgb(255,55,95)
-    --systemPurple--dark:  #fd6fce
-    --systemRed--dark:     rgb(255,69,58)
-    --systemTeal--dark:    rgb(100,210,255)
-    --systemYellow--dark:  #ffcf46
+	--success:   #{$green}
+	--info:      #{$cyan}
+	--warning:   #{$yellow}
+	--error:     #{$red}
 
-    --link-color--light: #2f67a5
-    --link-color--dark: #ff9e6f
+	--systemBlue--light:   #2f67a5
+	--systemGray--light:   rgb(142,142,147)
+	--systemGreen--light:  #008221
+	--systemIndigo--light: rgb(88,86,214)
+	--systemOrange--light: #d49637
+	--systemPink--light:   rgb(255,45,85)
+	--systemPurple--light: #fd6fce
+	--systemRed--light:    #f72c20
+	--systemTeal--light:   rgb(1, 157, 228)
+	--systemYellow--light: rgb(255,204,0)
 
-    --text-base: 0,0,0
-    --text: rgba(var(--text-base), 1)
+	--systemBlue--dark:    #51a8ff
+	--systemGray--dark:    rgb(152,152,157)
+	--systemGreen--dark:   rgb(48,209,88)
+	--systemIndigo--dark:  #9998ff
+	--systemOrange--dark:  rgb(255,159,10)
+	--systemPink--dark:    rgb(255,55,95)
+	--systemPurple--dark:  #fd6fce
+	--systemRed--dark:     rgb(255,69,58)
+	--systemTeal--dark:    rgb(100,210,255)
+	--systemYellow--dark:  #ffcf46
 
-    --background-base: 0,0,0
-    --background: rgba(var(--background-base), 1)
+	--link-color--light: #{$blue}
+	--link-color--dark: #ff9e6f
 
-    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
+	--text-base: 0,0,0
+	--text: rgba(var(--text-base), 1)
+
+	--background-base: 0,0,0
+	--background: rgba(var(--background-base), 1)
+
+	--font: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif
+
+.is-text
+	color: var(--text)
+.is-warning
+	color: var(--warning)
+.is-info
+	color: var(--info)
+.is-error
+	color: var(--error)
+.is-success
+	color: var(--success)
+
+.button
+	--a: 0.0
+	&:hover
+		--a: 0.1
+	&:active
+		--a: 0.2
+	&::before
+		content: ""
+		width: 100%
+		height: 100%
+		background: currentColor !important
+		opacity: var(--a) !important
+		position: absolute
+		left: 0
+		top: 0
+		padding: 0.25em 0.5em
+		border-radius: 0.3em
+	position: relative
+	color: currentColor !important
+	background: none
+	border: none
+	border-radius: 0.3em
+
+// .button
+// 	&:hover
+// 		color: var(--text) !important
+// 		background: rgba(var(--text-base),0.03) !important
 
 @mixin setThemeVariables($theme)
-    @media (prefers-color-scheme: $theme)
-        html
-            --link-color: var(--link-color--#{$theme})
-            --primary:   var(--primary--#{$theme})
-            --secondary: var(--secondary--#{$theme})
-            --third:     var(--third--#{$theme})
-            --systemBlue:   var(--systemBlue--#{$theme})
-            --systemGray:   var(--systemGray--#{$theme})
-            --systemGreen:  var(--systemGreen--#{$theme})
-            --systemIndigo: var(--systemIndigo--#{$theme})
-            --systemOrange: var(--systemOrange--#{$theme})
-            --systemPink:   var(--systemPink--#{$theme})
-            --systemPurple: var(--systemPurple--#{$theme})
-            --systemRed:    var(--systemRed--#{$theme})
-            --systemTeal:   var(--systemTeal--#{$theme})
-            --systemYellow: var(--systemYellow--#{$theme})
-            --background-color--selection: var(--background-color--selection--#{$theme})
-            --text-base:        var(--text--color-base--#{$theme})
-            --background-base:  var(--background--color-base--#{$theme})
+	@media (prefers-color-scheme: $theme)
+		html
+			--link-color: var(--link-color--#{$theme})
+			--primary:   var(--primary--#{$theme})
+			--secondary: var(--secondary--#{$theme})
+			--third:     var(--third--#{$theme})
+			--systemBlue:   var(--systemBlue--#{$theme})
+			--systemGray:   var(--systemGray--#{$theme})
+			--systemGreen:  var(--systemGreen--#{$theme})
+			--systemIndigo: var(--systemIndigo--#{$theme})
+			--systemOrange: var(--systemOrange--#{$theme})
+			--systemPink:   var(--systemPink--#{$theme})
+			--systemPurple: var(--systemPurple--#{$theme})
+			--systemRed:    var(--systemRed--#{$theme})
+			--systemTeal:   var(--systemTeal--#{$theme})
+			--systemYellow: var(--systemYellow--#{$theme})
+			--background-color--selection: var(--background-color--selection--#{$theme})
+			--text-base:        var(--text--color-base--#{$theme})
+			--background-base:  var(--background--color-base--#{$theme})
 
 
 @include setThemeVariables("light")
@@ -83,53 +154,109 @@ html
 
 
 *::selection
-    background: var(--background-color--selection) !important
-    
-html, p
-    font-size: 1rem
-    font-family: var(--font)
-    line-height: 1.5
-
-h3 > a, html, strong, body, main, nav, h1, h2, h3, p, .navbar, .navbar-burger, .navbar-menu, .button, .title, .subtitle
-    color: var(--text) !important
-    background: var(--background) !important
+	background: var(--background-color--selection) !important
+	
+h3 > a, html, strong, body, main, nav, h1, h2, h3, p, .navbar, .navbar-burger, .navbar-menu, .title, .subtitle
+	color: var(--text) !important
+	background: var(--background) !important
 
 a
-    color: var(--link-color)
-    &:hover
-        color: var(--text)
-
-.button
-    &:hover
-        color: var(--text) !important
-        background: rgba(var(--text-base),0.03) !important
-
+	color: var(--link-color)
+	&:hover
+		color: var(--link-color)
 h3
-    margin-bottom: 0.5rem
+	margin-bottom: 0.5rem
 
 .content
-    max-width: 70ch
-    padding: 2ch
-    margin: auto
+	max-width: 70ch
+	padding: 2ch
+	margin: auto
 
 .badge
-    margin-left: 0.5rem
+	margin-left: 0.5rem
 .tag
-    margin: 0.2rem
-    border-radius: 2rem !important
+	margin: 0.2rem
+	border-radius: 2rem !important
 
 .is-text
-    text-decoration: none !important
+	text-decoration: none !important
 
-h1
-    font-size: 2rem !important
-    font-weight: 700 !important
+// h1
+//     font-size: 2rem !important
+//     font-weight: 700 !important
 
-p
-    margin-top: 0.5rem !important
-    margin-bottom: 0.5rem !important
-    line-height: 1.5 !important
+// p
+//     margin-top: 0.5rem !important
+//     margin-bottom: 0.5rem !important
+//     line-height: 1.5 !important
+
+li
+	list-style: none
 
 pre
-    color: rgba(var(--text-base), 1.0) !important
-    background: rgba(var(--text-base), 0.05) !important
+	background: var(--background) !important
+	color: rgba(var(--text-base), 0.8) !important
+	border: 1px solid rgba(var(--text-base), 0.1)
+	border-radius: 5px
+	code 
+		background: var(--background) !important
+		color: rgba(var(--text-base), 0.8) !important
+
+input
+	border-radius: var(--border-radius) !important
+	background: var(--background) !important
+	color: var(--text) !important
+	border: 1px solid rgba(var(--text-base),0.1) !important
+	&:hover
+		border: 1px solid rgba(var(--text-base),0.3) !important
+
+	&::placeholder
+		color: rgba(var(--text-base), 0.3) !important
+
+
+button:focus
+	outline: none !important
+
+.topline:after
+	position: absolute
+	top: 0
+	left: 0
+	content: ""
+	background:	currentColor
+	width: 100%
+	height: 5px
+	border-radius: 3px
+	
+.underline:after
+	position: absolute
+	bottom: 0
+	left: 0
+	content: ""
+	background:	currentColor
+	width: 100%
+	height: 5px
+	border-radius: 3px
+
+.sideline::after
+	display: flex
+	position: absolute
+	top: 0
+	left: 0
+	content: ""
+	background:	currentColor
+	width: 5px
+	height: 100%
+	border-radius: 3px
+
+	li
+		background: currentColor
+		opacity: 0.1
+
+.blog
+	color: var(--yellow) !important
+.gallery
+	color: var(--turquoise) !important
+.github
+	color: var(--purple) !important
+.youtube
+	color: var(--red) !important

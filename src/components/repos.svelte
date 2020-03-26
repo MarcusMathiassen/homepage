@@ -9,7 +9,7 @@
     const forkBias = 2.0
     repos.sort((a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias))
 
-    const getContrastColor = (lang) => lang.name === 'C' ? 'rgb(var(--text--color-base--dark))' : 'hsl(0, 0%, 14%)'
+    const getContrastColor = lang => lang.name === 'C' ? 'rgb(var(--text--color-base--dark))' : 'hsl(0, 0%, 14%)'
 
 </script>
 <style lang='sass'>
@@ -32,30 +32,30 @@
 @media (prefers-color-scheme: light)
     .forks, .stars
         color: rgba(var(--text-base), 0.8)
-
+.name
+    color: var(--text) !important
 </style>
 
 <template lang="pug">
-        h3
-            a.is-size-3(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
-                span.icon(style='margin-right: 0.8rem'): i.fab.fa-github
-                span Repos
-
-        ul: +each('repos as item')
-            li: a.is-flex.button.is-text(style='justify-content: end;' href="{item.url}" target="_blank" rel="noopener")
-                span.name {item.name}
-                span.badge
-                    +if('item.primaryLanguage')
-                        span.tag.language(style="background: {item.primaryLanguage.color}; color: {getContrastColor(item.primaryLanguage)}") {item.primaryLanguage.name}
-                    
-                    +if('item.stargazers.totalCount')
-                        span.tag.stars
-                            span.icon: i.fas.fa-star
-                            span {item.stargazers.totalCount}
-                    
-                    +if('item.forkCount')
-                        span.tag.forks
-                            span.icon: i.fas.fa-code-branch
-                            span {item.forkCount}
+.github
+    h3.has-text-weight-bold
+        a.is-size-3.github(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
+            span Github
+    ul: +each('repos as item')
+        li: a.is-flex.button(style='justify-content: end;' href="{item.url}" target="_blank" rel="noopener")
+            span.name {item.name}
+            span.badge
+                +if('item.primaryLanguage')
+                    span.tag.language(style="background: {item.primaryLanguage.color}; color: {getContrastColor(item.primaryLanguage)}") {item.primaryLanguage.name}
+                
+                +if('item.stargazers.totalCount')
+                    span.tag.stars
+                        span.icon: i.fas.fa-star
+                        span {item.stargazers.totalCount}
+                
+                +if('item.forkCount')
+                    span.tag.forks
+                        span.icon: i.fas.fa-code-branch
+                        span {item.forkCount}
 
 </template>
