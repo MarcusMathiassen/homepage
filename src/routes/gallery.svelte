@@ -1,12 +1,12 @@
 <script context='module'>
-		export async function preload({params, query}) {
-				const res = await this.fetch(`gallery.json`)
-				const assets = await res.json()
-				return { assets }
-		}
+	export async function preload({params, query}) {
+		const res = await this.fetch(`gallery.json`)
+		const assets = await res.json()
+		return { assets }
+	}
 </script>
 <script>
-		export let assets
+	export let assets
 </script>
 
 <style lang='sass'>
@@ -53,7 +53,6 @@ img, video
 
 
 </style>
-
 
 <template lang='pug'>
 

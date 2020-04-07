@@ -5,7 +5,7 @@
 
     export let value = ''
     export let placeholder = ''
-    export let type = 'text'
+    export let delay
 
 </script>
 
@@ -22,10 +22,11 @@ input
     &::placeholder
         color: rgba(var(--text-base), 0.3)
 
+
 </style>
 
 <template lang='pug'>
 
-input.input(bind:value '{placeholder}')
+input.input.is-large.is-bold(type='text' bind:value '{placeholder}')
 
 </template>

@@ -1,3 +1,11 @@
+
+<script>
+
+    import FancyText from './FancyText.svelte'
+    import TopDropTexts from './TopDropTexts.svelte'
+
+</script>
+
 <style lang="sass">
 .center
     display: block
@@ -16,6 +24,9 @@ img
     font-weight: 700
     color: blue
 
+.subtitle
+    line-height: 2
+
 </style>
 
 
@@ -28,7 +39,9 @@ section.hero
                     img(src="avatar.jpg" width='200px' alt='picture of me')
                     h1.title.is-2 Marcus Mathiassen
                     h2.subtitle.
-                        Interested in #[span.has-text-weight-bold.fancy-font graphics] and all things #[span.has-text-weight-bold.fancy-font UX].
+                        #[strong Graphics developer] from Northern Norway.
+                        #[br]
+                        Currently interested in #[TopDropTexts(texts="{['SDFs', 'voxels', 'compilers','pathtracing']}")]
 
                     .columns.is-3.is-centered
                         .column.is-narrow(style='display: inline-flex')

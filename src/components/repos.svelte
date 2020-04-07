@@ -1,15 +1,25 @@
 <script>
+
+    import Select from './Select.svelte'
+
     import { stores } from '@sapper/app'
     const { session } = stores()
 
     let repos = $session.repos
 
-    // Sort repositories based on star and fork count, with a bias towards forks.
-    const starBias = 1.0
-    const forkBias = 2.0
-    repos.sort((a, b) => (b.stargazers.totalCount*starBias + b.forkCount*forkBias) -  (a.stargazers.totalCount*starBias + a.forkCount*forkBias))
-
     const getContrastColor = lang => lang.name === 'C' ? 'rgb(var(--text--color-base--dark))' : 'hsl(0, 0%, 14%)'
+
+    const sorters = {
+        stars: (a, b) => (b.stargazers.totalCount) -  (a.stargazers.totalCount),
+        forks: (a, b) => (b.forkCount) -  (a.forkCount)
+    }
+
+    const options = Object.keys(sorters)
+    let selected = options[0]
+
+    const sortBy = option => repos = repos.sort(sorters[option])
+
+    $: sortBy(selected)
 
 </script>
 <style lang='sass'>
@@ -38,9 +48,13 @@
 
 <template lang="pug">
 .github
-    h3.has-text-weight-bold
-        a.is-size-3.github(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
-            span Github
+    .columns.is-vcentered.is-mobile.is-gapless
+        .column.is-narrow
+            h3.has-text-weight-bold
+                a.is-size-3.github(href="https://github.com/MarcusMathiassen" target="_blank" rel="noopener" aria-label="Checkout my Github")
+                    span Repos
+        .column.is-narrow
+            Select(bind:value='{selected}' items='{options}')
     ul: +each('repos as item')
         li: a.is-flex.button(style='justify-content: end;' href="{item.url}" target="_blank" rel="noopener")
             span.name {item.name}

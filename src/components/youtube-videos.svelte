@@ -1,12 +1,23 @@
 <script>
-    import { onMount } from 'svelte'
-    import { cachedFetch } from './utils/utility'
 
     import { stores } from '@sapper/app'
     const { session } = stores()
 
     let videos = $session.videos
-    videos.sort((a, b) => b.statistics.viewCount - a.statistics.viewCount)
+
+    import Select from './Select.svelte'
+    const sorters = {
+        views: (a, b) => b.statistics.viewCount -  a.statistics.viewCount,
+        likes: (a, b) => b.statistics.likeCount -  a.statistics.likeCount,
+        //comments: (a, b) => b.statistics.commentCount -  b.statistics.commentCount
+    }
+
+    const options = Object.keys(sorters)
+    let selected = options[0]
+
+    const sortBy = option => videos = videos.sort(sorters[option])
+
+    $: sortBy(selected)
 
 </script>
 <style lang='sass'>
@@ -41,9 +52,13 @@
 <template lang="pug">
 
 .youtube
-    h3.has-text-weight-bold
-        a.is-size-3.youtube(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
-            span Youtube
+    .columns.is-vcentered.is-mobile.is-gapless
+        .column.is-narrow
+            h3.has-text-weight-bold
+                a.is-size-3.youtube(href="https://www.youtube.com/user/MathiassenMarcus/videos" target="_blank" rel="noopener" aria-label="Checkout my YouTube")
+                    span Videos
+        .column.is-narrow
+            Select(bind:value='{selected}' items='{options}')
     ul: +each('videos as video')
         li: a.is-flex.button(style='justify-content: end;' href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
             span.name {video.title}
