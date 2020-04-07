@@ -15,6 +15,8 @@
 		--a: 0.0
 		&:hover
 			--a: 0.3
+		@media (max-width: 400px)
+			padding: 0.5rem !important
 		@media (min-width: 400px)
 			&::before
 				content: ""
