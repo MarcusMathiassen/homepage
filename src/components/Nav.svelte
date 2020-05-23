@@ -9,12 +9,16 @@
 	img
 		border-radius: 50%
 
+	nav
+		border-bottom: 1px solid rgba(var(--text-base), 0.1)
+
 	.navbar-item
 		color: rgba(var(--text-base), 0.8) !important
 		background: var(--background) !important
 		--a: 0.0
 		&:hover
 			--a: 0.3
+			color: var(--c) !important
 		@media (max-width: 400px)
 			padding: 0.5rem !important
 		@media (min-width: 400px)
@@ -27,6 +31,7 @@
 				position: absolute
 				left: 0
 				bottom: 0
+				border-radius: 0.3em
 
 	.is-text
 		border-radius: 0

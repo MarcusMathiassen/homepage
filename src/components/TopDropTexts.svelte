@@ -14,12 +14,12 @@
 		'hsl(348, 86%, 61%)',
     ]
 
-    let text = texts[cIndex++ % texts.length]
-    let color = colors[cIndex++ % colors.length]
-
+    let text = texts[(cIndex) % texts.length]
+    let color = colors[(cIndex) % colors.length]
+    cIndex++
     setInterval(() => {
-        text = texts[cIndex % texts.length]
-        color = colors[cIndex % colors.length]
+        text = texts[(cIndex) % texts.length]
+        color = colors[(cIndex) % colors.length]
         cIndex++
     }, 2000)
 
@@ -52,10 +52,11 @@ span
 	position: relative
 	background: none
 	border: none
+	&:hover
+		--a: 0.8
 </style>
 
 
 <template lang="pug">
-    span(style='color: {color};') {text}
-
+	span(style='color: {color}') {text}
 </template>

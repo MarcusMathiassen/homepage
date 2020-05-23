@@ -39,7 +39,7 @@
 		.column.is-narrow
 			Select(bind:value='{selected}' items='{options}')
 	ul: +each('posts as post')
-		li: a.is-flex.button(style='justify-content: end;' rel='prefetch' href='blog/{post.slug}')
+		li: a.is-flex.button(style='justify-content: start;' rel='prefetch' href='blog/{post.slug}')
 			span.name {post.title}
 			+if('post.keys')
 				span.badge

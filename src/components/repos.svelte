@@ -56,7 +56,7 @@
         .column.is-narrow
             Select(bind:value='{selected}' items='{options}')
     ul: +each('repos as item')
-        li: a.is-flex.button(style='justify-content: end;' href="{item.url}" target="_blank" rel="noopener")
+        li: a.is-flex.button(style='justify-content: start;' href="{item.url}" target="_blank" rel="noopener")
             span.name {item.name}
             span.badge
                 +if('item.primaryLanguage')

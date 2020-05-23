@@ -39,7 +39,7 @@ section.hero
                     img(src="avatar.jpg" width='200px' alt='picture of me')
                     h1.title.is-2 Marcus Mathiassen
                     h2.subtitle.
-                        #[strong Graphics developer] from Northern Norway.
+                        #[strong Software Developer] from Northern Norway.
                         #[br]
                         Currently interested in #[TopDropTexts(texts="{['SDFs', 'voxels', 'compilers','pathtracing']}")]
 

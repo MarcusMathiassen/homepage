@@ -196,7 +196,7 @@ export const cachedFetch = async (root, storage = sessionStorage) => {
 }
 
 export const getTime = () => {
-    return new Date().getTime()
+    return performance.now()
 }
 
 export const getExt = str => {

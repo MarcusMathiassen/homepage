@@ -60,7 +60,7 @@
         .column.is-narrow
             Select(bind:value='{selected}' items='{options}')
     ul: +each('videos as video')
-        li: a.is-flex.button(style='justify-content: end;' href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
+        li: a.is-flex.button(style='justify-content: start;' href="https://www.youtube.com/watch?v={video.id}" target="_blank" rel="noopener")
             span.name {video.title}
             span.badge
                 +if('parseInt(video.statistics.viewCount)')
