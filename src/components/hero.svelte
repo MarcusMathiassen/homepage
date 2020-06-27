@@ -17,13 +17,6 @@ img
     border-radius: 50%
     margin-bottom: 2rem
 
-.v1
-    font-weight: 700
-    color: red
-.v2
-    font-weight: 700
-    color: blue
-
 .subtitle
     line-height: 2
 

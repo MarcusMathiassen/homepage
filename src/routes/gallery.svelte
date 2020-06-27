@@ -66,7 +66,7 @@ svelte:head
 		.assets
 				+each('assets as asset')
 						+if ("asset.contentType.startsWith('image')")
-								img.item(src='{asset.url}')
+								img.item(src='{asset.url}' alt='{asset.name}')
 								+else()
 										video.item(src='{asset.url}' autoplay loop muted playsinline)
 </template>

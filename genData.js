@@ -70,26 +70,28 @@ const getVideos = async () => {
 
 const getRepos = async () => {
     const apiRoot = 'https://api.github.com/graphql'
-    const githubQuery_GetLast30UpdatedRepos = `
-                      {
-                        viewer {
-                          repositories(first: 30, isFork: false, privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}) {
-                              nodes {
-                                primaryLanguage {
-                                  name
-                                  color
-                                }
-                                stargazers {
-                                  totalCount
-                                }
-                                forkCount
-                                name
-                                url
-                              }
-                          }
-                        }
-                      }
-                      `
+
+const githubQuery_GetLast30UpdatedRepos = `
+{
+    viewer {
+      repositories(first: 100, isFork: false) {
+        nodes {
+          primaryLanguage {
+            name
+            color
+          }
+          stargazers {
+            totalCount
+          }
+          forkCount
+          name
+          url
+          isPrivate
+        }
+      }
+    }
+  }
+  `
     const res = await fetch(apiRoot, {
         method: 'POST',
         headers: {

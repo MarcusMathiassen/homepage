@@ -21,7 +21,15 @@
 			color: var(--c) !important
 		@media (max-width: 400px)
 			padding: 0.5rem !important
-		@media (min-width: 400px)
+
+	.selected
+		--a: 0.2
+		color: var(--c) !important
+		position: relative
+		background: none
+		border: none
+</style>
+	<!-- 	@media (max-width: 600px)
 			&::before
 				content: ""
 				width: 100%
@@ -32,13 +40,7 @@
 				left: 0
 				bottom: 0
 				border-radius: 0.3em
-
-	.is-text
-		border-radius: 0
-
-	.selected
-		--a: 0.2
-		@media (min-width: 400px)
+ --><!-- 		@media (max-width: 600px)
 			&::before
 				content: ""
 				width: 100%
@@ -47,13 +49,10 @@
 				opacity: var(--a) !important
 				position: absolute
 				left: 0
-				bottom: 0
-		color: var(--c) !important
-		position: relative
-		background: none
-		border: none
-</style>
+				bottom: 0 -->
 
+			<!-- .navbar-item
+				span.home Available for work -->
 <template lang='pug'>
 
 nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
@@ -62,11 +61,9 @@ nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
 			a.navbar-item(href='.')
 				img(src="avatar.jpg" alt='picture of me')
 
-			a.navbar-item.home(href="mailto:hello@mathiassen.dev" aria-label="Contact me")
+			a.navbar-item(href="mailto:hello@mathiassen.dev" aria-label="Contact me")
 				span.icon: i.fas.fa-envelope
 				span Get in touch
-			.navbar-item
-				span.home Available for work
 			.navbar-burger.burger(on:click='{toggleBurger}' class:is-active='{burger}' role="button" aria-label="menu" aria-expanded="{burger}" data-target="navbarBasicExample")
 				span(aria-hidden="true")
 				span(aria-hidden="true")

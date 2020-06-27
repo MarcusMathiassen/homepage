@@ -4,6 +4,8 @@
     import Blog from '../components/blog.svelte'
     import Repos from '../components/repos.svelte'
     import Videos from '../components/youtube-videos.svelte'
+    import LangUsageChart from '../components/LangUsageChart.svelte'
+    import Radar from '../components/Radar.svelte'
 
 </script>
 
@@ -14,6 +16,8 @@
 
 </style>
 
+    <!-- LangUsageChart -->
+    <!-- Radar -->
 <template lang="pug">
 
     title Marcus Mathiassen - Homepage

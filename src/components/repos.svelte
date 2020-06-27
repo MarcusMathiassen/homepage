@@ -6,6 +6,7 @@
     const { session } = stores()
 
     let repos = $session.repos
+    repos = repos.filter(x => !x.isPrivate)
 
     const getContrastColor = lang => lang.name === 'C' ? 'rgb(var(--text--color-base--dark))' : 'hsl(0, 0%, 14%)'
 

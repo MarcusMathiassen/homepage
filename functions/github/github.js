@@ -4,7 +4,7 @@ const apiRoot = 'https://api.github.com/graphql'
 const githubQuery_GetLast30UpdatedRepos = `
 {
   viewer {
-    repositories(first: 30, isFork: false, privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    repositories(first: 100, isFork: false) {
         nodes {
           primaryLanguage {
             name
@@ -16,6 +16,7 @@ const githubQuery_GetLast30UpdatedRepos = `
           forkCount
           name
           url
+          isPrivate
         }
     }
   }
