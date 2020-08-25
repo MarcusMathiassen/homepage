@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap')
 
-
 $family-sans-serif: Quicksand,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif
 $body-weight: 500
 // @import ../node_modules/bulma/bulma.sass
@@ -30,7 +29,7 @@ $purple:    hsl(271, 100%, 71%)
 $red:       hsl(348, 86%, 61%)
 
 html
-	--text--color-base--light:            23,23,23
+	--text--color-base--light:            93,23,23
 	--background--color-base--light:      236,236,236
 
 	--text--color-base--dark:             255,255,255
@@ -79,6 +78,14 @@ html
 
 	--link-color--light: #{$blue}
 	--link-color--dark: #{$blue}
+
+	--avatar-standing--light: url('standing_light.png')
+	--avatar-standing--dark: url('standing_dark.png')
+	--avatar-standing: var(--avatar-standing--light)
+
+	--avatar-sitting--light: url('sitting_light.png')
+	--avatar-sitting--dark: url('sitting_dark.png')
+	--avatar-sitting: var(--avatar-sitting--light)
 
 	--text-base: 0,0,0
 	--text: rgba(var(--text-base), 1)
@@ -130,6 +137,8 @@ html
 @mixin setThemeVariables($theme)
 	@media (prefers-color-scheme: $theme)
 		html
+			--avatar-standing: var(--avatar-standing--#{$theme})
+			--avatar-sitting: var(--avatar-sitting--#{$theme})
 			--link-color: var(--link-color--#{$theme})
 			--primary:   var(--primary--#{$theme})
 			--secondary: var(--secondary--#{$theme})
@@ -269,3 +278,14 @@ input
 
 .columns
 	margin-bottom: 0rem !important
+
+.avatar
+	margin: auto
+	height: 360px
+	width: 360px
+	background-size: cover
+	&.standing
+		background-image: var(--avatar-standing)
+	&.sitting
+		background-image: var(--avatar-sitting)
+

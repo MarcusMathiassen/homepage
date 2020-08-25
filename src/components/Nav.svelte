@@ -1,7 +1,6 @@
 <script>
 	export let segment
 	let burger = false
-
 	const toggleBurger = () => burger = !burger
 </script>
 
@@ -55,12 +54,10 @@
 				span.home Available for work -->
 <template lang='pug'>
 
+
 nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
 	.container.has-text-weight-bold
 		.navbar-brand
-			a.navbar-item(href='.')
-				img(src="avatar.jpg" alt='picture of me')
-
 			a.navbar-item(href="mailto:hello@mathiassen.dev" aria-label="Contact me")
 				span.icon: i.fas.fa-envelope
 				span Get in touch
@@ -69,7 +66,7 @@ nav.is-fixed-top.navbar(role="navigation" aria-label="main navigation")
 				span(aria-hidden="true")
 				span(aria-hidden="true")
 
-		.navbar-menu#navbarBasicExample(class:is-active='{burger}')
+		.navbar-menu.has-text-weight-bold(class:is-active='{burger}')
 			.navbar-end.has-text-centered
 				a.navbar-item.home(on:click='{toggleBurger}' class:selected="{segment === undefined}" href=".")
 					span.icon: i.fas.fa-home

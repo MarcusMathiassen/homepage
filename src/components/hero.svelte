@@ -7,16 +7,9 @@
 </script>
 
 <style lang="sass">
-.center
-    display: block
-    margin-left: auto
-    margin-right: auto
-    width: 50%
 
-img
-    border-radius: 50%
-    margin-bottom: 2rem
-
+.hero-body
+    padding-top: 0
 .subtitle
     line-height: 2
 
@@ -29,7 +22,8 @@ section.hero
         .container.has-text-centered
             .columns.is-centered.is-vcentered
                 .column.is-narrow
-                    img(src="avatar.jpg" width='200px' alt='picture of me')
+                    .has-text-centered
+                        .avatar.standing
                     h1.title.is-2 Marcus Mathiassen
                     h2.subtitle.
                         #[strong Software Developer] from Northern Norway.
