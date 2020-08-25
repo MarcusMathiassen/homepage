@@ -8,8 +8,6 @@
 
 <style lang="sass">
 
-.hero-body
-    padding-top: 0
 .subtitle
     line-height: 2
 
