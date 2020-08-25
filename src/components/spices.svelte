@@ -56,6 +56,6 @@
 <template lang="pug">
 
     #darkModeToggle(on:click = '{toggleTheme}')
-        i.themeToggle(class="fontello icon-{theme === 'light' ? 'sun' : 'moon' }")
+        i.themeToggle(class="fas fa-{theme === 'light' ? 'sun' : 'moon' }")
 
 </template>
