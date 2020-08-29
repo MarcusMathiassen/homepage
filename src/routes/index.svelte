@@ -1,6 +1,7 @@
 <script>
 
-    import Hero from '../components/hero.svelte'
+    import Hello from '../components/Hello.svelte'
+    import Goodbye from '../components/Goodbye.svelte'
     import Blog from '../components/blog.svelte'
     import Repos from '../components/repos.svelte'
     import Videos from '../components/youtube-videos.svelte'
@@ -17,14 +18,17 @@
 </style>
 
 <template lang="pug">
-
     title Marcus Mathiassen
-    Hero
+    .section(style='padding: 1rem 1.5rem')
+        .container
+            Hello
     .section
         .container
             .columns.is-centered.is-multiline(style='justify-content: center')
                 .column.is-narrow: Repos
                 .column.is-narrow: Videos
                 .column.is-narrow: Blog
-    .avatar.sitting
+    .section
+        .container
+            Goodbye
 </template>

@@ -39,21 +39,10 @@ span
 	font-weight: 700
     animation: 1s fadeOut infinite
 	--a: 0.3
-	&::before
-		content: ""
-		width: 100%
-		height: 3px
-		background: currentColor !important
-		opacity: var(--a) !important
-		position: absolute
-		left: 0
-		bottom: 0
 	color: currentColor
 	position: relative
 	background: none
 	border: none
-	&:hover
-		--a: 0.8
 </style>
 
 

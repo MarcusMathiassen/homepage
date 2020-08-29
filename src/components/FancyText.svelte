@@ -2,7 +2,6 @@
 <script>
 	export let text
 
-	let cIndex = 0
 	const colors = [
 		'hsl(14,  100%, 53%)',
 		'hsl(48,  100%, 47%)',
@@ -13,8 +12,6 @@
 		'hsl(271, 100%, 71%)',
 		'hsl(348, 86%, 61%)',
 	]
-
-	console.log(cIndex)
 
 </script>
 
@@ -32,8 +29,6 @@ span
 	font-weight: 700
 	animation: 1s fadeIn infinite
 	--a: 0.3
-	&:hover
-		--a: 1.0
 	&::before
 		content: ""
 		width: 100%
@@ -51,8 +46,6 @@ span
 
 
 <template lang="pug">
-
-	+each("text.split('') as c, i")
-		span(style='animation-delay: {100*i}ms; color: {colors[cIndex++ % colors.length-1]}') {c}
-
++each("text as c, i")
+	span(style=`animation-delay: {100*i}ms; color: {colors[i % colors.length]}`) {c}
 </template>

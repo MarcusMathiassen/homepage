@@ -12,7 +12,10 @@
     padding-top: 1rem
 .subtitle
     line-height: 2
-
+.title
+    color: rgb(253,236,121) !important	
+.currently-interested-in
+    font-size: 1rem
 </style>
 
 
@@ -24,11 +27,11 @@ section.hero
                 .column.is-narrow
                     .has-text-centered
                         .avatar.standing
-                    h1.title.is-2 Marcus Mathiassen
-                    h2.subtitle.
+                    h1.title.is-2.is-size-3-mobile Marcus Mathiassen
+                    h2.subtitle.is-size-8-mobile.
                         #[strong Software Developer] from Northern Norway.
                         #[br]
-                        Currently interested in #[TopDropTexts(texts="{['SDFs', 'voxels', 'compilers','pathtracing']}")]
+                        #[.currently-interested-in Currently interested in #[TopDropTexts(texts="{['SDFs', 'voxels', 'compilers','pathtracing']}")]]
 
                     .columns.is-3.is-centered
                         .column.is-narrow(style='display: inline-flex')
