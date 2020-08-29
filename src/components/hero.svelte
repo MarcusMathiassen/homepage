@@ -11,11 +11,10 @@
 .hero-body
     padding-top: 1rem
 .subtitle
+    font-size: 2rem
     line-height: 2
 .title
     color: rgb(253,236,121) !important	
-.currently-interested-in
-    font-size: 1rem
 </style>
 
 
@@ -31,7 +30,7 @@ section.hero
                     h2.subtitle.is-size-8-mobile.
                         #[strong Software Developer] from Northern Norway.
                         #[br]
-                        #[.currently-interested-in Currently interested in #[TopDropTexts(texts="{['SDFs', 'voxels', 'compilers','pathtracing']}")]]
+                        Currently interested in #[TopDropTexts(texts="{['SDFs', 'voxels', 'compilers','pathtracing']}")]
 
                     .columns.is-3.is-centered
                         .column.is-narrow(style='display: inline-flex')
