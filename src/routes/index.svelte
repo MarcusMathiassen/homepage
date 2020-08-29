@@ -9,9 +9,6 @@
 </script>
 
 <style lang='sass'>
-    .line
-        border-radius: 20px
-        background: rgb(216,216,226)
     .column
         margin-bottom: 1rem // add some spacing below each component.
 
@@ -34,7 +31,7 @@
                 .column.is-narrow: Repos
                 .column.is-narrow: Videos
                 .column.is-narrow: Blog
-    .section
+    .section(style='padding: 3rem 1rem')
         .container
             Goodbye
 </template>

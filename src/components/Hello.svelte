@@ -12,8 +12,6 @@
 .subtitle
     opacity: 0.8
     line-height: 2
-.currently-interested-in
-    font-size: 1rem
 </style>
 
 
@@ -25,9 +23,7 @@
         h1.title.is-2.is-size-3-mobile.has-text-weight-bold(style='position: relative; padding-bottom: 1rem; padding-top: 1rem')
             span.group Marcus Mathiassen
         h2.subtitle.is-size-8-mobile.
-            #[strong Software Developer] from Northern Norway.
-            #[br]
-            #[.currently-interested-in Currently interested in #[TopDropTexts(texts="{['SDFs', 'voxels', 'compilers','pathtracing']}")]]
+            #[strong Software Developer] from Northern Norway
 
         .columns.is-3.is-centered
             .column.is-narrow(style='display: inline-flex')
