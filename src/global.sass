@@ -298,25 +298,27 @@ input
 	background: rgba(var(--text-base), 0.02) !important
 
 .avatar
+	margin: auto
 	-webkit-backface-visibility:	hidden
 	-moz-backface-visibility:	hidden
 	-ms-backface-visibility:	hidden
+	backface-visibility:	hidden
 	-webkit-transform: translate3d(0, 0, 0)
 	-moz-transform: translate3d(0, 0, 0)
 	-ms-transform: translate3d(0, 0, 0)
 	-o-transform: translate3d(0, 0, 0)
 	transform: translate3d(0, 0, 0)
-	margin: auto
+	-webkit-background-size: cover
+	-moz-background-size: cover
+	-o-background-size: cover
 	background-size: cover
+	transition: background-image 1s ease-in-out
+	height: 330px
+	width: 330px
 	&.standing
-		height: 330px
-		width: 330px
 		background-image: var(--avatar-standing)
 	&.sitting
-		height: 330px
-		width: 330px
 		background-image: var(--avatar-sitting)
-
 
 @media screen and (max-width: 600px)
 	.section
