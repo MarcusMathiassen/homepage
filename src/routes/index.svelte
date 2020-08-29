@@ -31,7 +31,7 @@
                 .column.is-narrow: Repos
                 .column.is-narrow: Videos
                 .column.is-narrow: Blog
-    .section(style='padding: 3rem 1rem')
+    .section(style='padding-top: 0; padding-bottom: 3rem')
         .container
             Goodbye
 </template>

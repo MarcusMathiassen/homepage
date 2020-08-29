@@ -311,13 +311,16 @@ input
 	-moz-background-size: cover
 	-o-background-size: cover
 	background-size: cover
-	height: 330px
-	width: 330px
+	height: 530px
+	width: 530px
 	&.standing
 		background-image: var(--avatar-standing)
 	&.sitting
 		background-image: var(--avatar-sitting)
-
+@media screen and (max-width: 600px)
+	.avatar
+		height: 330px
+		width: 330px
 @media screen and (max-width: 600px)
 	.section
 		padding: 0
