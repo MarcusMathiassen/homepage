@@ -21,7 +21,8 @@
 </style>
 
 <template lang="pug">
-    title Marcus Mathiassen
+    svelte:head
+	    title Marcus Mathiassen
     .section(style='padding: 1rem 1.5rem')
         .container
             Hello

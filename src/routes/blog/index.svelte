@@ -33,6 +33,8 @@
 </style>
 
 <template lang="pug">
+svelte:head
+	title Blog
 
 section.section
 	.container
