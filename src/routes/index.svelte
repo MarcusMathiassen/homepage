@@ -15,6 +15,12 @@
     .column
         margin-bottom: 1rem // add some spacing below each component.
 
+    // hack
+    @media screen and (max-width: 600px)
+        .things
+            padding: 0
+        .group-big
+            border-radius: 0
 </style>
 
 <template lang="pug">
@@ -22,8 +28,8 @@
     .section(style='padding: 1rem 1.5rem')
         .container
             Hello
-    .section
-        .container
+    .section.things
+        .container.group-big
             .columns.is-centered.is-multiline(style='justify-content: center')
                 .column.is-narrow: Repos
                 .column.is-narrow: Videos

@@ -27,7 +27,7 @@
 
 span
 	font-weight: 700
-	animation: 2s fadeIn infinite
+	animation: 1s fadeIn infinite
 	--a: 0.3
 	&::before
 		content: ""

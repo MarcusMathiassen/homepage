@@ -37,18 +37,17 @@
 </style>
 
 <template lang='pug'>
-nav
-	.container.has-text-weight-bold.has-text-centered
-		a.group.home(class:selected="{segment === undefined}" href=".")
+nav.level.has-text-centered
+		a.level-item.has-text-centered.group.home(class:selected="{segment === undefined}" href=".")
 			span.icon: i.fas.fa-home
 			span.label Home
-		a.group.gallery(class:selected="{segment === 'gallery'}" href="gallery")
+		a.level-item.has-text-centered.group.gallery(class:selected="{segment === 'gallery'}" href="gallery")
 			span.icon: i.fas.fa-images
 			span.label Gallery
-		a.group.blog(class:selected="{segment === 'blog'}" href="blog")
+		a.level-item.has-text-centered.group.blog(class:selected="{segment === 'blog'}" href="blog")
 			span.icon: i.fas.fa-pen
 			span.label Blog
-		a.group.about(class:selected="{segment === 'about'}" href="about")
+		a.level-item.has-text-centered.group.about(class:selected="{segment === 'about'}" href="about")
 			span.icon: i.fas.fa-portrait
 			span.label About
 </template>

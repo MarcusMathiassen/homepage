@@ -48,7 +48,7 @@
 </style>
 
 <template lang="pug">
-.github
+.github    
     .columns.is-vcentered.is-mobile.is-gapless
         .column.is-narrow
             h3.has-text-weight-bold

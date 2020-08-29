@@ -157,6 +157,9 @@ html
 			--background-color--selection: var(--background-color--selection--#{$theme})
 			--text-base:        var(--text--color-base--#{$theme})
 			--background-base:  var(--background--color-base--#{$theme})
+			color: var(--text) !important
+			background: var(--background) !important
+			
 
 
 @include setThemeVariables("light")
@@ -166,9 +169,9 @@ html
 *::selection
 	background: var(--background-color--selection) !important
 	
-h3 > a, html, strong, body, main, nav, h1, h2, h3, p, .navbar, .navbar-burger, .navbar-menu, .title, .subtitle
+strong, body, main, nav, h1, h2, h3, p, .navbar, .navbar-burger, .navbar-menu, .title, .subtitle
 	color: var(--text) !important
-	background: var(--background) !important
+	background: none !important
 
 a
 	color: var(--link-color)
@@ -288,6 +291,11 @@ input
 	border-radius: 0.3em
 	padding: 0.25em 0.5em
 	background: rgba(var(--text-base), 0.03) !important
+
+.group-big
+	border-radius: 0.5em
+	padding: 2em 1em
+	background: rgba(var(--text-base), 0.02) !important
 
 .avatar
 	-webkit-backface-visibility:	hidden
