@@ -7,22 +7,44 @@ const getPosts = async () => {
 
     // Required for side-effects
     require('firebase/firestore')
+
     // Initialize Firebase
-    if (!firebase.apps.length)
-        firebase.initializeApp({
-            apiKey: process.env.FIREBASE_TOKEN,
-            authDomain: 'homepage-109b6.firebaseapp.com',
-            databaseURL: 'https://homepage-109b6.firebaseio.com',
-            projectId: 'homepage-109b6',
-            storageBucket: 'homepage-109b6.appspot.com',
-            messagingSenderId: '543017541768',
-            appId: '1:543017541768:web:5941e25cab34252ea97f3d',
-            measurementId: 'G-ZGWFFK2LXK',
+    firebase.initializeApp({
+        apiKey: process.env.FIREBASE_TOKEN,
+        authDomain: 'homepage-109b6.firebaseapp.com',
+        databaseURL: 'https://homepage-109b6.firebaseio.com',
+        projectId: 'homepage-109b6',
+        storageBucket: 'homepage-109b6.appspot.com',
+        messagingSenderId: '543017541768',
+        appId: '1:543017541768:web:5941e25cab34252ea97f3d',
+        measurementId: 'G-ZGWFFK2LXK',
+    })
+
+    // Sign in existing user
+    await firebase
+        .auth()
+        .signInWithEmailAndPassword(
+            process.env.FIREBASE_USER_EMAIL,
+            process.env.FIREBASE_USER_PASSWORD
+        )
+        .catch(function (err) {
+            console.log(err)
+            // Handle errors
         })
+
     const db = firebase.firestore()
-    // Add the Firebase products that you want to use
     const snapshot = await db.collection('blogposts').get()
     const posts = snapshot.docs.map(doc => doc.data())
+
+    // Sign out user
+    await firebase
+        .auth()
+        .signOut()
+        .catch(function (err) {
+            console.log(err)
+            // Handle errors
+        })
+
     return posts
 }
 
@@ -33,11 +55,11 @@ const getVideos = async () => {
 
     const apiCall1 = `${apiRoot}channels?part=contentDetails&forUsername=${USERNAME}&key=${YOUTUBE_TOKEN}`
 
-    let UPLOADS_KEY// = await fetch(apiCall1)
-     try {
+    let UPLOADS_KEY // = await fetch(apiCall1)
+    try {
         UPLOADS_KEY = await fetch(apiCall1)
         UPLOADS_KEY = await UPLOADS_KEY.json()
-    } catch(err) {
+    } catch (err) {
         alert(err)
     }
     UPLOADS_KEY = UPLOADS_KEY.items[0].contentDetails.relatedPlaylists.uploads
@@ -71,7 +93,7 @@ const getVideos = async () => {
 const getRepos = async () => {
     const apiRoot = 'https://api.github.com/graphql'
 
-const githubQuery_GetLast30UpdatedRepos = `
+    const githubQuery_GetLast30UpdatedRepos = `
 {
     viewer {
       repositories(first: 100, isFork: false) {
@@ -118,13 +140,13 @@ const githubQuery_GetLast30UpdatedRepos = `
     const content = JSON.stringify({
         posts: posts,
         repos: repos,
-        videos: videos
+        videos: videos,
     })
 
-    fs.writeFile("src/data.json", content, 'utf8', err => {
+    fs.writeFile('src/data.json', content, 'utf8', err => {
         if (err) {
-            console.log("An error occured while writing JSON Object to File.");
-            console.log(err);
+            console.log('An error occured while writing JSON Object to File.')
+            console.log(err)
         }
         process.exit()
     })

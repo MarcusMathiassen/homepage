@@ -2,8 +2,3 @@
     command = "npm run genData && npm run export"
     publish = "__sapper__/export"
     functions = "functions"
-
-[[headers]]
-  for = "*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=300"
