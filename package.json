@@ -14,7 +14,7 @@
         "chart.js": "^2.9.3",
         "compression": "^1.7.1",
         "firebase": "^7.10.0",
-        "marked": "^0.8.2",
+        "marked": "^4.0.10",
         "polka": "next",
         "randomcolor": "^0.5.4",
         "sirv": "^0.4.0",
